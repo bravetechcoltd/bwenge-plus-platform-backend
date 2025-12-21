@@ -1,0 +1,2070 @@
+[2026-03-08T18:33:16.198Z] [INFO] Database connection established successfully
+[2026-03-08T18:33:16.201Z] [INFO] Session cleanup service initialized
+[2026-03-08T18:33:16.207Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-08T18:33:16.230Z] [INFO] ============================================================
+[2026-03-08T18:33:16.232Z] [INFO] 🚀 Server Running
+[2026-03-08T18:33:16.236Z] [INFO] ============================================================
+[2026-03-08T18:33:16.239Z] [INFO] Environment: development
+[2026-03-08T18:33:16.241Z] [INFO] Port: 3003
+[2026-03-08T18:33:16.243Z] [INFO] API URL: http://localhost:3003
+[2026-03-08T18:33:16.245Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-08T18:33:16.247Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-08T18:33:16.255Z] [INFO] SSO Enabled: Yes
+[2026-03-08T18:33:16.257Z] [INFO] BwengePlus URL: Not configured
+[2026-03-08T18:33:16.260Z] [INFO] ============================================================
+[2026-03-08T18:35:42.780Z] [INFO] Database connection established successfully
+[2026-03-08T18:35:42.782Z] [INFO] Session cleanup service initialized
+[2026-03-08T18:35:42.784Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-08T18:35:42.791Z] [INFO] ============================================================
+[2026-03-08T18:35:42.793Z] [INFO] 🚀 Server Running
+[2026-03-08T18:35:42.794Z] [INFO] ============================================================
+[2026-03-08T18:35:42.796Z] [INFO] Environment: development
+[2026-03-08T18:35:42.797Z] [INFO] Port: 3003
+[2026-03-08T18:35:42.798Z] [INFO] API URL: http://localhost:3003
+[2026-03-08T18:35:42.799Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-08T18:35:42.801Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-08T18:35:42.802Z] [INFO] SSO Enabled: Yes
+[2026-03-08T18:35:42.803Z] [INFO] BwengePlus URL: Not configured
+[2026-03-08T18:35:42.804Z] [INFO] ============================================================
+[2026-03-08T18:37:34.542Z] [INFO] Database connection established successfully
+[2026-03-08T18:37:34.544Z] [INFO] Session cleanup service initialized
+[2026-03-08T18:37:34.547Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-08T18:37:34.554Z] [INFO] ============================================================
+[2026-03-08T18:37:34.555Z] [INFO] 🚀 Server Running
+[2026-03-08T18:37:34.556Z] [INFO] ============================================================
+[2026-03-08T18:37:34.557Z] [INFO] Environment: development
+[2026-03-08T18:37:34.558Z] [INFO] Port: 3003
+[2026-03-08T18:37:34.559Z] [INFO] API URL: http://localhost:3003
+[2026-03-08T18:37:34.560Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-08T18:37:34.561Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-08T18:37:34.562Z] [INFO] SSO Enabled: Yes
+[2026-03-08T18:37:34.563Z] [INFO] BwengePlus URL: Not configured
+[2026-03-08T18:37:34.564Z] [INFO] ============================================================
+[2026-03-12T10:04:37.792Z] [INFO] Database connection established successfully
+[2026-03-12T10:04:37.796Z] [INFO] Session cleanup service initialized
+[2026-03-12T10:04:37.799Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-12T10:04:37.807Z] [INFO] ============================================================
+[2026-03-12T10:04:37.808Z] [INFO] 🚀 Server Running
+[2026-03-12T10:04:37.809Z] [INFO] ============================================================
+[2026-03-12T10:04:37.809Z] [INFO] Environment: development
+[2026-03-12T10:04:37.810Z] [INFO] Port: 3003
+[2026-03-12T10:04:37.810Z] [INFO] API URL: http://localhost:3003
+[2026-03-12T10:04:37.811Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-12T10:04:37.811Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-12T10:04:37.812Z] [INFO] SSO Enabled: Yes
+[2026-03-12T10:04:37.812Z] [INFO] BwengePlus URL: Not configured
+[2026-03-12T10:04:37.813Z] [INFO] ============================================================
+[2026-03-12T18:40:35.856Z] [INFO] Database connection established successfully
+[2026-03-12T18:40:35.863Z] [INFO] Session cleanup service initialized
+[2026-03-12T18:40:35.870Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-12T18:40:35.896Z] [INFO] ============================================================
+[2026-03-12T18:40:35.901Z] [INFO] 🚀 Server Running
+[2026-03-12T18:40:35.904Z] [INFO] ============================================================
+[2026-03-12T18:40:35.910Z] [INFO] Environment: development
+[2026-03-12T18:40:35.912Z] [INFO] Port: 3003
+[2026-03-12T18:40:35.918Z] [INFO] API URL: http://localhost:3003
+[2026-03-12T18:40:35.922Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-12T18:40:35.926Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-12T18:40:35.931Z] [INFO] SSO Enabled: Yes
+[2026-03-12T18:40:35.936Z] [INFO] BwengePlus URL: Not configured
+[2026-03-12T18:40:35.942Z] [INFO] ============================================================
+[2026-03-18T18:02:09.650Z] [INFO] Database connection established successfully
+[2026-03-18T18:02:09.655Z] [INFO] Session cleanup service initialized
+[2026-03-18T18:02:09.659Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-18T18:02:09.667Z] [INFO] ============================================================
+[2026-03-18T18:02:09.670Z] [INFO] 🚀 Server Running
+[2026-03-18T18:02:09.671Z] [INFO] ============================================================
+[2026-03-18T18:02:09.672Z] [INFO] Environment: development
+[2026-03-18T18:02:09.674Z] [INFO] Port: 3003
+[2026-03-18T18:02:09.675Z] [INFO] API URL: http://localhost:3003
+[2026-03-18T18:02:09.677Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-18T18:02:09.678Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-18T18:02:09.679Z] [INFO] SSO Enabled: Yes
+[2026-03-18T18:02:09.680Z] [INFO] BwengePlus URL: Not configured
+[2026-03-18T18:02:09.681Z] [INFO] ============================================================
+[2026-03-19T17:51:40.712Z] [INFO] Database connection established successfully
+[2026-03-19T17:51:40.716Z] [INFO] Session cleanup service initialized
+[2026-03-19T17:51:40.719Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-19T17:51:40.728Z] [INFO] ============================================================
+[2026-03-19T17:51:40.729Z] [INFO] 🚀 Server Running
+[2026-03-19T17:51:40.730Z] [INFO] ============================================================
+[2026-03-19T17:51:40.731Z] [INFO] Environment: development
+[2026-03-19T17:51:40.732Z] [INFO] Port: 3003
+[2026-03-19T17:51:40.733Z] [INFO] API URL: http://localhost:3003
+[2026-03-19T17:51:40.734Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-19T17:51:40.735Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-19T17:51:40.736Z] [INFO] SSO Enabled: Yes
+[2026-03-19T17:51:40.736Z] [INFO] BwengePlus URL: Not configured
+[2026-03-19T17:51:40.737Z] [INFO] ============================================================
+[2026-03-19T18:13:50.562Z] [INFO] Database connection established successfully
+[2026-03-19T18:13:50.564Z] [INFO] Session cleanup service initialized
+[2026-03-19T18:13:50.567Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-19T18:13:50.575Z] [INFO] ============================================================
+[2026-03-19T18:13:50.576Z] [INFO] 🚀 Server Running
+[2026-03-19T18:13:50.577Z] [INFO] ============================================================
+[2026-03-19T18:13:50.579Z] [INFO] Environment: development
+[2026-03-19T18:13:50.580Z] [INFO] Port: 3003
+[2026-03-19T18:13:50.581Z] [INFO] API URL: http://localhost:3003
+[2026-03-19T18:13:50.582Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-19T18:13:50.583Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-19T18:13:50.584Z] [INFO] SSO Enabled: Yes
+[2026-03-19T18:13:50.585Z] [INFO] BwengePlus URL: Not configured
+[2026-03-19T18:13:50.586Z] [INFO] ============================================================
+[2026-03-19T18:17:15.054Z] [INFO] Database connection established successfully
+[2026-03-19T18:17:15.061Z] [INFO] Session cleanup service initialized
+[2026-03-19T18:17:15.065Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-19T18:17:15.083Z] [INFO] ============================================================
+[2026-03-19T18:17:15.088Z] [INFO] 🚀 Server Running
+[2026-03-19T18:17:15.092Z] [INFO] ============================================================
+[2026-03-19T18:17:15.098Z] [INFO] Environment: development
+[2026-03-19T18:17:15.100Z] [INFO] Port: 3003
+[2026-03-19T18:17:15.102Z] [INFO] API URL: http://localhost:3003
+[2026-03-19T18:17:15.105Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-19T18:17:15.108Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-19T18:17:15.113Z] [INFO] SSO Enabled: Yes
+[2026-03-19T18:17:15.117Z] [INFO] BwengePlus URL: Not configured
+[2026-03-19T18:17:15.120Z] [INFO] ============================================================
+[2026-03-19T18:18:03.486Z] [INFO] Database connection established successfully
+[2026-03-19T18:18:03.488Z] [INFO] Session cleanup service initialized
+[2026-03-19T18:18:03.492Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-19T18:18:03.507Z] [INFO] ============================================================
+[2026-03-19T18:18:03.509Z] [INFO] 🚀 Server Running
+[2026-03-19T18:18:03.512Z] [INFO] ============================================================
+[2026-03-19T18:18:03.514Z] [INFO] Environment: development
+[2026-03-19T18:18:03.516Z] [INFO] Port: 3003
+[2026-03-19T18:18:03.519Z] [INFO] API URL: http://localhost:3003
+[2026-03-19T18:18:03.522Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-19T18:18:03.524Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-19T18:18:03.528Z] [INFO] SSO Enabled: Yes
+[2026-03-19T18:18:03.530Z] [INFO] BwengePlus URL: Not configured
+[2026-03-19T18:18:03.532Z] [INFO] ============================================================
+[2026-03-19T18:19:11.838Z] [INFO] Database connection established successfully
+[2026-03-19T18:19:11.846Z] [INFO] Session cleanup service initialized
+[2026-03-19T18:19:11.856Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-19T18:19:11.875Z] [INFO] ============================================================
+[2026-03-19T18:19:11.882Z] [INFO] 🚀 Server Running
+[2026-03-19T18:19:11.884Z] [INFO] ============================================================
+[2026-03-19T18:19:11.887Z] [INFO] Environment: development
+[2026-03-19T18:19:11.895Z] [INFO] Port: 3003
+[2026-03-19T18:19:11.897Z] [INFO] API URL: http://localhost:3003
+[2026-03-19T18:19:11.900Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-19T18:19:11.903Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-19T18:19:11.907Z] [INFO] SSO Enabled: Yes
+[2026-03-19T18:19:11.912Z] [INFO] BwengePlus URL: Not configured
+[2026-03-19T18:19:11.917Z] [INFO] ============================================================
+[2026-03-19T19:05:55.291Z] [INFO] Database connection established successfully
+[2026-03-19T19:05:55.295Z] [INFO] Session cleanup service initialized
+[2026-03-19T19:05:55.298Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-19T19:05:55.309Z] [INFO] ============================================================
+[2026-03-19T19:05:55.311Z] [INFO] 🚀 Server Running
+[2026-03-19T19:05:55.312Z] [INFO] ============================================================
+[2026-03-19T19:05:55.313Z] [INFO] Environment: development
+[2026-03-19T19:05:55.314Z] [INFO] Port: 3003
+[2026-03-19T19:05:55.316Z] [INFO] API URL: http://localhost:3003
+[2026-03-19T19:05:55.318Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-19T19:05:55.321Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-19T19:05:55.322Z] [INFO] SSO Enabled: Yes
+[2026-03-19T19:05:55.324Z] [INFO] BwengePlus URL: Not configured
+[2026-03-19T19:05:55.328Z] [INFO] ============================================================
+[2026-03-19T19:27:58.103Z] [INFO] Database connection established successfully
+[2026-03-19T19:27:58.109Z] [INFO] Session cleanup service initialized
+[2026-03-19T19:27:58.116Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-19T19:27:58.141Z] [INFO] ============================================================
+[2026-03-19T19:27:58.145Z] [INFO] 🚀 Server Running
+[2026-03-19T19:27:58.151Z] [INFO] ============================================================
+[2026-03-19T19:27:58.154Z] [INFO] Environment: development
+[2026-03-19T19:27:58.159Z] [INFO] Port: 3003
+[2026-03-19T19:27:58.164Z] [INFO] API URL: http://localhost:3003
+[2026-03-19T19:27:58.168Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-19T19:27:58.172Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-19T19:27:58.175Z] [INFO] SSO Enabled: Yes
+[2026-03-19T19:27:58.178Z] [INFO] BwengePlus URL: Not configured
+[2026-03-19T19:27:58.181Z] [INFO] ============================================================
+[2026-03-19T19:29:01.273Z] [INFO] Database connection established successfully
+[2026-03-19T19:29:01.274Z] [INFO] Session cleanup service initialized
+[2026-03-19T19:29:01.277Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-19T19:29:01.285Z] [INFO] ============================================================
+[2026-03-19T19:29:01.287Z] [INFO] 🚀 Server Running
+[2026-03-19T19:29:01.288Z] [INFO] ============================================================
+[2026-03-19T19:29:01.289Z] [INFO] Environment: development
+[2026-03-19T19:29:01.290Z] [INFO] Port: 3003
+[2026-03-19T19:29:01.292Z] [INFO] API URL: http://localhost:3003
+[2026-03-19T19:29:01.294Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-19T19:29:01.295Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-19T19:29:01.297Z] [INFO] SSO Enabled: Yes
+[2026-03-19T19:29:01.298Z] [INFO] BwengePlus URL: Not configured
+[2026-03-19T19:29:01.300Z] [INFO] ============================================================
+[2026-03-19T19:39:05.800Z] [INFO] Database connection established successfully
+[2026-03-19T19:39:05.802Z] [INFO] Session cleanup service initialized
+[2026-03-19T19:39:05.805Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-19T19:39:05.817Z] [INFO] ============================================================
+[2026-03-19T19:39:05.818Z] [INFO] 🚀 Server Running
+[2026-03-19T19:39:05.820Z] [INFO] ============================================================
+[2026-03-19T19:39:05.822Z] [INFO] Environment: development
+[2026-03-19T19:39:05.822Z] [INFO] Port: 3003
+[2026-03-19T19:39:05.823Z] [INFO] API URL: http://localhost:3003
+[2026-03-19T19:39:05.824Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-19T19:39:05.825Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-19T19:39:05.826Z] [INFO] SSO Enabled: Yes
+[2026-03-19T19:39:05.827Z] [INFO] BwengePlus URL: Not configured
+[2026-03-19T19:39:05.828Z] [INFO] ============================================================
+[2026-03-20T12:15:18.619Z] [INFO] Database connection established successfully
+[2026-03-20T12:15:18.627Z] [INFO] Session cleanup service initialized
+[2026-03-20T12:15:18.635Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-20T12:15:18.662Z] [INFO] ============================================================
+[2026-03-20T12:15:18.666Z] [INFO] 🚀 Server Running
+[2026-03-20T12:15:18.671Z] [INFO] ============================================================
+[2026-03-20T12:15:18.675Z] [INFO] Environment: development
+[2026-03-20T12:15:18.678Z] [INFO] Port: 3003
+[2026-03-20T12:15:18.683Z] [INFO] API URL: http://localhost:3003
+[2026-03-20T12:15:18.686Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-20T12:15:18.690Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-20T12:15:18.693Z] [INFO] SSO Enabled: Yes
+[2026-03-20T12:15:18.697Z] [INFO] BwengePlus URL: Not configured
+[2026-03-20T12:15:18.699Z] [INFO] ============================================================
+[2026-03-20T14:07:35.211Z] [INFO] Database connection established successfully
+[2026-03-20T14:07:35.212Z] [INFO] Session cleanup service initialized
+[2026-03-20T14:07:35.213Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-20T14:07:35.218Z] [INFO] ============================================================
+[2026-03-20T14:07:35.219Z] [INFO] 🚀 Server Running
+[2026-03-20T14:07:35.221Z] [INFO] ============================================================
+[2026-03-20T14:07:35.221Z] [INFO] Environment: development
+[2026-03-20T14:07:35.223Z] [INFO] Port: 3003
+[2026-03-20T14:07:35.223Z] [INFO] API URL: http://localhost:3003
+[2026-03-20T14:07:35.224Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-20T14:07:35.225Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-20T14:07:35.226Z] [INFO] SSO Enabled: Yes
+[2026-03-20T14:07:35.227Z] [INFO] BwengePlus URL: Not configured
+[2026-03-20T14:07:35.228Z] [INFO] ============================================================
+[2026-03-20T15:01:51.653Z] [INFO] Database connection established successfully
+[2026-03-20T15:01:51.700Z] [INFO] Session cleanup service initialized
+[2026-03-20T15:01:51.743Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-20T15:01:51.802Z] [INFO] ============================================================
+[2026-03-20T15:01:51.841Z] [INFO] 🚀 Server Running
+[2026-03-20T15:01:51.884Z] [INFO] ============================================================
+[2026-03-20T15:01:51.943Z] [INFO] Environment: development
+[2026-03-20T15:01:51.957Z] [INFO] Port: 3003
+[2026-03-20T15:01:51.959Z] [INFO] API URL: http://localhost:3003
+[2026-03-20T15:01:51.997Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-20T15:01:52.028Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-20T15:01:52.097Z] [INFO] SSO Enabled: Yes
+[2026-03-20T15:01:52.123Z] [INFO] BwengePlus URL: Not configured
+[2026-03-20T15:01:52.124Z] [INFO] ============================================================
+[2026-03-20T15:04:54.465Z] [INFO] Database connection established successfully
+[2026-03-20T15:04:54.483Z] [INFO] Session cleanup service initialized
+[2026-03-20T15:04:54.502Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-20T15:04:54.569Z] [INFO] ============================================================
+[2026-03-20T15:04:54.576Z] [INFO] 🚀 Server Running
+[2026-03-20T15:04:54.577Z] [INFO] ============================================================
+[2026-03-20T15:04:54.581Z] [INFO] Environment: development
+[2026-03-20T15:04:54.599Z] [INFO] Port: 3003
+[2026-03-20T15:04:54.610Z] [INFO] API URL: http://localhost:3003
+[2026-03-20T15:04:54.620Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-20T15:04:54.649Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-20T15:04:54.651Z] [INFO] SSO Enabled: Yes
+[2026-03-20T15:04:54.652Z] [INFO] BwengePlus URL: Not configured
+[2026-03-20T15:04:54.664Z] [INFO] ============================================================
+[2026-03-20T15:14:38.404Z] [INFO] Database connection established successfully
+[2026-03-20T15:14:38.420Z] [INFO] Session cleanup service initialized
+[2026-03-20T15:14:38.440Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-20T15:14:38.489Z] [INFO] ============================================================
+[2026-03-20T15:14:38.490Z] [INFO] 🚀 Server Running
+[2026-03-20T15:14:38.492Z] [INFO] ============================================================
+[2026-03-20T15:14:38.494Z] [INFO] Environment: development
+[2026-03-20T15:14:38.495Z] [INFO] Port: 3003
+[2026-03-20T15:14:38.496Z] [INFO] API URL: http://localhost:3003
+[2026-03-20T15:14:38.498Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-20T15:14:38.499Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-20T15:14:38.500Z] [INFO] SSO Enabled: Yes
+[2026-03-20T15:14:38.502Z] [INFO] BwengePlus URL: Not configured
+[2026-03-20T15:14:38.504Z] [INFO] ============================================================
+[2026-03-20T15:16:13.232Z] [INFO] Database connection established successfully
+[2026-03-20T15:16:13.233Z] [INFO] Session cleanup service initialized
+[2026-03-20T15:16:13.235Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-20T15:16:13.239Z] [INFO] ============================================================
+[2026-03-20T15:16:13.240Z] [INFO] 🚀 Server Running
+[2026-03-20T15:16:13.241Z] [INFO] ============================================================
+[2026-03-20T15:16:13.241Z] [INFO] Environment: development
+[2026-03-20T15:16:13.242Z] [INFO] Port: 3003
+[2026-03-20T15:16:13.242Z] [INFO] API URL: http://localhost:3003
+[2026-03-20T15:16:13.242Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-20T15:16:13.243Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-20T15:16:13.243Z] [INFO] SSO Enabled: Yes
+[2026-03-20T15:16:13.244Z] [INFO] BwengePlus URL: Not configured
+[2026-03-20T15:16:13.245Z] [INFO] ============================================================
+[2026-03-20T15:17:01.704Z] [INFO] Database connection established successfully
+[2026-03-20T15:17:01.705Z] [INFO] Session cleanup service initialized
+[2026-03-20T15:17:01.706Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-20T15:17:01.713Z] [INFO] ============================================================
+[2026-03-20T15:17:01.714Z] [INFO] 🚀 Server Running
+[2026-03-20T15:17:01.715Z] [INFO] ============================================================
+[2026-03-20T15:17:01.715Z] [INFO] Environment: development
+[2026-03-20T15:17:01.716Z] [INFO] Port: 3003
+[2026-03-20T15:17:01.716Z] [INFO] API URL: http://localhost:3003
+[2026-03-20T15:17:01.717Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-20T15:17:01.718Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-20T15:17:01.719Z] [INFO] SSO Enabled: Yes
+[2026-03-20T15:17:01.720Z] [INFO] BwengePlus URL: Not configured
+[2026-03-20T15:17:01.720Z] [INFO] ============================================================
+[2026-03-21T11:54:20.307Z] [INFO] SIGINT received, shutting down gracefully
+[2026-03-21T11:55:25.889Z] [INFO] Database connection established successfully
+[2026-03-21T11:55:25.899Z] [INFO] Session cleanup service initialized
+[2026-03-21T11:55:25.909Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-21T11:55:25.971Z] [INFO] ============================================================
+[2026-03-21T11:55:25.979Z] [INFO] 🚀 Server Running
+[2026-03-21T11:55:25.990Z] [INFO] ============================================================
+[2026-03-21T11:55:25.993Z] [INFO] Environment: development
+[2026-03-21T11:55:25.997Z] [INFO] Port: 3003
+[2026-03-21T11:55:25.998Z] [INFO] API URL: http://localhost:3003
+[2026-03-21T11:55:26.001Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-21T11:55:26.004Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-21T11:55:26.007Z] [INFO] SSO Enabled: Yes
+[2026-03-21T11:55:26.009Z] [INFO] BwengePlus URL: Not configured
+[2026-03-21T11:55:26.011Z] [INFO] ============================================================
+[2026-03-22T14:09:24.599Z] [INFO] Database connection established successfully
+[2026-03-22T14:09:24.614Z] [INFO] Session cleanup service initialized
+[2026-03-22T14:09:24.627Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-22T14:09:24.655Z] [INFO] ============================================================
+[2026-03-22T14:09:24.656Z] [INFO] 🚀 Server Running
+[2026-03-22T14:09:24.658Z] [INFO] ============================================================
+[2026-03-22T14:09:24.659Z] [INFO] Environment: development
+[2026-03-22T14:09:24.659Z] [INFO] Port: 3003
+[2026-03-22T14:09:24.660Z] [INFO] API URL: http://localhost:3003
+[2026-03-22T14:09:24.661Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-22T14:09:24.662Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-22T14:09:24.663Z] [INFO] SSO Enabled: Yes
+[2026-03-22T14:09:24.664Z] [INFO] BwengePlus URL: Not configured
+[2026-03-22T14:09:24.665Z] [INFO] ============================================================
+[2026-03-22T17:09:03.005Z] [INFO] Database connection established successfully
+[2026-03-22T17:09:03.007Z] [INFO] Session cleanup service initialized
+[2026-03-22T17:09:03.009Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-22T17:09:03.014Z] [INFO] ============================================================
+[2026-03-22T17:09:03.015Z] [INFO] 🚀 Server Running
+[2026-03-22T17:09:03.017Z] [INFO] ============================================================
+[2026-03-22T17:09:03.018Z] [INFO] Environment: development
+[2026-03-22T17:09:03.018Z] [INFO] Port: 3003
+[2026-03-22T17:09:03.019Z] [INFO] API URL: http://localhost:3003
+[2026-03-22T17:09:03.020Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-22T17:09:03.020Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-22T17:09:03.021Z] [INFO] SSO Enabled: Yes
+[2026-03-22T17:09:03.022Z] [INFO] BwengePlus URL: Not configured
+[2026-03-22T17:09:03.023Z] [INFO] ============================================================
+[2026-03-24T12:12:35.666Z] [INFO] Database connection established successfully
+[2026-03-24T12:12:35.670Z] [INFO] Session cleanup service initialized
+[2026-03-24T12:12:35.675Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-24T12:12:35.686Z] [INFO] ============================================================
+[2026-03-24T12:12:35.687Z] [INFO] 🚀 Server Running
+[2026-03-24T12:12:35.688Z] [INFO] ============================================================
+[2026-03-24T12:12:35.688Z] [INFO] Environment: development
+[2026-03-24T12:12:35.690Z] [INFO] Port: 3003
+[2026-03-24T12:12:35.691Z] [INFO] API URL: http://localhost:3003
+[2026-03-24T12:12:35.692Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-24T12:12:35.693Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-24T12:12:35.694Z] [INFO] SSO Enabled: Yes
+[2026-03-24T12:12:35.695Z] [INFO] BwengePlus URL: Not configured
+[2026-03-24T12:12:35.696Z] [INFO] ============================================================
+[2026-03-24T17:28:43.199Z] [INFO] Database connection established successfully
+[2026-03-24T17:28:43.201Z] [INFO] Session cleanup service initialized
+[2026-03-24T17:28:43.203Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-24T17:28:43.214Z] [INFO] ============================================================
+[2026-03-24T17:28:43.216Z] [INFO] 🚀 Server Running
+[2026-03-24T17:28:43.219Z] [INFO] ============================================================
+[2026-03-24T17:28:43.220Z] [INFO] Environment: development
+[2026-03-24T17:28:43.222Z] [INFO] Port: 3003
+[2026-03-24T17:28:43.223Z] [INFO] API URL: http://localhost:3003
+[2026-03-24T17:28:43.224Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-24T17:28:43.226Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-24T17:28:43.228Z] [INFO] SSO Enabled: Yes
+[2026-03-24T17:28:43.230Z] [INFO] BwengePlus URL: Not configured
+[2026-03-24T17:28:43.232Z] [INFO] ============================================================
+[2026-03-24T17:32:30.813Z] [INFO] SIGINT received, shutting down gracefully
+[2026-03-24T17:32:30.841Z] [INFO] HTTP server closed
+[2026-03-24T17:36:35.165Z] [INFO] Database connection established successfully
+[2026-03-24T17:36:35.171Z] [INFO] Session cleanup service initialized
+[2026-03-24T17:36:35.175Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-24T17:36:35.204Z] [INFO] ============================================================
+[2026-03-24T17:36:35.209Z] [INFO] 🚀 Server Running
+[2026-03-24T17:36:35.215Z] [INFO] ============================================================
+[2026-03-24T17:36:35.220Z] [INFO] Environment: development
+[2026-03-24T17:36:35.224Z] [INFO] Port: 3003
+[2026-03-24T17:36:35.228Z] [INFO] API URL: http://localhost:3003
+[2026-03-24T17:36:35.232Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-24T17:36:35.238Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-24T17:36:35.243Z] [INFO] SSO Enabled: Yes
+[2026-03-24T17:36:35.248Z] [INFO] BwengePlus URL: Not configured
+[2026-03-24T17:36:35.255Z] [INFO] ============================================================
+[2026-03-24T17:47:27.730Z] [INFO] Database connection established successfully
+[2026-03-24T17:47:27.731Z] [INFO] Session cleanup service initialized
+[2026-03-24T17:47:27.732Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-24T17:47:27.737Z] [INFO] ============================================================
+[2026-03-24T17:47:27.738Z] [INFO] 🚀 Server Running
+[2026-03-24T17:47:27.739Z] [INFO] ============================================================
+[2026-03-24T17:47:27.740Z] [INFO] Environment: development
+[2026-03-24T17:47:27.741Z] [INFO] Port: 3003
+[2026-03-24T17:47:27.741Z] [INFO] API URL: http://localhost:3003
+[2026-03-24T17:47:27.742Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-24T17:47:27.742Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-24T17:47:27.743Z] [INFO] SSO Enabled: Yes
+[2026-03-24T17:47:27.744Z] [INFO] BwengePlus URL: Not configured
+[2026-03-24T17:47:27.744Z] [INFO] ============================================================
+[2026-03-24T17:50:41.895Z] [INFO] SIGINT received, shutting down gracefully
+[2026-03-24T17:50:41.900Z] [INFO] HTTP server closed
+[2026-03-24T17:55:34.818Z] [INFO] Database connection established successfully
+[2026-03-24T17:55:34.821Z] [INFO] Session cleanup service initialized
+[2026-03-24T17:55:34.822Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-24T17:55:34.828Z] [INFO] ============================================================
+[2026-03-24T17:55:34.829Z] [INFO] 🚀 Server Running
+[2026-03-24T17:55:34.830Z] [INFO] ============================================================
+[2026-03-24T17:55:34.830Z] [INFO] Environment: development
+[2026-03-24T17:55:34.831Z] [INFO] Port: 3003
+[2026-03-24T17:55:34.832Z] [INFO] API URL: http://localhost:3003
+[2026-03-24T17:55:34.832Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-24T17:55:34.833Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-24T17:55:34.834Z] [INFO] SSO Enabled: Yes
+[2026-03-24T17:55:34.834Z] [INFO] BwengePlus URL: Not configured
+[2026-03-24T17:55:34.835Z] [INFO] ============================================================
+[2026-03-24T17:57:42.924Z] [INFO] Database connection established successfully
+[2026-03-24T17:57:42.925Z] [INFO] Session cleanup service initialized
+[2026-03-24T17:57:42.926Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-24T17:57:42.928Z] [INFO] ============================================================
+[2026-03-24T17:57:42.929Z] [INFO] 🚀 Server Running
+[2026-03-24T17:57:42.929Z] [INFO] ============================================================
+[2026-03-24T17:57:42.930Z] [INFO] Environment: development
+[2026-03-24T17:57:42.931Z] [INFO] Port: 3003
+[2026-03-24T17:57:42.932Z] [INFO] API URL: http://localhost:3003
+[2026-03-24T17:57:42.932Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-24T17:57:42.933Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-24T17:57:42.934Z] [INFO] SSO Enabled: Yes
+[2026-03-24T17:57:42.935Z] [INFO] BwengePlus URL: Not configured
+[2026-03-24T17:57:42.935Z] [INFO] ============================================================
+[2026-03-24T17:58:26.176Z] [INFO] SIGINT received, shutting down gracefully
+[2026-03-24T17:58:26.178Z] [INFO] HTTP server closed
+[2026-03-24T18:00:55.453Z] [INFO] Database connection established successfully
+[2026-03-24T18:00:55.459Z] [INFO] Session cleanup service initialized
+[2026-03-24T18:00:55.460Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-24T18:00:55.465Z] [INFO] ============================================================
+[2026-03-24T18:00:55.466Z] [INFO] 🚀 Server Running
+[2026-03-24T18:00:55.467Z] [INFO] ============================================================
+[2026-03-24T18:00:55.467Z] [INFO] Environment: development
+[2026-03-24T18:00:55.468Z] [INFO] Port: 3003
+[2026-03-24T18:00:55.468Z] [INFO] API URL: http://localhost:3003
+[2026-03-24T18:00:55.469Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-24T18:00:55.470Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-24T18:00:55.470Z] [INFO] SSO Enabled: Yes
+[2026-03-24T18:00:55.471Z] [INFO] BwengePlus URL: Not configured
+[2026-03-24T18:00:55.472Z] [INFO] ============================================================
+[2026-03-24T18:18:14.253Z] [INFO] Database connection established successfully
+[2026-03-24T18:18:14.255Z] [INFO] Session cleanup service initialized
+[2026-03-24T18:18:14.256Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-24T18:18:14.261Z] [INFO] ============================================================
+[2026-03-24T18:18:14.262Z] [INFO] 🚀 Server Running
+[2026-03-24T18:18:14.263Z] [INFO] ============================================================
+[2026-03-24T18:18:14.263Z] [INFO] Environment: development
+[2026-03-24T18:18:14.264Z] [INFO] Port: 3003
+[2026-03-24T18:18:14.265Z] [INFO] API URL: http://localhost:3003
+[2026-03-24T18:18:14.265Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-24T18:18:14.266Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-24T18:18:14.266Z] [INFO] SSO Enabled: Yes
+[2026-03-24T18:18:14.268Z] [INFO] BwengePlus URL: Not configured
+[2026-03-24T18:18:14.268Z] [INFO] ============================================================
+[2026-03-24T19:16:38.380Z] [INFO] Database connection established successfully
+[2026-03-24T19:16:38.381Z] [INFO] Session cleanup service initialized
+[2026-03-24T19:16:38.382Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-24T19:16:38.386Z] [INFO] ============================================================
+[2026-03-24T19:16:38.386Z] [INFO] 🚀 Server Running
+[2026-03-24T19:16:38.387Z] [INFO] ============================================================
+[2026-03-24T19:16:38.387Z] [INFO] Environment: development
+[2026-03-24T19:16:38.388Z] [INFO] Port: 3003
+[2026-03-24T19:16:38.388Z] [INFO] API URL: http://localhost:3003
+[2026-03-24T19:16:38.388Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-24T19:16:38.389Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-24T19:16:38.389Z] [INFO] SSO Enabled: Yes
+[2026-03-24T19:16:38.390Z] [INFO] BwengePlus URL: Not configured
+[2026-03-24T19:16:38.390Z] [INFO] ============================================================
+[2026-03-28T08:36:48.779Z] [INFO] Database connection established successfully
+[2026-03-28T08:36:48.787Z] [INFO] Session cleanup service initialized
+[2026-03-28T08:36:48.790Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T08:36:48.806Z] [INFO] ============================================================
+[2026-03-28T08:36:48.808Z] [INFO] 🚀 Server Running
+[2026-03-28T08:36:48.810Z] [INFO] ============================================================
+[2026-03-28T08:36:48.811Z] [INFO] Environment: development
+[2026-03-28T08:36:48.812Z] [INFO] Port: 3003
+[2026-03-28T08:36:48.814Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T08:36:48.815Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T08:36:48.816Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T08:36:48.817Z] [INFO] SSO Enabled: Yes
+[2026-03-28T08:36:48.818Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T08:36:48.819Z] [INFO] ============================================================
+[2026-03-28T11:59:40.468Z] [INFO] Database connection established successfully
+[2026-03-28T11:59:40.473Z] [INFO] Session cleanup service initialized
+[2026-03-28T11:59:40.478Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T11:59:40.502Z] [INFO] ============================================================
+[2026-03-28T11:59:40.514Z] [INFO] 🚀 Server Running
+[2026-03-28T11:59:40.521Z] [INFO] ============================================================
+[2026-03-28T11:59:40.534Z] [INFO] Environment: development
+[2026-03-28T11:59:40.547Z] [INFO] Port: 3003
+[2026-03-28T11:59:40.569Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T11:59:40.588Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T11:59:40.596Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T11:59:40.608Z] [INFO] SSO Enabled: Yes
+[2026-03-28T11:59:40.613Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T11:59:40.615Z] [INFO] ============================================================
+[2026-03-28T12:00:34.102Z] [INFO] Database connection established successfully
+[2026-03-28T12:00:34.107Z] [INFO] Session cleanup service initialized
+[2026-03-28T12:00:34.110Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T12:00:34.133Z] [INFO] ============================================================
+[2026-03-28T12:00:34.139Z] [INFO] 🚀 Server Running
+[2026-03-28T12:00:34.144Z] [INFO] ============================================================
+[2026-03-28T12:00:34.147Z] [INFO] Environment: development
+[2026-03-28T12:00:34.152Z] [INFO] Port: 3003
+[2026-03-28T12:00:34.156Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T12:00:34.160Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T12:00:34.165Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T12:00:34.170Z] [INFO] SSO Enabled: Yes
+[2026-03-28T12:00:34.174Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T12:00:34.182Z] [INFO] ============================================================
+[2026-03-28T12:00:50.079Z] [INFO] Database connection established successfully
+[2026-03-28T12:00:50.082Z] [INFO] Session cleanup service initialized
+[2026-03-28T12:00:50.086Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T12:00:50.102Z] [INFO] ============================================================
+[2026-03-28T12:00:50.104Z] [INFO] 🚀 Server Running
+[2026-03-28T12:00:50.108Z] [INFO] ============================================================
+[2026-03-28T12:00:50.110Z] [INFO] Environment: development
+[2026-03-28T12:00:50.113Z] [INFO] Port: 3003
+[2026-03-28T12:00:50.115Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T12:00:50.120Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T12:00:50.123Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T12:00:50.126Z] [INFO] SSO Enabled: Yes
+[2026-03-28T12:00:50.128Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T12:00:50.130Z] [INFO] ============================================================
+[2026-03-28T12:11:13.582Z] [INFO] Database connection established successfully
+[2026-03-28T12:11:13.584Z] [INFO] Session cleanup service initialized
+[2026-03-28T12:11:13.585Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T12:11:13.593Z] [INFO] ============================================================
+[2026-03-28T12:11:13.594Z] [INFO] 🚀 Server Running
+[2026-03-28T12:11:13.595Z] [INFO] ============================================================
+[2026-03-28T12:11:13.596Z] [INFO] Environment: development
+[2026-03-28T12:11:13.597Z] [INFO] Port: 3003
+[2026-03-28T12:11:13.597Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T12:11:13.598Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T12:11:13.599Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T12:11:13.600Z] [INFO] SSO Enabled: Yes
+[2026-03-28T12:11:13.601Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T12:11:13.602Z] [INFO] ============================================================
+[2026-03-28T12:56:14.349Z] [INFO] Database connection established successfully
+[2026-03-28T12:56:14.351Z] [INFO] Session cleanup service initialized
+[2026-03-28T12:56:14.352Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T12:56:14.357Z] [INFO] ============================================================
+[2026-03-28T12:56:14.358Z] [INFO] 🚀 Server Running
+[2026-03-28T12:56:14.359Z] [INFO] ============================================================
+[2026-03-28T12:56:14.360Z] [INFO] Environment: development
+[2026-03-28T12:56:14.361Z] [INFO] Port: 3003
+[2026-03-28T12:56:14.362Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T12:56:14.366Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T12:56:14.367Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T12:56:14.367Z] [INFO] SSO Enabled: Yes
+[2026-03-28T12:56:14.368Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T12:56:14.369Z] [INFO] ============================================================
+[2026-03-28T12:57:00.326Z] [INFO] Database connection established successfully
+[2026-03-28T12:57:00.328Z] [INFO] Session cleanup service initialized
+[2026-03-28T12:57:00.330Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T12:57:00.338Z] [INFO] ============================================================
+[2026-03-28T12:57:00.339Z] [INFO] 🚀 Server Running
+[2026-03-28T12:57:00.340Z] [INFO] ============================================================
+[2026-03-28T12:57:00.341Z] [INFO] Environment: development
+[2026-03-28T12:57:00.341Z] [INFO] Port: 3003
+[2026-03-28T12:57:00.342Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T12:57:00.343Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T12:57:00.345Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T12:57:00.346Z] [INFO] SSO Enabled: Yes
+[2026-03-28T12:57:00.348Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T12:57:00.350Z] [INFO] ============================================================
+[2026-03-28T12:57:17.245Z] [INFO] Database connection established successfully
+[2026-03-28T12:57:17.249Z] [INFO] Session cleanup service initialized
+[2026-03-28T12:57:17.252Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T12:57:17.265Z] [INFO] ============================================================
+[2026-03-28T12:57:17.267Z] [INFO] 🚀 Server Running
+[2026-03-28T12:57:17.268Z] [INFO] ============================================================
+[2026-03-28T12:57:17.270Z] [INFO] Environment: development
+[2026-03-28T12:57:17.272Z] [INFO] Port: 3003
+[2026-03-28T12:57:17.274Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T12:57:17.275Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T12:57:17.276Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T12:57:17.277Z] [INFO] SSO Enabled: Yes
+[2026-03-28T12:57:17.278Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T12:57:17.279Z] [INFO] ============================================================
+[2026-03-28T12:57:30.977Z] [INFO] Database connection established successfully
+[2026-03-28T12:57:30.978Z] [INFO] Session cleanup service initialized
+[2026-03-28T12:57:30.978Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T12:57:30.981Z] [INFO] ============================================================
+[2026-03-28T12:57:30.982Z] [INFO] 🚀 Server Running
+[2026-03-28T12:57:30.983Z] [INFO] ============================================================
+[2026-03-28T12:57:30.984Z] [INFO] Environment: development
+[2026-03-28T12:57:30.984Z] [INFO] Port: 3003
+[2026-03-28T12:57:30.985Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T12:57:30.985Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T12:57:30.986Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T12:57:30.987Z] [INFO] SSO Enabled: Yes
+[2026-03-28T12:57:30.987Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T12:57:30.988Z] [INFO] ============================================================
+[2026-03-28T13:22:47.585Z] [INFO] Database connection established successfully
+[2026-03-28T13:22:47.587Z] [INFO] Session cleanup service initialized
+[2026-03-28T13:22:47.588Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T13:22:47.592Z] [INFO] ============================================================
+[2026-03-28T13:22:47.593Z] [INFO] 🚀 Server Running
+[2026-03-28T13:22:47.594Z] [INFO] ============================================================
+[2026-03-28T13:22:47.594Z] [INFO] Environment: development
+[2026-03-28T13:22:47.595Z] [INFO] Port: 3003
+[2026-03-28T13:22:47.595Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T13:22:47.596Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T13:22:47.597Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T13:22:47.598Z] [INFO] SSO Enabled: Yes
+[2026-03-28T13:22:47.599Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T13:22:47.599Z] [INFO] ============================================================
+[2026-03-28T15:27:27.719Z] [INFO] Database connection established successfully
+[2026-03-28T15:27:27.725Z] [INFO] Session cleanup service initialized
+[2026-03-28T15:27:27.735Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T15:27:27.756Z] [INFO] ============================================================
+[2026-03-28T15:27:27.758Z] [INFO] 🚀 Server Running
+[2026-03-28T15:27:27.762Z] [INFO] ============================================================
+[2026-03-28T15:27:27.767Z] [INFO] Environment: development
+[2026-03-28T15:27:27.769Z] [INFO] Port: 3003
+[2026-03-28T15:27:27.771Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T15:27:27.774Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T15:27:27.780Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T15:27:27.785Z] [INFO] SSO Enabled: Yes
+[2026-03-28T15:27:27.788Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T15:27:27.790Z] [INFO] ============================================================
+[2026-03-28T17:17:39.052Z] [INFO] SIGINT received, shutting down gracefully
+[2026-03-28T17:17:39.108Z] [INFO] HTTP server closed
+[2026-03-28T17:18:08.905Z] [INFO] Database connection established successfully
+[2026-03-28T17:18:08.908Z] [INFO] Session cleanup service initialized
+[2026-03-28T17:18:08.910Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T17:18:08.922Z] [INFO] ============================================================
+[2026-03-28T17:18:08.924Z] [INFO] 🚀 Server Running
+[2026-03-28T17:18:08.926Z] [INFO] ============================================================
+[2026-03-28T17:18:08.927Z] [INFO] Environment: development
+[2026-03-28T17:18:08.931Z] [INFO] Port: 3003
+[2026-03-28T17:18:08.933Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T17:18:08.935Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T17:18:08.938Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T17:18:08.940Z] [INFO] SSO Enabled: Yes
+[2026-03-28T17:18:08.942Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T17:18:08.944Z] [INFO] ============================================================
+[2026-03-28T17:35:43.047Z] [INFO] Database connection established successfully
+[2026-03-28T17:35:43.055Z] [INFO] Session cleanup service initialized
+[2026-03-28T17:35:43.061Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T17:35:43.124Z] [INFO] ============================================================
+[2026-03-28T17:35:43.131Z] [INFO] 🚀 Server Running
+[2026-03-28T17:35:43.174Z] [INFO] ============================================================
+[2026-03-28T17:35:43.184Z] [INFO] Environment: development
+[2026-03-28T17:35:43.186Z] [INFO] Port: 3003
+[2026-03-28T17:35:43.188Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T17:35:43.190Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T17:35:43.191Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T17:35:43.192Z] [INFO] SSO Enabled: Yes
+[2026-03-28T17:35:43.204Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T17:35:43.205Z] [INFO] ============================================================
+[2026-03-28T17:36:37.791Z] [INFO] Database connection established successfully
+[2026-03-28T17:36:37.795Z] [INFO] Session cleanup service initialized
+[2026-03-28T17:36:37.798Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T17:36:37.815Z] [INFO] ============================================================
+[2026-03-28T17:36:37.819Z] [INFO] 🚀 Server Running
+[2026-03-28T17:36:37.822Z] [INFO] ============================================================
+[2026-03-28T17:36:37.825Z] [INFO] Environment: development
+[2026-03-28T17:36:37.828Z] [INFO] Port: 3003
+[2026-03-28T17:36:37.831Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T17:36:37.835Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T17:36:37.839Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T17:36:37.841Z] [INFO] SSO Enabled: Yes
+[2026-03-28T17:36:37.844Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T17:36:37.847Z] [INFO] ============================================================
+[2026-03-28T17:36:48.760Z] [INFO] Database connection established successfully
+[2026-03-28T17:36:48.763Z] [INFO] Session cleanup service initialized
+[2026-03-28T17:36:48.769Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T17:36:48.782Z] [INFO] ============================================================
+[2026-03-28T17:36:48.786Z] [INFO] 🚀 Server Running
+[2026-03-28T17:36:48.789Z] [INFO] ============================================================
+[2026-03-28T17:36:48.791Z] [INFO] Environment: development
+[2026-03-28T17:36:48.792Z] [INFO] Port: 3003
+[2026-03-28T17:36:48.794Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T17:36:48.797Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T17:36:48.799Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T17:36:48.800Z] [INFO] SSO Enabled: Yes
+[2026-03-28T17:36:48.801Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T17:36:48.803Z] [INFO] ============================================================
+[2026-03-28T17:51:16.071Z] [INFO] Database connection established successfully
+[2026-03-28T17:51:16.074Z] [INFO] Session cleanup service initialized
+[2026-03-28T17:51:16.075Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T17:51:16.083Z] [INFO] ============================================================
+[2026-03-28T17:51:16.084Z] [INFO] 🚀 Server Running
+[2026-03-28T17:51:16.088Z] [INFO] ============================================================
+[2026-03-28T17:51:16.090Z] [INFO] Environment: development
+[2026-03-28T17:51:16.093Z] [INFO] Port: 3003
+[2026-03-28T17:51:16.096Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T17:51:16.098Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T17:51:16.099Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T17:51:16.100Z] [INFO] SSO Enabled: Yes
+[2026-03-28T17:51:16.102Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T17:51:16.104Z] [INFO] ============================================================
+[2026-03-28T17:52:41.369Z] [INFO] Database connection established successfully
+[2026-03-28T17:52:41.372Z] [INFO] Session cleanup service initialized
+[2026-03-28T17:52:41.376Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T17:52:41.394Z] [INFO] ============================================================
+[2026-03-28T17:52:41.396Z] [INFO] 🚀 Server Running
+[2026-03-28T17:52:41.399Z] [INFO] ============================================================
+[2026-03-28T17:52:41.400Z] [INFO] Environment: development
+[2026-03-28T17:52:41.403Z] [INFO] Port: 3003
+[2026-03-28T17:52:41.408Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T17:52:41.412Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T17:52:41.414Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T17:52:41.416Z] [INFO] SSO Enabled: Yes
+[2026-03-28T17:52:41.424Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T17:52:41.431Z] [INFO] ============================================================
+[2026-03-28T17:53:34.804Z] [INFO] Database connection established successfully
+[2026-03-28T17:53:34.805Z] [INFO] Session cleanup service initialized
+[2026-03-28T17:53:34.806Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T17:53:34.811Z] [INFO] ============================================================
+[2026-03-28T17:53:34.811Z] [INFO] 🚀 Server Running
+[2026-03-28T17:53:34.813Z] [INFO] ============================================================
+[2026-03-28T17:53:34.814Z] [INFO] Environment: development
+[2026-03-28T17:53:34.815Z] [INFO] Port: 3003
+[2026-03-28T17:53:34.816Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T17:53:34.818Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T17:53:34.820Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T17:53:34.820Z] [INFO] SSO Enabled: Yes
+[2026-03-28T17:53:34.821Z] [INFO] JWT_SECRET: Configured ✓
+[2026-03-28T17:53:34.822Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T17:53:34.823Z] [INFO] ============================================================
+[2026-03-28T17:58:22.937Z] [INFO] Database connection established successfully
+[2026-03-28T17:58:22.939Z] [INFO] Session cleanup service initialized
+[2026-03-28T17:58:22.941Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T17:58:22.951Z] [INFO] ============================================================
+[2026-03-28T17:58:22.953Z] [INFO] 🚀 Server Running
+[2026-03-28T17:58:22.954Z] [INFO] ============================================================
+[2026-03-28T17:58:22.956Z] [INFO] Environment: development
+[2026-03-28T17:58:22.957Z] [INFO] Port: 3003
+[2026-03-28T17:58:22.958Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T17:58:22.960Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T17:58:22.961Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T17:58:22.962Z] [INFO] SSO Enabled: Yes
+[2026-03-28T17:58:22.962Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T17:58:22.963Z] [INFO] ============================================================
+[2026-03-28T18:00:14.748Z] [INFO] Database connection established successfully
+[2026-03-28T18:00:14.754Z] [INFO] Session cleanup service initialized
+[2026-03-28T18:00:14.759Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-28T18:00:14.780Z] [INFO] ============================================================
+[2026-03-28T18:00:14.782Z] [INFO] 🚀 Server Running
+[2026-03-28T18:00:14.785Z] [INFO] ============================================================
+[2026-03-28T18:00:14.789Z] [INFO] Environment: development
+[2026-03-28T18:00:14.794Z] [INFO] Port: 3003
+[2026-03-28T18:00:14.798Z] [INFO] API URL: http://localhost:3003
+[2026-03-28T18:00:14.802Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-28T18:00:14.805Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-28T18:00:14.809Z] [INFO] SSO Enabled: Yes
+[2026-03-28T18:00:14.814Z] [INFO] BwengePlus URL: Not configured
+[2026-03-28T18:00:14.817Z] [INFO] ============================================================
+[2026-03-29T08:30:35.629Z] [INFO] Database connection established successfully
+[2026-03-29T08:30:35.634Z] [INFO] Session cleanup service initialized
+[2026-03-29T08:30:35.635Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T08:30:35.639Z] [INFO] ============================================================
+[2026-03-29T08:30:35.640Z] [INFO] 🚀 Server Running
+[2026-03-29T08:30:35.641Z] [INFO] ============================================================
+[2026-03-29T08:30:35.641Z] [INFO] Environment: development
+[2026-03-29T08:30:35.642Z] [INFO] Port: 3003
+[2026-03-29T08:30:35.642Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T08:30:35.643Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T08:30:35.643Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T08:30:35.644Z] [INFO] SSO Enabled: Yes
+[2026-03-29T08:30:35.644Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T08:30:35.645Z] [INFO] ============================================================
+[2026-03-29T08:48:02.078Z] [INFO] SIGINT received, shutting down gracefully
+[2026-03-29T08:48:20.245Z] [INFO] Database connection established successfully
+[2026-03-29T08:48:20.247Z] [INFO] Session cleanup service initialized
+[2026-03-29T08:48:20.248Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T08:48:20.257Z] [INFO] ============================================================
+[2026-03-29T08:48:20.259Z] [INFO] 🚀 Server Running
+[2026-03-29T08:48:20.260Z] [INFO] ============================================================
+[2026-03-29T08:48:20.261Z] [INFO] Environment: development
+[2026-03-29T08:48:20.262Z] [INFO] Port: 3003
+[2026-03-29T08:48:20.263Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T08:48:20.264Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T08:48:20.265Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T08:48:20.266Z] [INFO] SSO Enabled: Yes
+[2026-03-29T08:48:20.267Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T08:48:20.268Z] [INFO] ============================================================
+[2026-03-29T09:06:45.128Z] [INFO] SIGINT received, shutting down gracefully
+[2026-03-29T09:06:57.698Z] [INFO] Database connection established successfully
+[2026-03-29T09:06:57.700Z] [INFO] Session cleanup service initialized
+[2026-03-29T09:06:57.701Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T09:06:57.711Z] [INFO] ============================================================
+[2026-03-29T09:06:57.712Z] [INFO] 🚀 Server Running
+[2026-03-29T09:06:57.713Z] [INFO] ============================================================
+[2026-03-29T09:06:57.715Z] [INFO] Environment: development
+[2026-03-29T09:06:57.716Z] [INFO] Port: 3003
+[2026-03-29T09:06:57.717Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T09:06:57.718Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T09:06:57.719Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T09:06:57.719Z] [INFO] SSO Enabled: Yes
+[2026-03-29T09:06:57.720Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T09:06:57.721Z] [INFO] ============================================================
+[2026-03-29T09:40:06.559Z] [INFO] Database connection established successfully
+[2026-03-29T09:40:06.564Z] [INFO] Session cleanup service initialized
+[2026-03-29T09:40:06.565Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T09:40:06.570Z] [INFO] ============================================================
+[2026-03-29T09:40:06.570Z] [INFO] 🚀 Server Running
+[2026-03-29T09:40:06.571Z] [INFO] ============================================================
+[2026-03-29T09:40:06.573Z] [INFO] Environment: development
+[2026-03-29T09:40:06.575Z] [INFO] Port: 3003
+[2026-03-29T09:40:06.576Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T09:40:06.578Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T09:40:06.579Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T09:40:06.580Z] [INFO] SSO Enabled: Yes
+[2026-03-29T09:40:06.585Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T09:40:06.586Z] [INFO] ============================================================
+[2026-03-29T09:44:00.545Z] [INFO] SIGINT received, shutting down gracefully
+[2026-03-29T09:44:00.558Z] [INFO] HTTP server closed
+[2026-03-29T09:44:13.031Z] [INFO] Database connection established successfully
+[2026-03-29T09:44:13.032Z] [INFO] Session cleanup service initialized
+[2026-03-29T09:44:13.032Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T09:44:13.036Z] [INFO] ============================================================
+[2026-03-29T09:44:13.036Z] [INFO] 🚀 Server Running
+[2026-03-29T09:44:13.037Z] [INFO] ============================================================
+[2026-03-29T09:44:13.038Z] [INFO] Environment: development
+[2026-03-29T09:44:13.039Z] [INFO] Port: 3003
+[2026-03-29T09:44:13.039Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T09:44:13.040Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T09:44:13.040Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T09:44:13.041Z] [INFO] SSO Enabled: Yes
+[2026-03-29T09:44:13.041Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T09:44:13.042Z] [INFO] ============================================================
+[2026-03-29T09:51:04.175Z] [INFO] Database connection established successfully
+[2026-03-29T09:51:04.181Z] [INFO] Session cleanup service initialized
+[2026-03-29T09:51:04.183Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T09:51:04.191Z] [INFO] ============================================================
+[2026-03-29T09:51:04.192Z] [INFO] 🚀 Server Running
+[2026-03-29T09:51:04.193Z] [INFO] ============================================================
+[2026-03-29T09:51:04.195Z] [INFO] Environment: development
+[2026-03-29T09:51:04.196Z] [INFO] Port: 3003
+[2026-03-29T09:51:04.197Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T09:51:04.198Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T09:51:04.198Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T09:51:04.199Z] [INFO] SSO Enabled: Yes
+[2026-03-29T09:51:04.200Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T09:51:04.201Z] [INFO] ============================================================
+[2026-03-29T10:00:09.635Z] [INFO] Database connection established successfully
+[2026-03-29T10:00:09.636Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:00:09.637Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:00:09.643Z] [INFO] ============================================================
+[2026-03-29T10:00:09.643Z] [INFO] 🚀 Server Running
+[2026-03-29T10:00:09.644Z] [INFO] ============================================================
+[2026-03-29T10:00:09.645Z] [INFO] Environment: development
+[2026-03-29T10:00:09.645Z] [INFO] Port: 3003
+[2026-03-29T10:00:09.646Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:00:09.646Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:00:09.647Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:00:09.648Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:00:09.649Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:00:09.649Z] [INFO] ============================================================
+[2026-03-29T10:03:11.633Z] [INFO] Database connection established successfully
+[2026-03-29T10:03:11.637Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:03:11.639Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:03:11.657Z] [INFO] ============================================================
+[2026-03-29T10:03:11.659Z] [INFO] 🚀 Server Running
+[2026-03-29T10:03:11.661Z] [INFO] ============================================================
+[2026-03-29T10:03:11.662Z] [INFO] Environment: development
+[2026-03-29T10:03:11.664Z] [INFO] Port: 3003
+[2026-03-29T10:03:11.665Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:03:11.667Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:03:11.670Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:03:11.670Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:03:11.671Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:03:11.672Z] [INFO] ============================================================
+[2026-03-29T10:03:33.810Z] [INFO] Database connection established successfully
+[2026-03-29T10:03:33.810Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:03:33.811Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:03:33.815Z] [INFO] ============================================================
+[2026-03-29T10:03:33.815Z] [INFO] 🚀 Server Running
+[2026-03-29T10:03:33.816Z] [INFO] ============================================================
+[2026-03-29T10:03:33.817Z] [INFO] Environment: development
+[2026-03-29T10:03:33.817Z] [INFO] Port: 3003
+[2026-03-29T10:03:33.818Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:03:33.818Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:03:33.819Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:03:33.819Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:03:33.820Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:03:33.820Z] [INFO] ============================================================
+[2026-03-29T10:12:11.204Z] [INFO] Database connection established successfully
+[2026-03-29T10:12:11.212Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:12:11.216Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:12:11.235Z] [INFO] ============================================================
+[2026-03-29T10:12:11.239Z] [INFO] 🚀 Server Running
+[2026-03-29T10:12:11.241Z] [INFO] ============================================================
+[2026-03-29T10:12:11.243Z] [INFO] Environment: development
+[2026-03-29T10:12:11.244Z] [INFO] Port: 3003
+[2026-03-29T10:12:11.246Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:12:11.247Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:12:11.251Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:12:11.252Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:12:11.253Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:12:11.254Z] [INFO] ============================================================
+[2026-03-29T10:20:29.681Z] [INFO] Database connection established successfully
+[2026-03-29T10:20:29.683Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:20:29.683Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:20:29.688Z] [INFO] ============================================================
+[2026-03-29T10:20:29.689Z] [INFO] 🚀 Server Running
+[2026-03-29T10:20:29.690Z] [INFO] ============================================================
+[2026-03-29T10:20:29.690Z] [INFO] Environment: development
+[2026-03-29T10:20:29.691Z] [INFO] Port: 3003
+[2026-03-29T10:20:29.692Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:20:29.692Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:20:29.693Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:20:29.693Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:20:29.694Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:20:29.694Z] [INFO] ============================================================
+[2026-03-29T10:20:40.744Z] [INFO] Database connection established successfully
+[2026-03-29T10:20:40.745Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:20:40.746Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:20:40.752Z] [INFO] ============================================================
+[2026-03-29T10:20:40.752Z] [INFO] 🚀 Server Running
+[2026-03-29T10:20:40.753Z] [INFO] ============================================================
+[2026-03-29T10:20:40.754Z] [INFO] Environment: development
+[2026-03-29T10:20:40.755Z] [INFO] Port: 3003
+[2026-03-29T10:20:40.756Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:20:40.757Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:20:40.757Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:20:40.758Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:20:40.759Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:20:40.760Z] [INFO] ============================================================
+[2026-03-29T10:25:14.714Z] [INFO] SIGINT received, shutting down gracefully
+[2026-03-29T10:25:14.724Z] [INFO] HTTP server closed
+[2026-03-29T10:25:51.337Z] [INFO] Database connection established successfully
+[2026-03-29T10:25:51.338Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:25:51.339Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:25:51.342Z] [INFO] ============================================================
+[2026-03-29T10:25:51.343Z] [INFO] 🚀 Server Running
+[2026-03-29T10:25:51.344Z] [INFO] ============================================================
+[2026-03-29T10:25:51.345Z] [INFO] Environment: development
+[2026-03-29T10:25:51.345Z] [INFO] Port: 3003
+[2026-03-29T10:25:51.346Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:25:51.346Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:25:51.347Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:25:51.347Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:25:51.348Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:25:51.348Z] [INFO] ============================================================
+[2026-03-29T10:33:28.536Z] [INFO] Database connection established successfully
+[2026-03-29T10:33:28.538Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:33:28.539Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:33:28.550Z] [INFO] ============================================================
+[2026-03-29T10:33:28.551Z] [INFO] 🚀 Server Running
+[2026-03-29T10:33:28.552Z] [INFO] ============================================================
+[2026-03-29T10:33:28.554Z] [INFO] Environment: development
+[2026-03-29T10:33:28.555Z] [INFO] Port: 3003
+[2026-03-29T10:33:28.557Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:33:28.558Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:33:28.559Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:33:28.559Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:33:28.560Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:33:28.561Z] [INFO] ============================================================
+[2026-03-29T10:34:27.503Z] [INFO] SIGINT received, shutting down gracefully
+[2026-03-29T10:34:27.508Z] [INFO] HTTP server closed
+[2026-03-29T10:34:42.084Z] [INFO] Database connection established successfully
+[2026-03-29T10:34:42.085Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:34:42.086Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:34:42.089Z] [INFO] ============================================================
+[2026-03-29T10:34:42.090Z] [INFO] 🚀 Server Running
+[2026-03-29T10:34:42.090Z] [INFO] ============================================================
+[2026-03-29T10:34:42.091Z] [INFO] Environment: development
+[2026-03-29T10:34:42.092Z] [INFO] Port: 3003
+[2026-03-29T10:34:42.092Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:34:42.093Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:34:42.093Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:34:42.094Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:34:42.094Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:34:42.095Z] [INFO] ============================================================
+[2026-03-29T10:35:29.230Z] [INFO] Database connection established successfully
+[2026-03-29T10:35:29.231Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:35:29.232Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:35:29.234Z] [INFO] ============================================================
+[2026-03-29T10:35:29.235Z] [INFO] 🚀 Server Running
+[2026-03-29T10:35:29.236Z] [INFO] ============================================================
+[2026-03-29T10:35:29.236Z] [INFO] Environment: development
+[2026-03-29T10:35:29.237Z] [INFO] Port: 3003
+[2026-03-29T10:35:29.237Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:35:29.238Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:35:29.238Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:35:29.239Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:35:29.240Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:35:29.241Z] [INFO] ============================================================
+[2026-03-29T10:35:43.186Z] [INFO] Database connection established successfully
+[2026-03-29T10:35:43.187Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:35:43.188Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:35:43.190Z] [INFO] ============================================================
+[2026-03-29T10:35:43.191Z] [INFO] 🚀 Server Running
+[2026-03-29T10:35:43.191Z] [INFO] ============================================================
+[2026-03-29T10:35:43.192Z] [INFO] Environment: development
+[2026-03-29T10:35:43.193Z] [INFO] Port: 3003
+[2026-03-29T10:35:43.193Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:35:43.194Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:35:43.195Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:35:43.196Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:35:43.196Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:35:43.197Z] [INFO] ============================================================
+[2026-03-29T10:37:11.203Z] [INFO] Database connection established successfully
+[2026-03-29T10:37:11.204Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:37:11.205Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:37:11.211Z] [INFO] ============================================================
+[2026-03-29T10:37:11.213Z] [INFO] 🚀 Server Running
+[2026-03-29T10:37:11.214Z] [INFO] ============================================================
+[2026-03-29T10:37:11.215Z] [INFO] Environment: development
+[2026-03-29T10:37:11.216Z] [INFO] Port: 3003
+[2026-03-29T10:37:11.217Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:37:11.217Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:37:11.218Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:37:11.219Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:37:11.219Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:37:11.220Z] [INFO] ============================================================
+[2026-03-29T10:38:27.616Z] [INFO] Database connection established successfully
+[2026-03-29T10:38:27.620Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:38:27.620Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:38:27.624Z] [INFO] ============================================================
+[2026-03-29T10:38:27.625Z] [INFO] 🚀 Server Running
+[2026-03-29T10:38:27.626Z] [INFO] ============================================================
+[2026-03-29T10:38:27.628Z] [INFO] Environment: development
+[2026-03-29T10:38:27.629Z] [INFO] Port: 3003
+[2026-03-29T10:38:27.630Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:38:27.631Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:38:27.631Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:38:27.632Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:38:27.633Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:38:27.633Z] [INFO] ============================================================
+[2026-03-29T10:41:32.874Z] [INFO] Database connection established successfully
+[2026-03-29T10:41:32.878Z] [INFO] Session cleanup service initialized
+[2026-03-29T10:41:32.879Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T10:41:32.884Z] [INFO] ============================================================
+[2026-03-29T10:41:32.884Z] [INFO] 🚀 Server Running
+[2026-03-29T10:41:32.886Z] [INFO] ============================================================
+[2026-03-29T10:41:32.887Z] [INFO] Environment: development
+[2026-03-29T10:41:32.887Z] [INFO] Port: 3003
+[2026-03-29T10:41:32.888Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T10:41:32.889Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T10:41:32.889Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T10:41:32.890Z] [INFO] SSO Enabled: Yes
+[2026-03-29T10:41:32.891Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T10:41:32.892Z] [INFO] ============================================================
+[2026-03-29T13:32:29.400Z] [INFO] Database connection established successfully
+[2026-03-29T13:32:29.402Z] [INFO] Session cleanup service initialized
+[2026-03-29T13:32:29.404Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T13:32:29.413Z] [INFO] ============================================================
+[2026-03-29T13:32:29.414Z] [INFO] 🚀 Server Running
+[2026-03-29T13:32:29.415Z] [INFO] ============================================================
+[2026-03-29T13:32:29.417Z] [INFO] Environment: development
+[2026-03-29T13:32:29.418Z] [INFO] Port: 3003
+[2026-03-29T13:32:29.419Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T13:32:29.421Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T13:32:29.422Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T13:32:29.424Z] [INFO] SSO Enabled: Yes
+[2026-03-29T13:32:29.425Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T13:32:29.426Z] [INFO] ============================================================
+[2026-03-29T13:33:29.384Z] [INFO] Database connection established successfully
+[2026-03-29T13:33:29.389Z] [INFO] Session cleanup service initialized
+[2026-03-29T13:33:29.392Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T13:33:29.411Z] [INFO] ============================================================
+[2026-03-29T13:33:29.415Z] [INFO] 🚀 Server Running
+[2026-03-29T13:33:29.418Z] [INFO] ============================================================
+[2026-03-29T13:33:29.422Z] [INFO] Environment: development
+[2026-03-29T13:33:29.425Z] [INFO] Port: 3003
+[2026-03-29T13:33:29.428Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T13:33:29.431Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T13:33:29.435Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T13:33:29.440Z] [INFO] SSO Enabled: Yes
+[2026-03-29T13:33:29.443Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T13:33:29.447Z] [INFO] ============================================================
+[2026-03-29T13:34:43.135Z] [INFO] Database connection established successfully
+[2026-03-29T13:34:43.141Z] [INFO] Session cleanup service initialized
+[2026-03-29T13:34:43.143Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T13:34:43.158Z] [INFO] ============================================================
+[2026-03-29T13:34:43.160Z] [INFO] 🚀 Server Running
+[2026-03-29T13:34:43.162Z] [INFO] ============================================================
+[2026-03-29T13:34:43.164Z] [INFO] Environment: development
+[2026-03-29T13:34:43.166Z] [INFO] Port: 3003
+[2026-03-29T13:34:43.169Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T13:34:43.170Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T13:34:43.172Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T13:34:43.175Z] [INFO] SSO Enabled: Yes
+[2026-03-29T13:34:43.178Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T13:34:43.179Z] [INFO] ============================================================
+[2026-03-29T13:42:29.055Z] [INFO] Database connection established successfully
+[2026-03-29T13:42:29.059Z] [INFO] Session cleanup service initialized
+[2026-03-29T13:42:29.062Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T13:42:29.082Z] [INFO] ============================================================
+[2026-03-29T13:42:29.085Z] [INFO] 🚀 Server Running
+[2026-03-29T13:42:29.088Z] [INFO] ============================================================
+[2026-03-29T13:42:29.093Z] [INFO] Environment: development
+[2026-03-29T13:42:29.096Z] [INFO] Port: 3003
+[2026-03-29T13:42:29.098Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T13:42:29.100Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T13:42:29.105Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T13:42:29.109Z] [INFO] SSO Enabled: Yes
+[2026-03-29T13:42:29.113Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T13:42:29.116Z] [INFO] ============================================================
+[2026-03-29T13:46:32.153Z] [INFO] SIGINT received, shutting down gracefully
+[2026-03-29T13:47:01.436Z] [INFO] Database connection established successfully
+[2026-03-29T13:47:01.440Z] [INFO] Session cleanup service initialized
+[2026-03-29T13:47:01.443Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T13:47:01.464Z] [INFO] ============================================================
+[2026-03-29T13:47:01.467Z] [INFO] 🚀 Server Running
+[2026-03-29T13:47:01.471Z] [INFO] ============================================================
+[2026-03-29T13:47:01.474Z] [INFO] Environment: development
+[2026-03-29T13:47:01.479Z] [INFO] Port: 3003
+[2026-03-29T13:47:01.483Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T13:47:01.491Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T13:47:01.495Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T13:47:01.498Z] [INFO] SSO Enabled: Yes
+[2026-03-29T13:47:01.501Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T13:47:01.504Z] [INFO] ============================================================
+[2026-03-29T13:50:17.805Z] [INFO] Database connection established successfully
+[2026-03-29T13:50:17.807Z] [INFO] Session cleanup service initialized
+[2026-03-29T13:50:17.808Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T13:50:17.818Z] [INFO] ============================================================
+[2026-03-29T13:50:17.821Z] [INFO] 🚀 Server Running
+[2026-03-29T13:50:17.822Z] [INFO] ============================================================
+[2026-03-29T13:50:17.823Z] [INFO] Environment: development
+[2026-03-29T13:50:17.825Z] [INFO] Port: 3003
+[2026-03-29T13:50:17.827Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T13:50:17.828Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T13:50:17.829Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T13:50:17.830Z] [INFO] SSO Enabled: Yes
+[2026-03-29T13:50:17.832Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T13:50:17.834Z] [INFO] ============================================================
+[2026-03-29T13:50:40.367Z] [INFO] Database connection established successfully
+[2026-03-29T13:50:40.370Z] [INFO] Session cleanup service initialized
+[2026-03-29T13:50:40.372Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-29T13:50:40.385Z] [INFO] ============================================================
+[2026-03-29T13:50:40.388Z] [INFO] 🚀 Server Running
+[2026-03-29T13:50:40.392Z] [INFO] ============================================================
+[2026-03-29T13:50:40.395Z] [INFO] Environment: development
+[2026-03-29T13:50:40.398Z] [INFO] Port: 3003
+[2026-03-29T13:50:40.400Z] [INFO] API URL: http://localhost:3003
+[2026-03-29T13:50:40.405Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-29T13:50:40.408Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-29T13:50:40.411Z] [INFO] SSO Enabled: Yes
+[2026-03-29T13:50:40.415Z] [INFO] BwengePlus URL: Not configured
+[2026-03-29T13:50:40.418Z] [INFO] ============================================================
+[2026-03-30T18:39:12.325Z] [INFO] Database connection established successfully
+[2026-03-30T18:39:12.327Z] [INFO] Session cleanup service initialized
+[2026-03-30T18:39:12.327Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-30T18:39:12.330Z] [INFO] ============================================================
+[2026-03-30T18:39:12.331Z] [INFO] 🚀 Server Running
+[2026-03-30T18:39:12.332Z] [INFO] ============================================================
+[2026-03-30T18:39:12.332Z] [INFO] Environment: development
+[2026-03-30T18:39:12.333Z] [INFO] Port: 3003
+[2026-03-30T18:39:12.334Z] [INFO] API URL: http://localhost:3003
+[2026-03-30T18:39:12.335Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-30T18:39:12.335Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-30T18:39:12.336Z] [INFO] SSO Enabled: Yes
+[2026-03-30T18:39:12.337Z] [INFO] BwengePlus URL: Not configured
+[2026-03-30T18:39:12.338Z] [INFO] ============================================================
+[2026-03-30T20:33:49.396Z] [INFO] SIGINT received, shutting down gracefully
+[2026-03-31T06:55:38.201Z] [INFO] Database connection established successfully
+[2026-03-31T06:55:38.204Z] [INFO] Session cleanup service initialized
+[2026-03-31T06:55:38.214Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-31T06:55:38.237Z] [INFO] ============================================================
+[2026-03-31T06:55:38.245Z] [INFO] 🚀 Server Running
+[2026-03-31T06:55:38.250Z] [INFO] ============================================================
+[2026-03-31T06:55:38.254Z] [INFO] Environment: development
+[2026-03-31T06:55:38.259Z] [INFO] Port: 3003
+[2026-03-31T06:55:38.261Z] [INFO] API URL: http://localhost:3003
+[2026-03-31T06:55:38.263Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-31T06:55:38.265Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-31T06:55:38.267Z] [INFO] SSO Enabled: Yes
+[2026-03-31T06:55:38.270Z] [INFO] BwengePlus URL: Not configured
+[2026-03-31T06:55:38.271Z] [INFO] ============================================================
+[2026-03-31T12:38:20.028Z] [INFO] Database connection established successfully
+[2026-03-31T12:38:20.030Z] [INFO] Session cleanup service initialized
+[2026-03-31T12:38:20.031Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-31T12:38:20.040Z] [INFO] ============================================================
+[2026-03-31T12:38:20.048Z] [INFO] 🚀 Server Running
+[2026-03-31T12:38:20.051Z] [INFO] ============================================================
+[2026-03-31T12:38:20.052Z] [INFO] Environment: development
+[2026-03-31T12:38:20.053Z] [INFO] Port: 3003
+[2026-03-31T12:38:20.054Z] [INFO] API URL: http://localhost:3003
+[2026-03-31T12:38:20.057Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-31T12:38:20.061Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-31T12:38:20.064Z] [INFO] SSO Enabled: Yes
+[2026-03-31T12:38:20.067Z] [INFO] BwengePlus URL: Not configured
+[2026-03-31T12:38:20.068Z] [INFO] ============================================================
+[2026-03-31T14:16:06.873Z] [INFO] Database connection established successfully
+[2026-03-31T14:16:06.875Z] [INFO] Session cleanup service initialized
+[2026-03-31T14:16:06.875Z] [INFO] Socket.IO handlers initialized successfully
+[2026-03-31T14:16:06.881Z] [INFO] ============================================================
+[2026-03-31T14:16:06.882Z] [INFO] 🚀 Server Running
+[2026-03-31T14:16:06.883Z] [INFO] ============================================================
+[2026-03-31T14:16:06.884Z] [INFO] Environment: development
+[2026-03-31T14:16:06.884Z] [INFO] Port: 3003
+[2026-03-31T14:16:06.885Z] [INFO] API URL: http://localhost:3003
+[2026-03-31T14:16:06.886Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-03-31T14:16:06.886Z] [INFO] Socket.IO Path: /socket.io/
+[2026-03-31T14:16:06.887Z] [INFO] SSO Enabled: Yes
+[2026-03-31T14:16:06.888Z] [INFO] BwengePlus URL: Not configured
+[2026-03-31T14:16:06.889Z] [INFO] ============================================================
+[2026-04-01T17:12:58.609Z] [INFO] Database connection established successfully
+[2026-04-01T17:12:58.634Z] [INFO] Session cleanup service initialized
+[2026-04-01T17:12:58.649Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-01T17:12:58.681Z] [INFO] ============================================================
+[2026-04-01T17:12:58.694Z] [INFO] 🚀 Server Running
+[2026-04-01T17:12:58.745Z] [INFO] ============================================================
+[2026-04-01T17:12:58.757Z] [INFO] Environment: development
+[2026-04-01T17:12:58.762Z] [INFO] Port: 3003
+[2026-04-01T17:12:58.779Z] [INFO] API URL: http://localhost:3003
+[2026-04-01T17:12:58.799Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-01T17:12:58.811Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-01T17:12:58.815Z] [INFO] SSO Enabled: Yes
+[2026-04-01T17:12:58.824Z] [INFO] BwengePlus URL: Not configured
+[2026-04-01T17:12:58.855Z] [INFO] ============================================================
+[2026-04-01T18:26:56.634Z] [INFO] SIGINT received, shutting down gracefully
+[2026-04-01T18:26:56.672Z] [INFO] HTTP server closed
+[2026-04-01T18:27:23.301Z] [INFO] Database connection established successfully
+[2026-04-01T18:27:23.304Z] [INFO] Session cleanup service initialized
+[2026-04-01T18:27:23.306Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-01T18:27:23.322Z] [INFO] ============================================================
+[2026-04-01T18:27:23.325Z] [INFO] 🚀 Server Running
+[2026-04-01T18:27:23.328Z] [INFO] ============================================================
+[2026-04-01T18:27:23.330Z] [INFO] Environment: development
+[2026-04-01T18:27:23.333Z] [INFO] Port: 3003
+[2026-04-01T18:27:23.336Z] [INFO] API URL: http://localhost:3003
+[2026-04-01T18:27:23.338Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-01T18:27:23.342Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-01T18:27:23.346Z] [INFO] SSO Enabled: Yes
+[2026-04-01T18:27:23.348Z] [INFO] BwengePlus URL: Not configured
+[2026-04-01T18:27:23.350Z] [INFO] ============================================================
+[2026-04-02T06:59:08.943Z] [INFO] Database connection established successfully
+[2026-04-02T06:59:08.946Z] [INFO] Session cleanup service initialized
+[2026-04-02T06:59:08.948Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-02T06:59:08.996Z] [INFO] ============================================================
+[2026-04-02T06:59:09.004Z] [INFO] 🚀 Server Running
+[2026-04-02T06:59:09.008Z] [INFO] ============================================================
+[2026-04-02T06:59:09.012Z] [INFO] Environment: development
+[2026-04-02T06:59:09.030Z] [INFO] Port: 3003
+[2026-04-02T06:59:09.035Z] [INFO] API URL: http://localhost:3003
+[2026-04-02T06:59:09.039Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-02T06:59:09.045Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-02T06:59:09.052Z] [INFO] SSO Enabled: Yes
+[2026-04-02T06:59:09.056Z] [INFO] BwengePlus URL: Not configured
+[2026-04-02T06:59:09.065Z] [INFO] ============================================================
+[2026-04-02T12:20:44.065Z] [INFO] Database connection established successfully
+[2026-04-02T12:20:44.069Z] [INFO] Session cleanup service initialized
+[2026-04-02T12:20:44.071Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-02T12:20:44.083Z] [INFO] ============================================================
+[2026-04-02T12:20:44.085Z] [INFO] 🚀 Server Running
+[2026-04-02T12:20:44.087Z] [INFO] ============================================================
+[2026-04-02T12:20:44.091Z] [INFO] Environment: development
+[2026-04-02T12:20:44.092Z] [INFO] Port: 3003
+[2026-04-02T12:20:44.093Z] [INFO] API URL: http://localhost:3003
+[2026-04-02T12:20:44.094Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-02T12:20:44.095Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-02T12:20:44.095Z] [INFO] SSO Enabled: Yes
+[2026-04-02T12:20:44.097Z] [INFO] BwengePlus URL: Not configured
+[2026-04-02T12:20:44.098Z] [INFO] ============================================================
+[2026-04-03T15:32:41.803Z] [INFO] Database connection established successfully
+[2026-04-03T15:32:41.805Z] [INFO] Session cleanup service initialized
+[2026-04-03T15:32:41.806Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-03T15:32:41.812Z] [INFO] ============================================================
+[2026-04-03T15:32:41.813Z] [INFO] 🚀 Server Running
+[2026-04-03T15:32:41.814Z] [INFO] ============================================================
+[2026-04-03T15:32:41.814Z] [INFO] Environment: development
+[2026-04-03T15:32:41.815Z] [INFO] Port: 3003
+[2026-04-03T15:32:41.816Z] [INFO] API URL: http://localhost:3003
+[2026-04-03T15:32:41.816Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-03T15:32:41.817Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-03T15:32:41.817Z] [INFO] SSO Enabled: Yes
+[2026-04-03T15:32:41.818Z] [INFO] BwengePlus URL: Not configured
+[2026-04-03T15:32:41.818Z] [INFO] ============================================================
+[2026-04-03T18:51:41.216Z] [INFO] Database connection established successfully
+[2026-04-03T18:51:41.223Z] [INFO] Session cleanup service initialized
+[2026-04-03T18:51:41.230Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-03T18:51:41.258Z] [INFO] ============================================================
+[2026-04-03T18:51:41.259Z] [INFO] 🚀 Server Running
+[2026-04-03T18:51:41.260Z] [INFO] ============================================================
+[2026-04-03T18:51:41.262Z] [INFO] Environment: development
+[2026-04-03T18:51:41.263Z] [INFO] Port: 3003
+[2026-04-03T18:51:41.270Z] [INFO] API URL: http://localhost:3003
+[2026-04-03T18:51:41.271Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-03T18:51:41.272Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-03T18:51:41.273Z] [INFO] SSO Enabled: Yes
+[2026-04-03T18:51:41.274Z] [INFO] BwengePlus URL: Not configured
+[2026-04-03T18:51:41.274Z] [INFO] ============================================================
+[2026-04-03T18:51:53.934Z] [INFO] Database connection established successfully
+[2026-04-03T18:51:53.936Z] [INFO] Session cleanup service initialized
+[2026-04-03T18:51:53.938Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-03T18:51:53.947Z] [INFO] ============================================================
+[2026-04-03T18:51:53.949Z] [INFO] 🚀 Server Running
+[2026-04-03T18:51:53.952Z] [INFO] ============================================================
+[2026-04-03T18:51:53.954Z] [INFO] Environment: development
+[2026-04-03T18:51:53.955Z] [INFO] Port: 3003
+[2026-04-03T18:51:53.957Z] [INFO] API URL: http://localhost:3003
+[2026-04-03T18:51:53.959Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-03T18:51:53.961Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-03T18:51:53.963Z] [INFO] SSO Enabled: Yes
+[2026-04-03T18:51:53.965Z] [INFO] BwengePlus URL: Not configured
+[2026-04-03T18:51:53.967Z] [INFO] ============================================================
+[2026-04-03T18:53:30.142Z] [INFO] Database connection established successfully
+[2026-04-03T18:53:30.146Z] [INFO] Session cleanup service initialized
+[2026-04-03T18:53:30.150Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-03T18:53:30.168Z] [INFO] ============================================================
+[2026-04-03T18:53:30.172Z] [INFO] 🚀 Server Running
+[2026-04-03T18:53:30.175Z] [INFO] ============================================================
+[2026-04-03T18:53:30.184Z] [INFO] Environment: development
+[2026-04-03T18:53:30.190Z] [INFO] Port: 3003
+[2026-04-03T18:53:30.201Z] [INFO] API URL: http://localhost:3003
+[2026-04-03T18:53:30.207Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-03T18:53:30.214Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-03T18:53:30.221Z] [INFO] SSO Enabled: Yes
+[2026-04-03T18:53:30.227Z] [INFO] BwengePlus URL: Not configured
+[2026-04-03T18:53:30.236Z] [INFO] ============================================================
+[2026-04-03T18:54:38.092Z] [INFO] Database connection established successfully
+[2026-04-03T18:54:38.094Z] [INFO] Session cleanup service initialized
+[2026-04-03T18:54:38.096Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-03T18:54:38.102Z] [INFO] ============================================================
+[2026-04-03T18:54:38.104Z] [INFO] 🚀 Server Running
+[2026-04-03T18:54:38.105Z] [INFO] ============================================================
+[2026-04-03T18:54:38.106Z] [INFO] Environment: development
+[2026-04-03T18:54:38.108Z] [INFO] Port: 3003
+[2026-04-03T18:54:38.109Z] [INFO] API URL: http://localhost:3003
+[2026-04-03T18:54:38.111Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-03T18:54:38.112Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-03T18:54:38.114Z] [INFO] SSO Enabled: Yes
+[2026-04-03T18:54:38.115Z] [INFO] BwengePlus URL: Not configured
+[2026-04-03T18:54:38.117Z] [INFO] ============================================================
+[2026-04-03T18:55:15.317Z] [INFO] Database connection established successfully
+[2026-04-03T18:55:15.320Z] [INFO] Session cleanup service initialized
+[2026-04-03T18:55:15.322Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-03T18:55:15.336Z] [INFO] ============================================================
+[2026-04-03T18:55:15.340Z] [INFO] 🚀 Server Running
+[2026-04-03T18:55:15.342Z] [INFO] ============================================================
+[2026-04-03T18:55:15.347Z] [INFO] Environment: development
+[2026-04-03T18:55:15.350Z] [INFO] Port: 3003
+[2026-04-03T18:55:15.354Z] [INFO] API URL: http://localhost:3003
+[2026-04-03T18:55:15.359Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-03T18:55:15.362Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-03T18:55:15.366Z] [INFO] SSO Enabled: Yes
+[2026-04-03T18:55:15.370Z] [INFO] BwengePlus URL: Not configured
+[2026-04-03T18:55:15.374Z] [INFO] ============================================================
+[2026-04-03T19:17:59.850Z] [INFO] SIGINT received, shutting down gracefully
+[2026-04-03T19:17:59.860Z] [INFO] HTTP server closed
+[2026-04-04T07:02:39.593Z] [INFO] Database connection established successfully
+[2026-04-04T07:02:39.601Z] [INFO] Session cleanup service initialized
+[2026-04-04T07:02:39.603Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T07:02:39.615Z] [INFO] ============================================================
+[2026-04-04T07:02:39.616Z] [INFO] 🚀 Server Running
+[2026-04-04T07:02:39.618Z] [INFO] ============================================================
+[2026-04-04T07:02:39.619Z] [INFO] Environment: development
+[2026-04-04T07:02:39.620Z] [INFO] Port: 3003
+[2026-04-04T07:02:39.621Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T07:02:39.622Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T07:02:39.625Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T07:02:39.626Z] [INFO] SSO Enabled: Yes
+[2026-04-04T07:02:39.628Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T07:02:39.630Z] [INFO] ============================================================
+[2026-04-04T07:31:59.484Z] [INFO] Database connection established successfully
+[2026-04-04T07:31:59.492Z] [INFO] Session cleanup service initialized
+[2026-04-04T07:31:59.494Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T07:31:59.518Z] [INFO] ============================================================
+[2026-04-04T07:31:59.522Z] [INFO] 🚀 Server Running
+[2026-04-04T07:31:59.527Z] [INFO] ============================================================
+[2026-04-04T07:31:59.530Z] [INFO] Environment: development
+[2026-04-04T07:31:59.533Z] [INFO] Port: 3003
+[2026-04-04T07:31:59.536Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T07:31:59.539Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T07:31:59.541Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T07:31:59.544Z] [INFO] SSO Enabled: Yes
+[2026-04-04T07:31:59.545Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T07:31:59.547Z] [INFO] ============================================================
+[2026-04-04T08:03:58.632Z] [INFO] Database connection established successfully
+[2026-04-04T08:03:58.633Z] [INFO] Session cleanup service initialized
+[2026-04-04T08:03:58.634Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T08:03:58.637Z] [INFO] ============================================================
+[2026-04-04T08:03:58.639Z] [INFO] 🚀 Server Running
+[2026-04-04T08:03:58.640Z] [INFO] ============================================================
+[2026-04-04T08:03:58.641Z] [INFO] Environment: development
+[2026-04-04T08:03:58.642Z] [INFO] Port: 3003
+[2026-04-04T08:03:58.643Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T08:03:58.644Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T08:03:58.644Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T08:03:58.645Z] [INFO] SSO Enabled: Yes
+[2026-04-04T08:03:58.646Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T08:03:58.646Z] [INFO] ============================================================
+[2026-04-04T08:05:19.547Z] [INFO] Database connection established successfully
+[2026-04-04T08:05:19.548Z] [INFO] Session cleanup service initialized
+[2026-04-04T08:05:19.548Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T08:05:19.552Z] [INFO] ============================================================
+[2026-04-04T08:05:19.553Z] [INFO] 🚀 Server Running
+[2026-04-04T08:05:19.554Z] [INFO] ============================================================
+[2026-04-04T08:05:19.554Z] [INFO] Environment: development
+[2026-04-04T08:05:19.555Z] [INFO] Port: 3003
+[2026-04-04T08:05:19.556Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T08:05:19.557Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T08:05:19.558Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T08:05:19.559Z] [INFO] SSO Enabled: Yes
+[2026-04-04T08:05:19.560Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T08:05:19.561Z] [INFO] ============================================================
+[2026-04-04T08:06:01.859Z] [INFO] Database connection established successfully
+[2026-04-04T08:06:01.860Z] [INFO] Session cleanup service initialized
+[2026-04-04T08:06:01.861Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T08:06:01.865Z] [INFO] ============================================================
+[2026-04-04T08:06:01.866Z] [INFO] 🚀 Server Running
+[2026-04-04T08:06:01.867Z] [INFO] ============================================================
+[2026-04-04T08:06:01.868Z] [INFO] Environment: development
+[2026-04-04T08:06:01.870Z] [INFO] Port: 3003
+[2026-04-04T08:06:01.871Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T08:06:01.872Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T08:06:01.873Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T08:06:01.873Z] [INFO] SSO Enabled: Yes
+[2026-04-04T08:06:01.874Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T08:06:01.874Z] [INFO] ============================================================
+[2026-04-04T08:06:17.047Z] [INFO] Database connection established successfully
+[2026-04-04T08:06:17.050Z] [INFO] Session cleanup service initialized
+[2026-04-04T08:06:17.052Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T08:06:17.063Z] [INFO] ============================================================
+[2026-04-04T08:06:17.065Z] [INFO] 🚀 Server Running
+[2026-04-04T08:06:17.066Z] [INFO] ============================================================
+[2026-04-04T08:06:17.067Z] [INFO] Environment: development
+[2026-04-04T08:06:17.068Z] [INFO] Port: 3003
+[2026-04-04T08:06:17.068Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T08:06:17.069Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T08:06:17.071Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T08:06:17.072Z] [INFO] SSO Enabled: Yes
+[2026-04-04T08:06:17.072Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T08:06:17.073Z] [INFO] ============================================================
+[2026-04-04T08:06:39.539Z] [INFO] Database connection established successfully
+[2026-04-04T08:06:39.539Z] [INFO] Session cleanup service initialized
+[2026-04-04T08:06:39.540Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T08:06:39.545Z] [INFO] ============================================================
+[2026-04-04T08:06:39.546Z] [INFO] 🚀 Server Running
+[2026-04-04T08:06:39.547Z] [INFO] ============================================================
+[2026-04-04T08:06:39.547Z] [INFO] Environment: development
+[2026-04-04T08:06:39.548Z] [INFO] Port: 3003
+[2026-04-04T08:06:39.549Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T08:06:39.549Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T08:06:39.550Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T08:06:39.550Z] [INFO] SSO Enabled: Yes
+[2026-04-04T08:06:39.551Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T08:06:39.551Z] [INFO] ============================================================
+[2026-04-04T08:06:44.956Z] [INFO] Database connection established successfully
+[2026-04-04T08:06:44.956Z] [INFO] Session cleanup service initialized
+[2026-04-04T08:06:44.957Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T08:06:44.960Z] [INFO] ============================================================
+[2026-04-04T08:06:44.961Z] [INFO] 🚀 Server Running
+[2026-04-04T08:06:44.962Z] [INFO] ============================================================
+[2026-04-04T08:06:44.962Z] [INFO] Environment: development
+[2026-04-04T08:06:44.963Z] [INFO] Port: 3003
+[2026-04-04T08:06:44.963Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T08:06:44.964Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T08:06:44.964Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T08:06:44.965Z] [INFO] SSO Enabled: Yes
+[2026-04-04T08:06:44.965Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T08:06:44.966Z] [INFO] ============================================================
+[2026-04-04T08:07:47.958Z] [INFO] Database connection established successfully
+[2026-04-04T08:07:47.959Z] [INFO] Session cleanup service initialized
+[2026-04-04T08:07:47.961Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T08:07:47.967Z] [INFO] ============================================================
+[2026-04-04T08:07:47.969Z] [INFO] 🚀 Server Running
+[2026-04-04T08:07:47.970Z] [INFO] ============================================================
+[2026-04-04T08:07:47.971Z] [INFO] Environment: development
+[2026-04-04T08:07:47.972Z] [INFO] Port: 3003
+[2026-04-04T08:07:47.973Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T08:07:47.974Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T08:07:47.975Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T08:07:47.976Z] [INFO] SSO Enabled: Yes
+[2026-04-04T08:07:47.977Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T08:07:47.978Z] [INFO] ============================================================
+[2026-04-04T09:47:25.929Z] [INFO] Database connection established successfully
+[2026-04-04T09:47:25.931Z] [INFO] Session cleanup service initialized
+[2026-04-04T09:47:25.932Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T09:47:25.941Z] [INFO] ============================================================
+[2026-04-04T09:47:25.944Z] [INFO] 🚀 Server Running
+[2026-04-04T09:47:25.945Z] [INFO] ============================================================
+[2026-04-04T09:47:25.947Z] [INFO] Environment: development
+[2026-04-04T09:47:25.948Z] [INFO] Port: 3003
+[2026-04-04T09:47:25.949Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T09:47:25.950Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T09:47:25.950Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T09:47:25.951Z] [INFO] SSO Enabled: Yes
+[2026-04-04T09:47:25.952Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T09:47:25.952Z] [INFO] ============================================================
+[2026-04-04T09:47:44.270Z] [INFO] Database connection established successfully
+[2026-04-04T09:47:44.271Z] [INFO] Session cleanup service initialized
+[2026-04-04T09:47:44.272Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T09:47:44.279Z] [INFO] ============================================================
+[2026-04-04T09:47:44.280Z] [INFO] 🚀 Server Running
+[2026-04-04T09:47:44.281Z] [INFO] ============================================================
+[2026-04-04T09:47:44.282Z] [INFO] Environment: development
+[2026-04-04T09:47:44.282Z] [INFO] Port: 3003
+[2026-04-04T09:47:44.283Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T09:47:44.284Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T09:47:44.286Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T09:47:44.287Z] [INFO] SSO Enabled: Yes
+[2026-04-04T09:47:44.288Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T09:47:44.288Z] [INFO] ============================================================
+[2026-04-04T10:18:57.955Z] [INFO] Database connection established successfully
+[2026-04-04T10:18:57.957Z] [INFO] Session cleanup service initialized
+[2026-04-04T10:18:57.957Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T10:18:57.962Z] [INFO] ============================================================
+[2026-04-04T10:18:57.962Z] [INFO] 🚀 Server Running
+[2026-04-04T10:18:57.964Z] [INFO] ============================================================
+[2026-04-04T10:18:57.965Z] [INFO] Environment: development
+[2026-04-04T10:18:57.966Z] [INFO] Port: 3003
+[2026-04-04T10:18:57.966Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T10:18:57.967Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T10:18:57.968Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T10:18:57.968Z] [INFO] SSO Enabled: Yes
+[2026-04-04T10:18:57.969Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T10:18:57.971Z] [INFO] ============================================================
+[2026-04-04T10:19:19.663Z] [INFO] Database connection established successfully
+[2026-04-04T10:19:19.664Z] [INFO] Session cleanup service initialized
+[2026-04-04T10:19:19.665Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T10:19:19.669Z] [INFO] ============================================================
+[2026-04-04T10:19:19.669Z] [INFO] 🚀 Server Running
+[2026-04-04T10:19:19.670Z] [INFO] ============================================================
+[2026-04-04T10:19:19.671Z] [INFO] Environment: development
+[2026-04-04T10:19:19.672Z] [INFO] Port: 3003
+[2026-04-04T10:19:19.673Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T10:19:19.674Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T10:19:19.675Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T10:19:19.675Z] [INFO] SSO Enabled: Yes
+[2026-04-04T10:19:19.676Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T10:19:19.677Z] [INFO] ============================================================
+[2026-04-04T10:19:47.285Z] [INFO] Database connection established successfully
+[2026-04-04T10:19:47.285Z] [INFO] Session cleanup service initialized
+[2026-04-04T10:19:47.286Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T10:19:47.290Z] [INFO] ============================================================
+[2026-04-04T10:19:47.291Z] [INFO] 🚀 Server Running
+[2026-04-04T10:19:47.292Z] [INFO] ============================================================
+[2026-04-04T10:19:47.292Z] [INFO] Environment: development
+[2026-04-04T10:19:47.293Z] [INFO] Port: 3003
+[2026-04-04T10:19:47.293Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T10:19:47.294Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T10:19:47.294Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T10:19:47.295Z] [INFO] SSO Enabled: Yes
+[2026-04-04T10:19:47.295Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T10:19:47.296Z] [INFO] ============================================================
+[2026-04-04T10:20:23.931Z] [INFO] Database connection established successfully
+[2026-04-04T10:20:23.934Z] [INFO] Session cleanup service initialized
+[2026-04-04T10:20:23.936Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T10:20:23.943Z] [INFO] ============================================================
+[2026-04-04T10:20:23.944Z] [INFO] 🚀 Server Running
+[2026-04-04T10:20:23.945Z] [INFO] ============================================================
+[2026-04-04T10:20:23.947Z] [INFO] Environment: development
+[2026-04-04T10:20:23.948Z] [INFO] Port: 3003
+[2026-04-04T10:20:23.950Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T10:20:23.953Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T10:20:23.955Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T10:20:23.956Z] [INFO] SSO Enabled: Yes
+[2026-04-04T10:20:23.957Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T10:20:23.957Z] [INFO] ============================================================
+[2026-04-04T10:20:33.620Z] [INFO] Database connection established successfully
+[2026-04-04T10:20:33.623Z] [INFO] Session cleanup service initialized
+[2026-04-04T10:20:33.624Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T10:20:33.644Z] [INFO] ============================================================
+[2026-04-04T10:20:33.647Z] [INFO] 🚀 Server Running
+[2026-04-04T10:20:33.654Z] [INFO] ============================================================
+[2026-04-04T10:20:33.657Z] [INFO] Environment: development
+[2026-04-04T10:20:33.661Z] [INFO] Port: 3003
+[2026-04-04T10:20:33.662Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T10:20:33.664Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T10:20:33.668Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T10:20:33.670Z] [INFO] SSO Enabled: Yes
+[2026-04-04T10:20:33.671Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T10:20:33.673Z] [INFO] ============================================================
+[2026-04-04T10:37:27.822Z] [INFO] Database connection established successfully
+[2026-04-04T10:37:27.823Z] [INFO] Session cleanup service initialized
+[2026-04-04T10:37:27.824Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T10:37:27.831Z] [INFO] ============================================================
+[2026-04-04T10:37:27.832Z] [INFO] 🚀 Server Running
+[2026-04-04T10:37:27.832Z] [INFO] ============================================================
+[2026-04-04T10:37:27.833Z] [INFO] Environment: development
+[2026-04-04T10:37:27.834Z] [INFO] Port: 3003
+[2026-04-04T10:37:27.835Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T10:37:27.835Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T10:37:27.836Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T10:37:27.836Z] [INFO] SSO Enabled: Yes
+[2026-04-04T10:37:27.837Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T10:37:27.838Z] [INFO] ============================================================
+[2026-04-04T10:55:55.911Z] [INFO] Database connection established successfully
+[2026-04-04T10:55:55.915Z] [INFO] Session cleanup service initialized
+[2026-04-04T10:55:55.921Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T10:55:55.958Z] [INFO] ============================================================
+[2026-04-04T10:55:55.960Z] [INFO] 🚀 Server Running
+[2026-04-04T10:55:55.972Z] [INFO] ============================================================
+[2026-04-04T10:55:55.975Z] [INFO] Environment: development
+[2026-04-04T10:55:55.977Z] [INFO] Port: 3003
+[2026-04-04T10:55:55.983Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T10:55:55.989Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T10:55:56.002Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T10:55:56.011Z] [INFO] SSO Enabled: Yes
+[2026-04-04T10:55:56.018Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T10:55:56.028Z] [INFO] ============================================================
+[2026-04-04T10:57:28.385Z] [INFO] Database connection established successfully
+[2026-04-04T10:57:28.386Z] [INFO] Session cleanup service initialized
+[2026-04-04T10:57:28.387Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T10:57:28.392Z] [INFO] ============================================================
+[2026-04-04T10:57:28.392Z] [INFO] 🚀 Server Running
+[2026-04-04T10:57:28.393Z] [INFO] ============================================================
+[2026-04-04T10:57:28.393Z] [INFO] Environment: development
+[2026-04-04T10:57:28.394Z] [INFO] Port: 3003
+[2026-04-04T10:57:28.394Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T10:57:28.395Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T10:57:28.396Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T10:57:28.397Z] [INFO] SSO Enabled: Yes
+[2026-04-04T10:57:28.397Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T10:57:28.398Z] [INFO] ============================================================
+[2026-04-04T10:57:36.465Z] [INFO] SIGINT received, shutting down gracefully
+[2026-04-04T10:57:36.468Z] [INFO] HTTP server closed
+[2026-04-04T10:57:53.874Z] [INFO] Database connection established successfully
+[2026-04-04T10:57:53.874Z] [INFO] Session cleanup service initialized
+[2026-04-04T10:57:53.875Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T10:57:53.877Z] [INFO] ============================================================
+[2026-04-04T10:57:53.878Z] [INFO] 🚀 Server Running
+[2026-04-04T10:57:53.878Z] [INFO] ============================================================
+[2026-04-04T10:57:53.879Z] [INFO] Environment: development
+[2026-04-04T10:57:53.879Z] [INFO] Port: 3003
+[2026-04-04T10:57:53.879Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T10:57:53.880Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T10:57:53.881Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T10:57:53.881Z] [INFO] SSO Enabled: Yes
+[2026-04-04T10:57:53.882Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T10:57:53.883Z] [INFO] ============================================================
+[2026-04-04T11:04:29.565Z] [INFO] Database connection established successfully
+[2026-04-04T11:04:29.566Z] [INFO] Session cleanup service initialized
+[2026-04-04T11:04:29.567Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T11:04:29.572Z] [INFO] ============================================================
+[2026-04-04T11:04:29.573Z] [INFO] 🚀 Server Running
+[2026-04-04T11:04:29.574Z] [INFO] ============================================================
+[2026-04-04T11:04:29.575Z] [INFO] Environment: development
+[2026-04-04T11:04:29.575Z] [INFO] Port: 3003
+[2026-04-04T11:04:29.576Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T11:04:29.576Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T11:04:29.577Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T11:04:29.578Z] [INFO] SSO Enabled: Yes
+[2026-04-04T11:04:29.579Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T11:04:29.580Z] [INFO] ============================================================
+[2026-04-04T12:09:04.698Z] [INFO] Database connection established successfully
+[2026-04-04T12:09:04.700Z] [INFO] Session cleanup service initialized
+[2026-04-04T12:09:04.701Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T12:09:04.707Z] [INFO] ============================================================
+[2026-04-04T12:09:04.708Z] [INFO] 🚀 Server Running
+[2026-04-04T12:09:04.709Z] [INFO] ============================================================
+[2026-04-04T12:09:04.709Z] [INFO] Environment: development
+[2026-04-04T12:09:04.710Z] [INFO] Port: 3003
+[2026-04-04T12:09:04.710Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T12:09:04.711Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T12:09:04.712Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T12:09:04.712Z] [INFO] SSO Enabled: Yes
+[2026-04-04T12:09:04.713Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T12:09:04.714Z] [INFO] ============================================================
+[2026-04-04T13:28:11.285Z] [INFO] Database connection established successfully
+[2026-04-04T13:28:11.287Z] [INFO] Session cleanup service initialized
+[2026-04-04T13:28:11.288Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T13:28:11.297Z] [INFO] ============================================================
+[2026-04-04T13:28:11.300Z] [INFO] 🚀 Server Running
+[2026-04-04T13:28:11.301Z] [INFO] ============================================================
+[2026-04-04T13:28:11.302Z] [INFO] Environment: development
+[2026-04-04T13:28:11.303Z] [INFO] Port: 3003
+[2026-04-04T13:28:11.304Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T13:28:11.305Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T13:28:11.306Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T13:28:11.307Z] [INFO] SSO Enabled: Yes
+[2026-04-04T13:28:11.308Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T13:28:11.309Z] [INFO] ============================================================
+[2026-04-04T13:38:33.495Z] [INFO] Database connection established successfully
+[2026-04-04T13:38:33.497Z] [INFO] Session cleanup service initialized
+[2026-04-04T13:38:33.499Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T13:38:33.510Z] [INFO] ============================================================
+[2026-04-04T13:38:33.512Z] [INFO] 🚀 Server Running
+[2026-04-04T13:38:33.514Z] [INFO] ============================================================
+[2026-04-04T13:38:33.515Z] [INFO] Environment: development
+[2026-04-04T13:38:33.517Z] [INFO] Port: 3003
+[2026-04-04T13:38:33.519Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T13:38:33.520Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T13:38:33.521Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T13:38:33.522Z] [INFO] SSO Enabled: Yes
+[2026-04-04T13:38:33.523Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T13:38:33.524Z] [INFO] ============================================================
+[2026-04-04T13:40:18.946Z] [INFO] Database connection established successfully
+[2026-04-04T13:40:18.948Z] [INFO] Session cleanup service initialized
+[2026-04-04T13:40:18.949Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T13:40:18.954Z] [INFO] ============================================================
+[2026-04-04T13:40:18.954Z] [INFO] 🚀 Server Running
+[2026-04-04T13:40:18.955Z] [INFO] ============================================================
+[2026-04-04T13:40:18.956Z] [INFO] Environment: development
+[2026-04-04T13:40:18.956Z] [INFO] Port: 3003
+[2026-04-04T13:40:18.957Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T13:40:18.958Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T13:40:18.959Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T13:40:18.959Z] [INFO] SSO Enabled: Yes
+[2026-04-04T13:40:18.960Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T13:40:18.961Z] [INFO] ============================================================
+[2026-04-04T13:40:33.162Z] [INFO] Database connection established successfully
+[2026-04-04T13:40:33.163Z] [INFO] Session cleanup service initialized
+[2026-04-04T13:40:33.165Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T13:40:33.174Z] [INFO] ============================================================
+[2026-04-04T13:40:33.174Z] [INFO] 🚀 Server Running
+[2026-04-04T13:40:33.175Z] [INFO] ============================================================
+[2026-04-04T13:40:33.176Z] [INFO] Environment: development
+[2026-04-04T13:40:33.176Z] [INFO] Port: 3003
+[2026-04-04T13:40:33.177Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T13:40:33.178Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T13:40:33.179Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T13:40:33.180Z] [INFO] SSO Enabled: Yes
+[2026-04-04T13:40:33.181Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T13:40:33.182Z] [INFO] ============================================================
+[2026-04-04T13:40:42.968Z] [INFO] Database connection established successfully
+[2026-04-04T13:40:42.968Z] [INFO] Session cleanup service initialized
+[2026-04-04T13:40:42.969Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T13:40:42.972Z] [INFO] ============================================================
+[2026-04-04T13:40:42.972Z] [INFO] 🚀 Server Running
+[2026-04-04T13:40:42.973Z] [INFO] ============================================================
+[2026-04-04T13:40:42.974Z] [INFO] Environment: development
+[2026-04-04T13:40:42.974Z] [INFO] Port: 3003
+[2026-04-04T13:40:42.975Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T13:40:42.975Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T13:40:42.976Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T13:40:42.976Z] [INFO] SSO Enabled: Yes
+[2026-04-04T13:40:42.977Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T13:40:42.977Z] [INFO] ============================================================
+[2026-04-04T13:52:25.126Z] [INFO] Database connection established successfully
+[2026-04-04T13:52:25.129Z] [INFO] Session cleanup service initialized
+[2026-04-04T13:52:25.130Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T13:52:25.140Z] [INFO] ============================================================
+[2026-04-04T13:52:25.141Z] [INFO] 🚀 Server Running
+[2026-04-04T13:52:25.142Z] [INFO] ============================================================
+[2026-04-04T13:52:25.143Z] [INFO] Environment: development
+[2026-04-04T13:52:25.144Z] [INFO] Port: 3003
+[2026-04-04T13:52:25.144Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T13:52:25.146Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T13:52:25.146Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T13:52:25.147Z] [INFO] SSO Enabled: Yes
+[2026-04-04T13:52:25.148Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T13:52:25.149Z] [INFO] ============================================================
+[2026-04-04T13:53:29.271Z] [INFO] Database connection established successfully
+[2026-04-04T13:53:29.272Z] [INFO] Session cleanup service initialized
+[2026-04-04T13:53:29.273Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T13:53:29.280Z] [INFO] ============================================================
+[2026-04-04T13:53:29.281Z] [INFO] 🚀 Server Running
+[2026-04-04T13:53:29.282Z] [INFO] ============================================================
+[2026-04-04T13:53:29.283Z] [INFO] Environment: development
+[2026-04-04T13:53:29.284Z] [INFO] Port: 3003
+[2026-04-04T13:53:29.284Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T13:53:29.285Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T13:53:29.287Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T13:53:29.288Z] [INFO] SSO Enabled: Yes
+[2026-04-04T13:53:29.289Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T13:53:29.289Z] [INFO] ============================================================
+[2026-04-04T13:54:22.962Z] [INFO] Database connection established successfully
+[2026-04-04T13:54:22.964Z] [INFO] Session cleanup service initialized
+[2026-04-04T13:54:22.965Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T13:54:22.977Z] [INFO] ============================================================
+[2026-04-04T13:54:22.980Z] [INFO] 🚀 Server Running
+[2026-04-04T13:54:22.981Z] [INFO] ============================================================
+[2026-04-04T13:54:22.990Z] [INFO] Environment: development
+[2026-04-04T13:54:22.991Z] [INFO] Port: 3003
+[2026-04-04T13:54:22.992Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T13:54:22.994Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T13:54:22.997Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T13:54:23.000Z] [INFO] SSO Enabled: Yes
+[2026-04-04T13:54:23.003Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T13:54:23.007Z] [INFO] ============================================================
+[2026-04-04T14:53:11.315Z] [INFO] Database connection established successfully
+[2026-04-04T14:53:11.329Z] [INFO] Session cleanup service initialized
+[2026-04-04T14:53:11.330Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T14:53:11.389Z] [INFO] ============================================================
+[2026-04-04T14:53:11.389Z] [INFO] 🚀 Server Running
+[2026-04-04T14:53:11.390Z] [INFO] ============================================================
+[2026-04-04T14:53:11.390Z] [INFO] Environment: development
+[2026-04-04T14:53:11.391Z] [INFO] Port: 3003
+[2026-04-04T14:53:11.391Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T14:53:11.391Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T14:53:11.392Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T14:53:11.392Z] [INFO] SSO Enabled: Yes
+[2026-04-04T14:53:11.393Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T14:53:11.393Z] [INFO] ============================================================
+[2026-04-04T15:18:42.251Z] [INFO] Database connection established successfully
+[2026-04-04T15:18:42.252Z] [INFO] Session cleanup service initialized
+[2026-04-04T15:18:42.253Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T15:18:42.258Z] [INFO] ============================================================
+[2026-04-04T15:18:42.259Z] [INFO] 🚀 Server Running
+[2026-04-04T15:18:42.259Z] [INFO] ============================================================
+[2026-04-04T15:18:42.260Z] [INFO] Environment: development
+[2026-04-04T15:18:42.261Z] [INFO] Port: 3003
+[2026-04-04T15:18:42.261Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T15:18:42.262Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T15:18:42.262Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T15:18:42.263Z] [INFO] SSO Enabled: Yes
+[2026-04-04T15:18:42.264Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T15:18:42.264Z] [INFO] ============================================================
+[2026-04-04T15:19:32.144Z] [INFO] Database connection established successfully
+[2026-04-04T15:19:32.145Z] [INFO] Session cleanup service initialized
+[2026-04-04T15:19:32.146Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T15:19:32.151Z] [INFO] ============================================================
+[2026-04-04T15:19:32.152Z] [INFO] 🚀 Server Running
+[2026-04-04T15:19:32.154Z] [INFO] ============================================================
+[2026-04-04T15:19:32.155Z] [INFO] Environment: development
+[2026-04-04T15:19:32.155Z] [INFO] Port: 3003
+[2026-04-04T15:19:32.156Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T15:19:32.157Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T15:19:32.157Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T15:19:32.158Z] [INFO] SSO Enabled: Yes
+[2026-04-04T15:19:32.159Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T15:19:32.160Z] [INFO] ============================================================
+[2026-04-04T15:19:46.549Z] [INFO] Database connection established successfully
+[2026-04-04T15:19:46.551Z] [INFO] Session cleanup service initialized
+[2026-04-04T15:19:46.554Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T15:19:46.566Z] [INFO] ============================================================
+[2026-04-04T15:19:46.567Z] [INFO] 🚀 Server Running
+[2026-04-04T15:19:46.568Z] [INFO] ============================================================
+[2026-04-04T15:19:46.569Z] [INFO] Environment: development
+[2026-04-04T15:19:46.570Z] [INFO] Port: 3003
+[2026-04-04T15:19:46.571Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T15:19:46.572Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T15:19:46.573Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T15:19:46.574Z] [INFO] SSO Enabled: Yes
+[2026-04-04T15:19:46.576Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T15:19:46.576Z] [INFO] ============================================================
+[2026-04-04T15:20:04.979Z] [INFO] Database connection established successfully
+[2026-04-04T15:20:04.981Z] [INFO] Session cleanup service initialized
+[2026-04-04T15:20:04.981Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T15:20:04.986Z] [INFO] ============================================================
+[2026-04-04T15:20:04.987Z] [INFO] 🚀 Server Running
+[2026-04-04T15:20:04.987Z] [INFO] ============================================================
+[2026-04-04T15:20:04.988Z] [INFO] Environment: development
+[2026-04-04T15:20:04.988Z] [INFO] Port: 3003
+[2026-04-04T15:20:04.989Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T15:20:04.989Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T15:20:04.990Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T15:20:04.990Z] [INFO] SSO Enabled: Yes
+[2026-04-04T15:20:04.991Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T15:20:04.992Z] [INFO] ============================================================
+[2026-04-04T15:20:44.565Z] [INFO] Database connection established successfully
+[2026-04-04T15:20:44.566Z] [INFO] Session cleanup service initialized
+[2026-04-04T15:20:44.567Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T15:20:44.571Z] [INFO] ============================================================
+[2026-04-04T15:20:44.572Z] [INFO] 🚀 Server Running
+[2026-04-04T15:20:44.572Z] [INFO] ============================================================
+[2026-04-04T15:20:44.573Z] [INFO] Environment: development
+[2026-04-04T15:20:44.573Z] [INFO] Port: 3003
+[2026-04-04T15:20:44.574Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T15:20:44.575Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T15:20:44.575Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T15:20:44.576Z] [INFO] SSO Enabled: Yes
+[2026-04-04T15:20:44.576Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T15:20:44.577Z] [INFO] ============================================================
+[2026-04-04T16:19:20.340Z] [INFO] Database connection established successfully
+[2026-04-04T16:19:20.342Z] [INFO] Session cleanup service initialized
+[2026-04-04T16:19:20.343Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T16:19:20.351Z] [INFO] ============================================================
+[2026-04-04T16:19:20.353Z] [INFO] 🚀 Server Running
+[2026-04-04T16:19:20.354Z] [INFO] ============================================================
+[2026-04-04T16:19:20.355Z] [INFO] Environment: development
+[2026-04-04T16:19:20.356Z] [INFO] Port: 3003
+[2026-04-04T16:19:20.357Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T16:19:20.358Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T16:19:20.359Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T16:19:20.361Z] [INFO] SSO Enabled: Yes
+[2026-04-04T16:19:20.362Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T16:19:20.363Z] [INFO] ============================================================
+[2026-04-04T16:19:51.167Z] [INFO] Database connection established successfully
+[2026-04-04T16:19:51.171Z] [INFO] Session cleanup service initialized
+[2026-04-04T16:19:51.173Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T16:19:51.192Z] [INFO] ============================================================
+[2026-04-04T16:19:51.195Z] [INFO] 🚀 Server Running
+[2026-04-04T16:19:51.199Z] [INFO] ============================================================
+[2026-04-04T16:19:51.203Z] [INFO] Environment: development
+[2026-04-04T16:19:51.207Z] [INFO] Port: 3003
+[2026-04-04T16:19:51.212Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T16:19:51.216Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T16:19:51.219Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T16:19:51.221Z] [INFO] SSO Enabled: Yes
+[2026-04-04T16:19:51.225Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T16:19:51.230Z] [INFO] ============================================================
+[2026-04-04T17:35:12.030Z] [INFO] Database connection established successfully
+[2026-04-04T17:35:12.031Z] [INFO] Session cleanup service initialized
+[2026-04-04T17:35:12.032Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T17:35:12.037Z] [INFO] ============================================================
+[2026-04-04T17:35:12.038Z] [INFO] 🚀 Server Running
+[2026-04-04T17:35:12.038Z] [INFO] ============================================================
+[2026-04-04T17:35:12.039Z] [INFO] Environment: development
+[2026-04-04T17:35:12.039Z] [INFO] Port: 3003
+[2026-04-04T17:35:12.040Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T17:35:12.041Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T17:35:12.042Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T17:35:12.043Z] [INFO] SSO Enabled: Yes
+[2026-04-04T17:35:12.044Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T17:35:12.045Z] [INFO] ============================================================
+[2026-04-04T17:49:13.504Z] [INFO] Database connection established successfully
+[2026-04-04T17:49:13.515Z] [INFO] Session cleanup service initialized
+[2026-04-04T17:49:13.516Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T17:49:13.585Z] [INFO] ============================================================
+[2026-04-04T17:49:13.586Z] [INFO] 🚀 Server Running
+[2026-04-04T17:49:13.587Z] [INFO] ============================================================
+[2026-04-04T17:49:13.587Z] [INFO] Environment: development
+[2026-04-04T17:49:13.588Z] [INFO] Port: 3003
+[2026-04-04T17:49:13.589Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T17:49:13.590Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T17:49:13.590Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T17:49:13.591Z] [INFO] SSO Enabled: Yes
+[2026-04-04T17:49:13.591Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T17:49:13.592Z] [INFO] ============================================================
+[2026-04-04T17:50:12.664Z] [INFO] Database connection established successfully
+[2026-04-04T17:50:12.666Z] [INFO] Session cleanup service initialized
+[2026-04-04T17:50:12.666Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T17:50:12.674Z] [INFO] ============================================================
+[2026-04-04T17:50:12.675Z] [INFO] 🚀 Server Running
+[2026-04-04T17:50:12.677Z] [INFO] ============================================================
+[2026-04-04T17:50:12.678Z] [INFO] Environment: development
+[2026-04-04T17:50:12.679Z] [INFO] Port: 3003
+[2026-04-04T17:50:12.680Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T17:50:12.681Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T17:50:12.682Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T17:50:12.683Z] [INFO] SSO Enabled: Yes
+[2026-04-04T17:50:12.685Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T17:50:12.689Z] [INFO] ============================================================
+[2026-04-04T18:48:15.263Z] [INFO] Database connection established successfully
+[2026-04-04T18:48:15.265Z] [INFO] Session cleanup service initialized
+[2026-04-04T18:48:15.267Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T18:48:15.281Z] [INFO] ============================================================
+[2026-04-04T18:48:15.282Z] [INFO] 🚀 Server Running
+[2026-04-04T18:48:15.291Z] [INFO] ============================================================
+[2026-04-04T18:48:15.294Z] [INFO] Environment: development
+[2026-04-04T18:48:15.295Z] [INFO] Port: 3003
+[2026-04-04T18:48:15.297Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T18:48:15.297Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T18:48:15.305Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T18:48:15.307Z] [INFO] SSO Enabled: Yes
+[2026-04-04T18:48:15.308Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T18:48:15.309Z] [INFO] ============================================================
+[2026-04-04T19:04:26.073Z] [INFO] Database connection established successfully
+[2026-04-04T19:04:26.076Z] [INFO] Session cleanup service initialized
+[2026-04-04T19:04:26.078Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T19:04:26.099Z] [INFO] ============================================================
+[2026-04-04T19:04:26.103Z] [INFO] 🚀 Server Running
+[2026-04-04T19:04:26.106Z] [INFO] ============================================================
+[2026-04-04T19:04:26.108Z] [INFO] Environment: development
+[2026-04-04T19:04:26.111Z] [INFO] Port: 3003
+[2026-04-04T19:04:26.117Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T19:04:26.119Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T19:04:26.120Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T19:04:26.122Z] [INFO] SSO Enabled: Yes
+[2026-04-04T19:04:26.123Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T19:04:26.125Z] [INFO] ============================================================
+[2026-04-04T19:06:00.500Z] [INFO] Database connection established successfully
+[2026-04-04T19:06:00.502Z] [INFO] Session cleanup service initialized
+[2026-04-04T19:06:00.503Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T19:06:00.512Z] [INFO] ============================================================
+[2026-04-04T19:06:00.513Z] [INFO] 🚀 Server Running
+[2026-04-04T19:06:00.514Z] [INFO] ============================================================
+[2026-04-04T19:06:00.515Z] [INFO] Environment: development
+[2026-04-04T19:06:00.517Z] [INFO] Port: 3003
+[2026-04-04T19:06:00.520Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T19:06:00.522Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T19:06:00.523Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T19:06:00.524Z] [INFO] SSO Enabled: Yes
+[2026-04-04T19:06:00.525Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T19:06:00.526Z] [INFO] ============================================================
+[2026-04-04T19:06:38.616Z] [INFO] Database connection established successfully
+[2026-04-04T19:06:38.621Z] [INFO] Session cleanup service initialized
+[2026-04-04T19:06:38.624Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T19:06:38.638Z] [INFO] ============================================================
+[2026-04-04T19:06:38.640Z] [INFO] 🚀 Server Running
+[2026-04-04T19:06:38.641Z] [INFO] ============================================================
+[2026-04-04T19:06:38.644Z] [INFO] Environment: development
+[2026-04-04T19:06:38.650Z] [INFO] Port: 3003
+[2026-04-04T19:06:38.652Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T19:06:38.657Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T19:06:38.665Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T19:06:38.668Z] [INFO] SSO Enabled: Yes
+[2026-04-04T19:06:38.671Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T19:06:38.675Z] [INFO] ============================================================
+[2026-04-04T19:20:22.597Z] [INFO] Database connection established successfully
+[2026-04-04T19:20:22.599Z] [INFO] Session cleanup service initialized
+[2026-04-04T19:20:22.600Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T19:20:22.607Z] [INFO] ============================================================
+[2026-04-04T19:20:22.609Z] [INFO] 🚀 Server Running
+[2026-04-04T19:20:22.610Z] [INFO] ============================================================
+[2026-04-04T19:20:22.611Z] [INFO] Environment: development
+[2026-04-04T19:20:22.612Z] [INFO] Port: 3003
+[2026-04-04T19:20:22.614Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T19:20:22.614Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T19:20:22.616Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T19:20:22.617Z] [INFO] SSO Enabled: Yes
+[2026-04-04T19:20:22.618Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T19:20:22.619Z] [INFO] ============================================================
+[2026-04-04T19:21:26.396Z] [INFO] Database connection established successfully
+[2026-04-04T19:21:26.398Z] [INFO] Session cleanup service initialized
+[2026-04-04T19:21:26.399Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T19:21:26.403Z] [INFO] ============================================================
+[2026-04-04T19:21:26.404Z] [INFO] 🚀 Server Running
+[2026-04-04T19:21:26.405Z] [INFO] ============================================================
+[2026-04-04T19:21:26.406Z] [INFO] Environment: development
+[2026-04-04T19:21:26.406Z] [INFO] Port: 3003
+[2026-04-04T19:21:26.407Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T19:21:26.408Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T19:21:26.409Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T19:21:26.410Z] [INFO] SSO Enabled: Yes
+[2026-04-04T19:21:26.411Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T19:21:26.412Z] [INFO] ============================================================
+[2026-04-04T19:21:54.701Z] [INFO] Database connection established successfully
+[2026-04-04T19:21:54.703Z] [INFO] Session cleanup service initialized
+[2026-04-04T19:21:54.706Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T19:21:54.722Z] [INFO] ============================================================
+[2026-04-04T19:21:54.724Z] [INFO] 🚀 Server Running
+[2026-04-04T19:21:54.725Z] [INFO] ============================================================
+[2026-04-04T19:21:54.734Z] [INFO] Environment: development
+[2026-04-04T19:21:54.736Z] [INFO] Port: 3003
+[2026-04-04T19:21:54.737Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T19:21:54.739Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T19:21:54.740Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T19:21:54.741Z] [INFO] SSO Enabled: Yes
+[2026-04-04T19:21:54.743Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T19:21:54.745Z] [INFO] ============================================================
+[2026-04-04T19:23:02.081Z] [INFO] Database connection established successfully
+[2026-04-04T19:23:02.085Z] [INFO] Session cleanup service initialized
+[2026-04-04T19:23:02.087Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T19:23:02.102Z] [INFO] ============================================================
+[2026-04-04T19:23:02.105Z] [INFO] 🚀 Server Running
+[2026-04-04T19:23:02.107Z] [INFO] ============================================================
+[2026-04-04T19:23:02.110Z] [INFO] Environment: development
+[2026-04-04T19:23:02.112Z] [INFO] Port: 3003
+[2026-04-04T19:23:02.114Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T19:23:02.118Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T19:23:02.121Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T19:23:02.123Z] [INFO] SSO Enabled: Yes
+[2026-04-04T19:23:02.126Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T19:23:02.128Z] [INFO] ============================================================
+[2026-04-04T19:23:29.494Z] [INFO] Database connection established successfully
+[2026-04-04T19:23:29.496Z] [INFO] Session cleanup service initialized
+[2026-04-04T19:23:29.497Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T19:23:29.506Z] [INFO] ============================================================
+[2026-04-04T19:23:29.507Z] [INFO] 🚀 Server Running
+[2026-04-04T19:23:29.509Z] [INFO] ============================================================
+[2026-04-04T19:23:29.510Z] [INFO] Environment: development
+[2026-04-04T19:23:29.511Z] [INFO] Port: 3003
+[2026-04-04T19:23:29.512Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T19:23:29.513Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T19:23:29.514Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T19:23:29.515Z] [INFO] SSO Enabled: Yes
+[2026-04-04T19:23:29.516Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T19:23:29.518Z] [INFO] ============================================================
+[2026-04-04T19:32:10.821Z] [INFO] Database connection established successfully
+[2026-04-04T19:32:10.823Z] [INFO] Session cleanup service initialized
+[2026-04-04T19:32:10.839Z] [INFO] Socket.IO handlers initialized successfully
+[2026-04-04T19:32:10.850Z] [INFO] ============================================================
+[2026-04-04T19:32:10.851Z] [INFO] 🚀 Server Running
+[2026-04-04T19:32:10.853Z] [INFO] ============================================================
+[2026-04-04T19:32:10.854Z] [INFO] Environment: development
+[2026-04-04T19:32:10.856Z] [INFO] Port: 3003
+[2026-04-04T19:32:10.857Z] [INFO] API URL: http://localhost:3003
+[2026-04-04T19:32:10.859Z] [INFO] Socket.IO URL: http://localhost:3003
+[2026-04-04T19:32:10.861Z] [INFO] Socket.IO Path: /socket.io/
+[2026-04-04T19:32:10.864Z] [INFO] SSO Enabled: Yes
+[2026-04-04T19:32:10.866Z] [INFO] BwengePlus URL: Not configured
+[2026-04-04T19:32:10.868Z] [INFO] ============================================================

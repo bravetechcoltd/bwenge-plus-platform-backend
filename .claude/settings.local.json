@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(node -e \"require\\('./src/database/ensureTables'\\)\")",
+      "Bash(cmd /c \"cd C:\\\\Users\\\\Dell\\\\Desktop\\\\MyProject\\\\bwenge-plus-platform-frontend && npx tsc --noEmit 2>&1\")",
+      "Bash(cmd:*)",
+      "Bash(npx --prefix \"C:/Users/Dell/Desktop/MyProject/bwenge-plus-platform-frontend\" tsc --noEmit -p \"C:/Users/Dell/Desktop/MyProject/bwenge-plus-platform-frontend/tsconfig.json\")"
+    ]
+  }
+}

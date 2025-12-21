@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bwenge-plus-backend
+    ports:
+      - '3003:3003'       
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - PORT=3003        
+      - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - EMAIL_USER=${EMAIL_USER}
+      - EMAIL_PASS=${EMAIL_PASS}
+      - CLIENT_URL=${CLIENT_URL}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - APP_URL=${APP_URL}
+      - CLOUDINARYNAME=${CLOUDINARYNAME}
+      - APIKEY=${APIKEY}
+      - APISECRET=${APISECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - SSO_SHARED_SECRET=${SSO_SHARED_SECRET}
+      - ONGERA_API_URL=${ONGERA_API_URL}
+      - ONGERA_URL=${ONGERA_URL}
+      - SESSION_EXPIRY_DAYS=${SESSION_EXPIRY_DAYS:-7}
+      - SESSION_CHECK_INTERVAL_HOURS=${SESSION_CHECK_INTERVAL_HOURS:-1}
+    volumes:
+      - ./uploads:/app/uploads
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3003/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

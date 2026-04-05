@@ -67,7 +67,6 @@ export class PlatformConfigController {
         data: sanitizedConfigs,
       });
     } catch (error: any) {
-      console.error("❌ Get platform configs error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch platform configurations",
@@ -107,7 +106,6 @@ export class PlatformConfigController {
         data: config,
       });
     } catch (error: any) {
-      console.error("❌ Get platform config error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch platform configuration",
@@ -190,7 +188,6 @@ export class PlatformConfigController {
         data: config,
       });
     } catch (error: any) {
-      console.error("❌ Create platform config error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create platform configuration",
@@ -270,7 +267,6 @@ export class PlatformConfigController {
         data: config,
       });
     } catch (error: any) {
-      console.error("❌ Update platform config error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update platform configuration",
@@ -306,7 +302,6 @@ export class PlatformConfigController {
         message: "Configuration deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete platform config error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete platform configuration",
@@ -356,7 +351,6 @@ export class PlatformConfigController {
         data: updatedConfigs,
       });
     } catch (error: any) {
-      console.error("❌ Bulk update platform configs error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to bulk update platform configurations",
@@ -378,7 +372,6 @@ export class PlatformConfigController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get config types error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch configuration types",

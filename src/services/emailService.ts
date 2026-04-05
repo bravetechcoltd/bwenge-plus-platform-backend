@@ -23,7 +23,6 @@ export const sendEmail = async (options: {
     });
     return true;
   } catch (error) {
-    console.error('Error sending email:', error);
     return false;
   }
 };

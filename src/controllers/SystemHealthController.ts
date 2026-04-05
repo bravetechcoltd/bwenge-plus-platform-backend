@@ -41,7 +41,6 @@ export class SystemHealthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get system health error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch system health",
@@ -69,7 +68,6 @@ export class SystemHealthController {
         data: results,
       });
     } catch (error: any) {
-      console.error("❌ Run health check error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to run health check",
@@ -109,7 +107,6 @@ export class SystemHealthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get health history error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch health history",
@@ -178,7 +175,6 @@ export class SystemHealthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get system metrics error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch system metrics",
@@ -220,7 +216,6 @@ export class SystemHealthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get component health error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch component health",
@@ -264,7 +259,6 @@ export class SystemHealthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get incident history error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch incident history",
@@ -304,7 +298,6 @@ export class SystemHealthController {
         message: "Incident acknowledged",
       });
     } catch (error: any) {
-      console.error("❌ Acknowledge incident error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to acknowledge incident",

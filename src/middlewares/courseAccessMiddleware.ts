@@ -81,7 +81,6 @@ export const checkCourseAccess = async (req: Request, res: Response, next: NextF
     });
 
   } catch (error: any) {
-    console.error("❌ Course access check error:", error);
     return res.status(500).json({
       success: false,
       message: "Failed to verify course access",

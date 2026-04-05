@@ -131,7 +131,6 @@ export class ReviewController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Create/update review error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create/update review",
@@ -209,7 +208,6 @@ export class ReviewController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get course reviews error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch course reviews",
@@ -271,7 +269,6 @@ export class ReviewController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get user reviews error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch user reviews",
@@ -332,7 +329,6 @@ export class ReviewController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get user course review error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch user review",
@@ -402,7 +398,6 @@ export class ReviewController {
         message: "Review deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete review error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete review",
@@ -437,7 +432,6 @@ export class ReviewController {
 
       await courseRepo.save(course);
     } catch (error) {
-      console.error("❌ Update course rating error:", error);
     }
   }
 }

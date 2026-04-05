@@ -34,16 +34,18 @@ export class SendEmailToAdminTemplate {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Community Awaiting Approval</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <div style="max-width: 600px; margin: 0 auto; background: white;">
-    
+<body style="margin: 0; padding: 0; background: #f5f3ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 24px 16px;">
+  <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(91,78,150,0.10);">
+
     <!-- Header -->
-    <div style="background: #0158B7; padding: 25px 30px; text-align: center;">
-      <div style="color: white; font-size: 26px; font-weight: bold; letter-spacing: 1px;">ONGERA</div>
+    <div style="background: linear-gradient(135deg,#4a3f80 0%,#5b4e96 60%,#7c6fc4 100%); padding: 24px 32px;">
+      <div style="color: white; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">Ongera</div>
+      <div style="color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 4px; letter-spacing: 0.5px;">Admin Notifications</div>
     </div>
-    
+
     <!-- Body -->
-    <div style="padding: 30px; background: white;">
+    <div style="padding: 28px 32px 24px; background: white;">
       <div style="font-size: 18px; color: #1a1a1a; margin-bottom: 20px; font-weight: 600;">
         Hello ${adminData.first_name},
       </div>
@@ -64,8 +66,8 @@ export class SendEmailToAdminTemplate {
       ` : ''}
       
       <!-- Highlight Box -->
-      <div style="background: #E3F2FD; padding: 18px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0158B7;">
-        <div style="color: #0158B7; font-weight: 600; font-size: 14px; margin-bottom: 8px;">COMMUNITY NAME</div>
+      <div style="background: #f0eeff; padding: 18px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #5b4e96;">
+        <div style="color: #5b4e96; font-weight: 600; font-size: 14px; margin-bottom: 8px;">COMMUNITY NAME</div>
         <div style="color: #1a1a1a; font-size: 16px; font-weight: 600; line-height: 1.4;">${communityData.name}</div>
       </div>
       
@@ -75,7 +77,7 @@ export class SendEmailToAdminTemplate {
       </div>
       
       <!-- Community Details -->
-      <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 15px 0;">
+      <div style="background: #f8f7ff; padding: 15px; border-radius: 10px; margin: 15px 0;">
         <div style="color: #495057; font-size: 13px; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
           COMMUNITY DETAILS
         </div>
@@ -99,7 +101,7 @@ export class SendEmailToAdminTemplate {
       </div>
 
       <!-- Creator Info -->
-      <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 15px 0;">
+      <div style="background: #f8f7ff; padding: 15px; border-radius: 10px; margin: 15px 0;">
         <div style="color: #495057; font-size: 13px; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
           CREATED BY
         </div>
@@ -128,8 +130,8 @@ export class SendEmailToAdminTemplate {
 
       <!-- Action Buttons -->
       <div style="margin: 20px 0;">
-        <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/admin/communities/pending" 
-           style="display: inline-block; background: #0158B7; color: white; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 15px; margin: 10px 10px 10px 0;">
+        <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/admin/communities/pending"
+           style="display: inline-block; background: #5b4e96; color: white; text-decoration: none; padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 15px; margin: 10px 10px 10px 0;">
           Open Admin Panel
         </a>
       </div>
@@ -138,7 +140,7 @@ export class SendEmailToAdminTemplate {
       
       <!-- Review Guidelines -->
       <div style="background: white; padding: 18px; border-radius: 8px; margin-top: 20px; border: 2px solid #e9ecef;">
-        <div style="color: #0158B7; font-weight: 600; font-size: 15px; margin-bottom: 8px;">📋 Review Guidelines</div>
+        <div style="color: #5b4e96; font-weight: 600; font-size: 15px; margin-bottom: 8px;">📋 Review Guidelines</div>
         <div style="color: #6c757d; font-size: 14px; line-height: 1.5;">
           • Verify the community name and description are appropriate<br>
           • Check if the category matches the community purpose<br>
@@ -149,19 +151,16 @@ export class SendEmailToAdminTemplate {
     </div>
     
     <!-- Footer -->
-    <div style="background: #f8f9fa; padding: 25px 30px; text-align: center; border-top: 2px solid #e9ecef;">
-      <div style="color: #6c757d; font-size: 13px; line-height: 1.5; margin-bottom: 8px;">
-        <strong>Ongera Platform</strong><br>
-        Admin Notifications
+    <div style="background: #f8f7ff; padding: 20px 32px; text-align: center; border-top: 1px solid #e8e3f7;">
+      <div style="color: #64748b; font-size: 12px; line-height: 1.5; margin-bottom: 4px;">
+        <strong>Ongera Platform</strong> — Admin Notifications
       </div>
-      <div style="color: #6c757d; font-size: 13px; margin-bottom: 8px;">
-        This is an automated admin notification
-      </div>
-      <div style="color: #6c757d; font-size: 13px;">
+      <div style="color: #94a3b8; font-size: 11px;">
         © ${new Date().getFullYear()} Ongera. All rights reserved.
       </div>
     </div>
-    
+
+  </div>
   </div>
 </body>
 </html>

@@ -13,7 +13,6 @@ async function migrateConversationData() {
 
   try {
     await dataSource.initialize();
-    console.log('✅ Connected to database');
 
     // Check if conversation table exists
     const tableExists = await dataSource.query(`
@@ -24,12 +23,10 @@ async function migrateConversationData() {
     `);
     
     if (!tableExists[0].exists) {
-      console.log('⚠️ Conversation table does not exist yet');
       return;
     }
 
     // Add new columns if they don't exist
-    console.log('📝 Adding new columns if they don\'t exist...');
     
     const columnsToAdd = [
       { name: 'participantOneId', type: 'uuid' },
@@ -44,14 +41,11 @@ async function migrateConversationData() {
           ALTER TABLE conversation 
           ADD COLUMN IF NOT EXISTS "${col.name}" ${col.type} ${col.default ? `DEFAULT ${col.default}` : ''}
         `);
-        console.log(`  ✅ Added column: ${col.name}`);
       } catch (err: any) {
-        console.log(`  ⚠️ Could not add column ${col.name}:`, err?.message || 'Unknown error');
       }
     }
 
     // Migrate existing data
-    console.log('\n🔄 Migrating existing conversation data...');
     
     const conversations = await dataSource.query(`
       SELECT id, "studentId", "instructorId", "courseId" 
@@ -59,7 +53,6 @@ async function migrateConversationData() {
       WHERE "participantOneId" IS NULL OR "participantTwoId" IS NULL
     `);
     
-    console.log(`Found ${conversations.length} conversations to migrate`);
     
     let migratedCount = 0;
     
@@ -76,15 +69,12 @@ async function migrateConversationData() {
         
         migratedCount++;
         if (migratedCount % 10 === 0) {
-          console.log(`  ✅ Migrated ${migratedCount}/${conversations.length} conversations`);
         }
       }
     }
     
-    console.log(`  ✅ Migrated ${migratedCount} conversations successfully`);
     
     // Make columns NOT NULL after migration
-    console.log('\n🔧 Setting columns to NOT NULL...');
     
     try {
       await dataSource.query(`
@@ -92,15 +82,11 @@ async function migrateConversationData() {
         ALTER COLUMN "participantOneId" SET NOT NULL,
         ALTER COLUMN "participantTwoId" SET NOT NULL
       `);
-      console.log('✅ Columns set to NOT NULL');
     } catch (err: any) {
-      console.log('⚠️ Could not set NOT NULL constraint:', err?.message);
     }
     
-    console.log('\n✅ Migration completed successfully!');
     
   } catch (error) {
-    console.error('❌ Error during migration:', error);
   } finally {
     if (dataSource.isInitialized) {
       await dataSource.destroy();

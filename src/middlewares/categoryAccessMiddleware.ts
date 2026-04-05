@@ -63,7 +63,6 @@ export const checkCategoryAccess = async (
     });
 
   } catch (error: any) {
-    console.error("❌ Category access check error:", error);
     return res.status(500).json({
       success: false,
       message: "Failed to verify category access",

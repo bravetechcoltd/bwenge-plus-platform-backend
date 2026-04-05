@@ -541,7 +541,6 @@ export class InstructorAnalyticsController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get instructor analytics error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch instructor analytics",
@@ -587,7 +586,6 @@ export class InstructorAnalyticsController {
       });
 
     } catch (error: any) {
-      console.error("❌ Export analytics error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to export analytics",
@@ -766,7 +764,6 @@ static async getAssessmentStats(req: Request, res: Response) {
     });
 
   } catch (error: any) {
-    console.error("❌ Get assessment stats error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch assessment statistics",
@@ -906,7 +903,6 @@ static async getInstructorReviews(req: Request, res: Response) {
     });
 
   } catch (error: any) {
-    console.error("❌ Get instructor reviews error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch reviews",

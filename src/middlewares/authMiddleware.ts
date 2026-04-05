@@ -25,12 +25,6 @@ export const authenticate = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    console.log("🔐 [authenticate] Starting authentication...");
-    console.log("📋 [authenticate] Headers:", {
-      authorization: req.headers.authorization ? "Present" : "Missing",
-      cookie: req.headers.cookie ? "Present" : "Missing",
-      origin: req.headers.origin,
-    });
 
     // STEP 1: Extract token from cookies OR Authorization header
     let token = req.cookies?.bwenge_token;
@@ -39,14 +33,11 @@ export const authenticate = async (
       const authHeader = req.headers.authorization;
       if (authHeader && authHeader.startsWith("Bearer ")) {
         token = authHeader.substring(7);
-        console.log("🔑 [authenticate] Token from Authorization header");
       }
     } else {
-      console.log("🍪 [authenticate] Token from cookie");
     }
 
     if (!token) {
-      console.log("❌ [authenticate] No token provided");
       res.status(401).json({
         success: false,
         message: "No token provided",
@@ -54,23 +45,12 @@ export const authenticate = async (
       return;
     }
 
-    console.log(
-      "🔍 [authenticate] Token preview:",
-      token.substring(0, 20) + "..."
-    );
 
     // STEP 2: Verify JWT token
     let decoded: any;
     try {
       decoded = jwt.verify(token, process.env.JWT_SECRET!);
-      console.log("✅ [authenticate] Token verified successfully");
-      console.log("📦 [authenticate] Decoded payload keys:", Object.keys(decoded));
-      console.log("📦 [authenticate] Decoded payload:", JSON.stringify(decoded, null, 2));
     } catch (jwtError: any) {
-      console.error(
-        "❌ [authenticate] JWT verification failed:",
-        jwtError.message
-      );
 
       if (jwtError.name === "TokenExpiredError") {
         res.status(401).json({
@@ -90,15 +70,8 @@ export const authenticate = async (
     // STEP 3: Extract user ID from token - try multiple possible field names
     const userId = decoded.userId || decoded.id || decoded.user_id || decoded.sub;
 
-    console.log("👤 [authenticate] Extracted userId:", userId);
-    console.log("👤 [authenticate] Full decoded token:", {
-      userId,
-      email: decoded.email,
-      role: decoded.bwenge_role,
-    });
 
     if (!userId) {
-      console.log("❌ [authenticate] No user ID in token payload");
       res.status(401).json({
         success: false,
         message: "Invalid token format - missing user ID",
@@ -122,7 +95,6 @@ export const authenticate = async (
     });
 
     if (!user) {
-      console.log("❌ [authenticate] User not found in database:", userId);
       res.status(401).json({
         success: false,
         message: "User not found",
@@ -130,17 +102,9 @@ export const authenticate = async (
       return;
     }
 
-    console.log("✅ [authenticate] User found:", {
-      id: user.id,
-      email: user.email,
-      role: user.bwenge_role,
-      isActive: user.is_active,
-      isLoggedIn: user.isUserLogin,
-    });
 
     // STEP 5: Check if user is active
     if (!user.is_active) {
-      console.log("❌ [authenticate] User is not active");
       res.status(401).json({
         success: false,
         message: "User account is not active",
@@ -153,9 +117,6 @@ export const authenticate = async (
     // somehow got reset (race condition, crash, cross-system logout quirk),
     // we heal it here rather than locking the user out.
     if (!user.isUserLogin) {
-      console.warn(
-        "⚠️ [authenticate] isUserLogin is false despite valid JWT — auto-repairing flag"
-      );
       try {
         await userRepo
           .createQueryBuilder()
@@ -163,13 +124,8 @@ export const authenticate = async (
           .set({ isUserLogin: true })
           .where("id = :id", { id: userId })
           .execute();
-        console.log("✅ [authenticate] isUserLogin repaired to true");
       } catch (repairError: any) {
         // Non-fatal — log it and continue; the JWT is still valid
-        console.error(
-          "⚠️ [authenticate] Could not repair isUserLogin:",
-          repairError.message
-        );
       }
     }
 
@@ -185,9 +141,6 @@ export const authenticate = async (
     });
 
     if (!activeSession) {
-      console.log(
-        "⚠️ [authenticate] No active BwengePlus session record found — creating one"
-      );
       // ✅ FIX: Auto-create a session record so subsequent requests find it.
       // The JWT itself is the source of truth for auth; the session table is
       // for activity tracking and cross-system SSO signals only.
@@ -207,16 +160,10 @@ export const authenticate = async (
           last_activity: new Date(),
         });
         await sessionRepo.save(newSession);
-        console.log("✅ [authenticate] Session record auto-created");
       } catch (sessionError: any) {
         // Non-fatal — log and continue
-        console.error(
-          "⚠️ [authenticate] Could not auto-create session:",
-          sessionError.message
-        );
       }
     } else {
-      console.log("✅ [authenticate] Active session found — updating activity");
       activeSession.last_activity = new Date();
       await sessionRepo.save(activeSession);
     }
@@ -229,16 +176,9 @@ export const authenticate = async (
       bwenge_role: user.bwenge_role,
     };
 
-    console.log("✅ [authenticate] Authentication successful:", {
-      userId: req.user.userId,
-      email: req.user.email,
-      role: req.user.bwenge_role,
-    });
 
     next();
   } catch (error: any) {
-    console.error("❌ [authenticate] Unexpected error:", error);
-    console.error("📋 [authenticate] Error stack:", error.stack);
 
     res.status(401).json({
       success: false,
@@ -253,10 +193,6 @@ export const requireRole = (roles: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const userRole = req.user?.bwenge_role;
 
-    console.log("🔒 [requireRole] Checking role:", {
-      required: roles,
-      actual: userRole,
-    });
 
     if (!userRole || !roles.includes(userRole)) {
       return res.status(403).json({

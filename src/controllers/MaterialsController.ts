@@ -112,7 +112,6 @@ export class MaterialsController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get course materials error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch materials",
@@ -231,7 +230,6 @@ export class MaterialsController {
             created_at: material.created_at,
           });
         } catch (uploadError) {
-          console.error("Error uploading file:", uploadError);
         }
       }
 
@@ -247,7 +245,6 @@ export class MaterialsController {
           `,
         });
       } catch (emailError) {
-        console.error("Failed to send email:", emailError);
       }
 
       res.status(201).json({
@@ -260,7 +257,6 @@ export class MaterialsController {
       });
 
     } catch (error: any) {
-      console.error("❌ Upload materials error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to upload materials",
@@ -326,7 +322,6 @@ export class MaterialsController {
       });
 
     } catch (error: any) {
-      console.error("❌ Delete material error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete material",
@@ -423,7 +418,6 @@ export class MaterialsController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get materials stats error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch materials statistics",

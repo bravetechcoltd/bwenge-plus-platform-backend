@@ -119,7 +119,6 @@ export class ScheduleController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get instructor schedule error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch schedule",
@@ -239,7 +238,6 @@ export class ScheduleController {
       });
 
     } catch (error: any) {
-      console.error("❌ Create event error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create event",
@@ -342,7 +340,6 @@ export class ScheduleController {
       });
 
     } catch (error: any) {
-      console.error("❌ Update event error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update event",
@@ -409,7 +406,6 @@ export class ScheduleController {
       });
 
     } catch (error: any) {
-      console.error("❌ Delete event error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete event",

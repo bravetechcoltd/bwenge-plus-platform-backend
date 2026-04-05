@@ -37,13 +37,12 @@ export const uploadAttachment = async (req: Request, res: Response) => {
     if (!customReq.user) return res.status(401).json({ message: "Unauthorized" });
     if (!req.file) return res.status(400).json({ message: "No file uploaded" });
 
-    const baseUrl = process.env.API_BASE_URL || `http://localhost:${process.env.PORT || 3003}`;
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
     const relativePath = req.file.path.replace(/\\/g, "/");
     const attachmentUrl = `${baseUrl}/${relativePath}`;
 
     res.json({ success: true, attachmentUrl, filename: req.file.originalname, mimetype: req.file.mimetype });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Upload failed" });
   }
 };
@@ -149,7 +148,6 @@ export const sendMessage = async (req: Request, res: Response) => {
 
     res.status(201).json({ success: true, message: "Message sent", data: completeMessage });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to send message" });
   }
 };
@@ -187,7 +185,6 @@ export const getMessagesByConversation = async (req: Request, res: Response) => 
       },
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to fetch messages" });
   }
 };
@@ -231,7 +228,6 @@ export const markAsRead = async (req: Request, res: Response) => {
 
     res.json({ success: true });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to mark messages as read" });
   }
 };
@@ -259,7 +255,6 @@ export const searchMessages = async (req: Request, res: Response) => {
 
     res.json({ success: true, data: messages });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to search messages" });
   }
 };
@@ -294,7 +289,6 @@ export const editMessage = async (req: Request, res: Response) => {
 
     res.json({ success: true, data: message });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to edit message" });
   }
 };
@@ -328,7 +322,6 @@ export const deleteMessage = async (req: Request, res: Response) => {
 
     res.json({ success: true });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to delete message" });
   }
 };

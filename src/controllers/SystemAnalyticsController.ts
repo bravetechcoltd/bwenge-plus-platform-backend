@@ -131,7 +131,6 @@ export class SystemAnalyticsController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get dashboard stats error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch dashboard statistics",
@@ -209,7 +208,6 @@ export class SystemAnalyticsController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get time series data error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch time series data",
@@ -278,7 +276,6 @@ export class SystemAnalyticsController {
         data: courses,
       });
     } catch (error: any) {
-      console.error("❌ Get top courses error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch top courses",
@@ -332,7 +329,6 @@ export class SystemAnalyticsController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get user activity error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch user activity",
@@ -410,7 +406,6 @@ export class SystemAnalyticsController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Export analytics error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to export analytics",
@@ -434,7 +429,6 @@ export class SystemAnalyticsController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get event types error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch event types",

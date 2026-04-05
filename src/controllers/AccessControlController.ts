@@ -45,7 +45,6 @@ export class AccessControlController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get roles error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch roles",
@@ -98,7 +97,6 @@ export class AccessControlController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get role error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch role",
@@ -158,7 +156,6 @@ export class AccessControlController {
         data: role,
       });
     } catch (error: any) {
-      console.error("❌ Create role error:", error);
       res.status(500).json({
         success: false,
         message: error.message || "Failed to create role",
@@ -192,7 +189,6 @@ export class AccessControlController {
         data: role,
       });
     } catch (error: any) {
-      console.error("❌ Update role error:", error);
       res.status(500).json({
         success: false,
         message: error.message || "Failed to update role",
@@ -213,7 +209,6 @@ export class AccessControlController {
         message: "Role deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete role error:", error);
       res.status(500).json({
         success: false,
         message: error.message || "Failed to delete role",
@@ -239,7 +234,6 @@ export class AccessControlController {
         data: assignments,
       });
     } catch (error: any) {
-      console.error("❌ Get user roles error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch user roles",
@@ -269,7 +263,6 @@ export class AccessControlController {
         data: assignment,
       });
     } catch (error: any) {
-      console.error("❌ Assign role error:", error);
       res.status(500).json({
         success: false,
         message: error.message || "Failed to assign role",
@@ -297,7 +290,6 @@ export class AccessControlController {
         message: "Role removed successfully",
       });
     } catch (error: any) {
-      console.error("❌ Remove role error:", error);
       res.status(500).json({
         success: false,
         message: error.message || "Failed to remove role",
@@ -336,7 +328,6 @@ export class AccessControlController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Check permission error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to check permission",
@@ -381,7 +372,6 @@ export class AccessControlController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get user permissions error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to get user permissions",
@@ -432,7 +422,6 @@ export class AccessControlController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Bulk assign roles error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to bulk assign roles",
@@ -475,7 +464,6 @@ export class AccessControlController {
         data: stats,
       });
     } catch (error: any) {
-      console.error("❌ Get role statistics error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch role statistics",

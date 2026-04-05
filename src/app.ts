@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import cors from "cors";
 import morgan from "morgan";
+import path from "path";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes";
 import ssoRoutes from "./routes/ssoRoutes";
@@ -41,6 +42,9 @@ const app: Application = express();
 
 app.use(cookieParser());
 
+// Serve uploaded files as static assets
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
 app.use(cors({
   origin: [
     // Local development
@@ -73,12 +77,7 @@ app.use(cors({
 }));
 
 app.use((req, res, next) => {
-  console.log(`📝 ${req.method} ${req.path}`);
-  console.log(`📦 Content-Type: ${req.headers['content-type']}`);
-  console.log(`📦 Body exists: ${!!req.body}`);
-  console.log(`📦 Body type: ${typeof req.body}`);
   if (req.body && Object.keys(req.body).length > 0) {
-    console.log(`📦 Body keys: ${Object.keys(req.body).join(', ')}`);
   }
   next();
 });

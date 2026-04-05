@@ -10,10 +10,8 @@ async function simpleMigration() {
 
   try {
     await client.connect();
-    console.log('✅ Connected to database\n');
 
     // Step 1: Add columns if they don't exist
-    console.log('📝 Step 1: Adding new columns...');
     
     const columns = [
       { name: 'participantOneId', type: 'UUID' },
@@ -28,14 +26,11 @@ async function simpleMigration() {
           ALTER TABLE conversation 
           ADD COLUMN IF NOT EXISTS "${col.name}" ${col.type}
         `);
-        console.log(`  ✅ Added column: ${col.name}`);
       } catch (err) {
-        console.log(`  ⚠️ Column ${col.name} may already exist: ${err.message}`);
       }
     }
 
     // Step 2: Migrate existing data
-    console.log('\n🔄 Step 2: Migrating existing conversation data...');
     
     const migrateResult = await client.query(`
       UPDATE conversation 
@@ -54,10 +49,8 @@ async function simpleMigration() {
         AND "instructorId" IS NOT NULL
     `);
     
-    console.log(`  ✅ Migrated ${migrateResult.rowCount} conversations`);
 
     // Step 3: Set NOT NULL constraints (only if data exists)
-    console.log('\n🔧 Step 3: Setting NOT NULL constraints...');
     
     const checkNull = await client.query(`
       SELECT COUNT(*) as count 
@@ -72,16 +65,12 @@ async function simpleMigration() {
           ALTER COLUMN "participantOneId" SET NOT NULL,
           ALTER COLUMN "participantTwoId" SET NOT NULL
         `);
-        console.log('  ✅ NOT NULL constraints set successfully');
       } catch (err) {
-        console.log(`  ⚠️ Could not set NOT NULL: ${err.message}`);
       }
     } else {
-      console.log(`  ⚠️ Skipping NOT NULL - ${checkNull.rows[0].count} rows still have NULL values`);
     }
 
     // Step 4: Drop problematic indexes
-    console.log('\n🗑️ Step 4: Dropping problematic indexes...');
     
     const indexesToDrop = [
       'IDX_16a9af5352d00170944c4cdf3b',
@@ -93,14 +82,11 @@ async function simpleMigration() {
     for (const idx of indexesToDrop) {
       try {
         await client.query(`DROP INDEX IF EXISTS "${idx}"`);
-        console.log(`  ✅ Dropped index: ${idx}`);
       } catch (err) {
-        console.log(`  ⚠️ Could not drop ${idx}: ${err.message}`);
       }
     }
 
     // Step 5: Create new indexes
-    console.log('\n📊 Step 5: Creating new indexes...');
     
     const newIndexes = [
       { name: 'IDX_CONVERSATION_PARTICIPANT_ONE', table: 'conversation', column: 'participantOneId' },
@@ -117,14 +103,11 @@ async function simpleMigration() {
           CREATE INDEX IF NOT EXISTS "${idx.name}" 
           ON "${idx.table}" ("${idx.column}")
         `);
-        console.log(`  ✅ Created index: ${idx.name}`);
       } catch (err) {
-        console.log(`  ⚠️ Could not create ${idx.name}: ${err.message}`);
       }
     }
 
     // Step 6: Verify the migration
-    console.log('\n🔍 Step 6: Verification...');
     
     const verifyResult = await client.query(`
       SELECT 
@@ -135,21 +118,14 @@ async function simpleMigration() {
     `);
     
     const total = verifyResult.rows[0];
-    console.log(`  Total conversations: ${total.total}`);
-    console.log(`  Has participantOneId: ${total.has_participant_one}`);
-    console.log(`  Has participantTwoId: ${total.has_participant_two}`);
     
     if (parseInt(total.has_participant_one) === parseInt(total.total)) {
-      console.log('\n✅ Migration completed successfully!');
     } else {
-      console.log('\n⚠️ Migration partially completed. Some conversations may need manual attention.');
     }
     
   } catch (error) {
-    console.error('❌ Error during migration:', error);
   } finally {
     await client.end();
-    console.log('\n📦 Database connection closed');
   }
 }
 

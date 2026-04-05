@@ -363,7 +363,6 @@ export class EnhancedEnrollmentController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get instructor enrollment analytics error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch enrollment analytics",
@@ -531,10 +530,720 @@ export class EnhancedEnrollmentController {
       });
 
     } catch (error: any) {
-      console.error("❌ Export enrollment analytics error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to export enrollment analytics",
+        error: error.message,
+      });
+    }
+  }
+
+// Add to EnhancedCourseController class
+
+// Generate access codes for public SPOC courses (System Admin)
+static async generatePublicCourseAccessCodes(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+    const { count, expiry_date, usage_limit } = req.body;
+    const userId = req.user?.userId || req.user?.id;
+
+    if (!count || count < 1) {
+      return res.status(400).json({
+        success: false,
+        message: "Valid count is required",
+      });
+    }
+
+    const courseRepo = dbConnection.getRepository(Course);
+    const userRepo = dbConnection.getRepository(User);
+
+    const course = await courseRepo.findOne({ 
+      where: { id },
+      relations: ["instructor"]
+    });
+    
+    if (!course) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found",
+      });
+    }
+
+    // Only SPOC courses can have access codes
+    if (course.course_type !== CourseType.SPOC) {
+      return res.status(400).json({
+        success: false,
+        message: "Access codes can only be generated for SPOC courses",
+      });
+    }
+
+    // Check if course is public
+    if (!course.is_public) {
+      return res.status(400).json({
+        success: false,
+        message: "This course is not a public course. Access codes can only be generated for public SPOC courses.",
+      });
+    }
+
+    // ==================== PERMISSION CHECK ====================
+    const user = await userRepo.findOne({ where: { id: userId } });
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized"
+      });
+    }
+
+    // Only SYSTEM_ADMIN can generate access codes for public SPOC courses
+    if (user.bwenge_role !== BwengeRole.SYSTEM_ADMIN) {
+      return res.status(403).json({
+        success: false,
+        message: "Only System Administrators can generate access codes for public courses"
+      });
+    }
+
+    // Generate unique codes
+    const generateUniqueCode = (): string => {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let code = '';
+      for (let i = 0; i < 8; i++) {
+        code += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return code;
+    };
+
+    const codes: string[] = [];
+    for (let i = 0; i < count; i++) {
+      let code = generateUniqueCode();
+      // Ensure code is unique within the course
+      while (course.access_codes && course.access_codes.includes(code)) {
+        code = generateUniqueCode();
+      }
+      codes.push(code);
+    }
+
+    if (!course.access_codes) course.access_codes = [];
+    course.access_codes = [...course.access_codes, ...codes];
+    await courseRepo.save(course);
+
+    // Send notification to course instructor (optional)
+    if (course.instructor && course.instructor.email) {
+      await sendEmail({
+        to: course.instructor.email,
+        subject: `Access Codes Generated for ${course.title}`,
+        html: `
+          <h2>Access Codes Generated</h2>
+          <p>${count} access code(s) have been generated for your public SPOC course: <strong>${course.title}</strong></p>
+          <p>The codes have been added to the course's available access codes pool.</p>
+          <p>Students can now enroll using these codes.</p>
+          <p><strong>Generated Codes:</strong></p>
+          <ul>
+            ${codes.map(code => `<li><code style="background: #f0f0f0; padding: 2px 6px; border-radius: 4px;">${code}</code></li>`).join('')}
+          </ul>
+        `,
+      });
+    }
+
+    res.json({
+      success: true,
+      message: `${count} access codes generated successfully for ${course.title}`,
+      data: {
+        codes,
+        expiry_date,
+        usage_limit,
+        course_id: course.id,
+        course_title: course.title,
+        total_codes_available: course.access_codes.length,
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to generate access codes",
+      error: error.message,
+    });
+  }
+}
+
+// Get access codes for a public course
+static async getPublicCourseAccessCodes(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+    const userId = req.user?.userId || req.user?.id;
+
+    const userRepo = dbConnection.getRepository(User);
+    const user = await userRepo.findOne({ where: { id: userId } });
+    
+    if (!user || user.bwenge_role !== BwengeRole.SYSTEM_ADMIN) {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied. System admin privileges required.",
+      });
+    }
+
+    const courseRepo = dbConnection.getRepository(Course);
+    const course = await courseRepo.findOne({ 
+      where: { id },
+      select: ["id", "title", "course_type", "is_public", "access_codes"]
+    });
+
+    if (!course) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found",
+      });
+    }
+
+    if (course.course_type !== CourseType.SPOC) {
+      return res.status(400).json({
+        success: false,
+        message: "Only SPOC courses have access codes",
+      });
+    }
+
+    res.json({
+      success: true,
+      data: {
+        course_id: course.id,
+        course_title: course.title,
+        course_type: course.course_type,
+        is_public: course.is_public,
+        access_codes: course.access_codes || [],
+        total_codes: (course.access_codes || []).length,
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch access codes",
+      error: error.message,
+    });
+  }
+}
+  static async getPublicCourseEnrollmentRequests(req: Request, res: Response) {
+    try {
+      const userId = req.user?.userId || req.user?.id;
+      const { page = 1, limit = 20, status = "all", course_id, search } = req.query;
+  
+      if (!userId) {
+        return res.status(401).json({
+          success: false,
+          message: "Authentication required",
+        });
+      }
+  
+      const userRepo = dbConnection.getRepository(User);
+      const user = await userRepo.findOne({ where: { id: userId } });
+      
+      // Only SYSTEM_ADMIN can access this endpoint
+      if (!user || user.bwenge_role !== BwengeRole.SYSTEM_ADMIN) {
+        return res.status(403).json({
+          success: false,
+          message: "Access denied. System admin privileges required.",
+        });
+      }
+  
+      const skip = (Number(page) - 1) * Number(limit);
+      
+      // Get all public courses (is_public = true)
+      const courseRepo = dbConnection.getRepository(Course);
+      const courseQueryBuilder = courseRepo
+        .createQueryBuilder("course")
+        .leftJoinAndSelect("course.instructor", "instructor")
+        .leftJoinAndSelect("course.course_category", "course_category")
+        .where("course.is_public = :is_public", { is_public: true });
+  
+      if (course_id && course_id !== "all") {
+        courseQueryBuilder.andWhere("course.id = :course_id", { course_id });
+      }
+  
+      if (search) {
+        courseQueryBuilder.andWhere(
+          "(course.title ILIKE :search OR course.description ILIKE :search)",
+          { search: `%${search}%` }
+        );
+      }
+  
+      const courses = await courseQueryBuilder
+        .orderBy("course.created_at", "DESC")
+        .getMany();
+  
+      const courseIds = courses.map(c => c.id);
+  
+      if (courseIds.length === 0) {
+        return res.json({
+          success: true,
+          data: {
+            courses: [],
+            enrollments: [],
+            summary: {
+              total_courses: 0,
+              total_enrollments: 0,
+              pending_approvals: 0,
+              active_enrollments: 0,
+              completed_enrollments: 0,
+            },
+            pagination: {
+              page: Number(page),
+              limit: Number(limit),
+              total: 0,
+              totalPages: 0,
+            },
+          },
+        });
+      }
+  
+      // Get enrollment requests for public courses
+      const enrollmentRepo = dbConnection.getRepository(Enrollment);
+      const enrollmentQueryBuilder = enrollmentRepo
+        .createQueryBuilder("enrollment")
+        .leftJoinAndSelect("enrollment.user", "user")
+        .leftJoinAndSelect("enrollment.course", "course")
+        .leftJoinAndSelect("course.instructor", "instructor")
+        .where("enrollment.course_id IN (:...courseIds)", { courseIds });
+  
+      // Apply status filter
+      if (status === "PENDING") {
+        enrollmentQueryBuilder.andWhere("enrollment.status = :status", { status: "PENDING" });
+        enrollmentQueryBuilder.andWhere("enrollment.approval_status = :approvalStatus", { approvalStatus: "PENDING" });
+      } else if (status === "ACTIVE") {
+        enrollmentQueryBuilder.andWhere("enrollment.status = :status", { status: "ACTIVE" });
+      } else if (status === "COMPLETED") {
+        enrollmentQueryBuilder.andWhere("enrollment.status = :status", { status: "COMPLETED" });
+      } else if (status === "REJECTED") {
+        enrollmentQueryBuilder.andWhere("enrollment.approval_status = :approvalStatus", { approvalStatus: "REJECTED" });
+      }
+  
+      const [enrollments, total] = await enrollmentQueryBuilder
+        .orderBy("enrollment.enrolled_at", "DESC")
+        .skip(skip)
+        .take(Number(limit))
+        .getManyAndCount();
+  
+      // Get summary statistics
+      const allEnrollments = await enrollmentRepo.find({
+        where: { course_id: In(courseIds) },
+      });
+  
+      const summary = {
+        total_courses: courses.length,
+        total_enrollments: allEnrollments.length,
+        pending_approvals: allEnrollments.filter(e => e.status === "PENDING" && e.approval_status === "PENDING").length,
+        active_enrollments: allEnrollments.filter(e => e.status === "ACTIVE").length,
+        completed_enrollments: allEnrollments.filter(e => e.status === "COMPLETED").length,
+      };
+  
+      // Transform enrollments
+      const transformedEnrollments = enrollments.map(enrollment => ({
+        id: enrollment.id,
+        user: {
+          id: enrollment.user.id,
+          email: enrollment.user.email,
+          first_name: enrollment.user.first_name,
+          last_name: enrollment.user.last_name,
+          profile_picture_url: enrollment.user.profile_picture_url,
+        },
+        course: {
+          id: enrollment.course.id,
+          title: enrollment.course.title,
+          description: enrollment.course.description,
+          thumbnail_url: enrollment.course.thumbnail_url,
+          course_type: enrollment.course.course_type,
+          level: enrollment.course.level,
+          instructor: enrollment.course.instructor ? {
+            id: enrollment.course.instructor.id,
+            first_name: enrollment.course.instructor.first_name,
+            last_name: enrollment.course.instructor.last_name,
+            email: enrollment.course.instructor.email,
+          } : null,
+        },
+        enrolled_at: enrollment.enrolled_at,
+        status: enrollment.status,
+        approval_status: enrollment.approval_status,
+        request_type: enrollment.request_type,
+        request_message: enrollment.request_message,
+        progress_percentage: enrollment.progress_percentage,
+        completed_lessons: enrollment.completed_lessons,
+        total_time_spent_minutes: enrollment.total_time_spent_minutes,
+      }));
+  
+      // Transform courses with enrollment counts
+      const transformedCourses = courses.map(course => {
+        const courseEnrollments = allEnrollments.filter(e => e.course_id === course.id);
+        return {
+          id: course.id,
+          title: course.title,
+          description: course.description,
+          thumbnail_url: course.thumbnail_url,
+          course_type: course.course_type,
+          level: course.level,
+          status: course.status,
+          is_public: course.is_public,
+          instructor: course.instructor ? {
+            id: course.instructor.id,
+            first_name: course.instructor.first_name,
+            last_name: course.instructor.last_name,
+            email: course.instructor.email,
+          } : null,
+          category: course.course_category ? {
+            id: course.course_category.id,
+            name: course.course_category.name,
+          } : null,
+          enrollment_stats: {
+            total: courseEnrollments.length,
+            pending: courseEnrollments.filter(e => e.status === "PENDING").length,
+            active: courseEnrollments.filter(e => e.status === "ACTIVE").length,
+            completed: courseEnrollments.filter(e => e.status === "COMPLETED").length,
+          },
+          created_at: course.created_at,
+          published_at: course.published_at,
+        };
+      });
+  
+      res.json({
+        success: true,
+        data: {
+          courses: transformedCourses,
+          enrollments: transformedEnrollments,
+          summary,
+          pagination: {
+            page: Number(page),
+            limit: Number(limit),
+            total,
+            totalPages: Math.ceil(total / Number(limit)),
+          },
+        },
+      });
+  
+    } catch (error: any) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch public course enrollment requests",
+        error: error.message,
+      });
+    }
+  }
+  
+
+static async sendPublicCourseAccessCode(req: Request, res: Response) {
+  try {
+    const { enrollment_request_id } = req.body;
+    const adminId = req.user?.userId || req.user?.id;
+
+    if (!enrollment_request_id) {
+      return res.status(400).json({
+        success: false,
+        message: "Enrollment request ID is required",
+      });
+    }
+
+    const enrollmentRepo = dbConnection.getRepository(Enrollment);
+    const courseRepo = dbConnection.getRepository(Course);
+    const userRepo = dbConnection.getRepository(User);
+    const accessCodeRequestRepo = dbConnection.getRepository(AccessCodeRequest);
+
+    // Get the enrollment request
+    const enrollmentRequest = await enrollmentRepo.findOne({
+      where: { id: enrollment_request_id },
+      relations: ["user", "course"],
+    });
+
+    if (!enrollmentRequest) {
+      return res.status(404).json({
+        success: false,
+        message: "Enrollment request not found",
+      });
+    }
+
+    const course = enrollmentRequest.course;
+    const user = enrollmentRequest.user;
+
+    // Verify this is a public SPOC course
+    if (course.course_type !== CourseType.SPOC) {
+      return res.status(400).json({
+        success: false,
+        message: "Access codes can only be generated for SPOC courses",
+      });
+    }
+
+    if (!course.is_public) {
+      return res.status(400).json({
+        success: false,
+        message: "This course is not a public course",
+      });
+    }
+
+    // Verify admin has permission (System Admin only)
+    const admin = await userRepo.findOne({ where: { id: adminId } });
+    if (!admin || admin.bwenge_role !== BwengeRole.SYSTEM_ADMIN) {
+      return res.status(403).json({
+        success: false,
+        message: "Only System Administrators can send access codes for public courses",
+      });
+    }
+
+    // Generate a unique access code
+    const generateUniqueCode = (): string => {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let code = '';
+      for (let i = 0; i < 8; i++) {
+        code += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return code;
+    };
+
+    let accessCode = generateUniqueCode();
+    
+    // Ensure code is unique in the course
+    const isCodeUsed = async (code: string): Promise<boolean> => {
+      if (course.access_codes && course.access_codes.includes(code)) {
+        return true;
+      }
+      const usedEnrollment = await enrollmentRepo.findOne({
+        where: { access_code_used: code },
+      });
+      return !!usedEnrollment;
+    };
+
+    while (await isCodeUsed(accessCode)) {
+      accessCode = generateUniqueCode();
+    }
+
+    // Add code to course's available access codes
+    if (!course.access_codes) {
+      course.access_codes = [];
+    }
+    course.access_codes.push(accessCode);
+    await courseRepo.save(course);
+
+    // Update enrollment request - mark as sent
+    enrollmentRequest.access_code_sent = true;
+    enrollmentRequest.access_code_sent_at = new Date();
+    enrollmentRequest.approved_by_user_id = adminId;
+    enrollmentRequest.approval_date = new Date();
+    await enrollmentRepo.save(enrollmentRequest);
+
+    // Create or update access code request record
+    const existingAccessRequest = await accessCodeRequestRepo.findOne({
+      where: {
+        user_id: user.id,
+        course_id: course.id,
+      },
+      order: { requested_at: "DESC" },
+    });
+
+    if (existingAccessRequest) {
+      existingAccessRequest.generated_code = accessCode;
+      existingAccessRequest.status = AccessCodeRequestStatus.CODE_SENT;
+      existingAccessRequest.code_sent_at = new Date();
+      existingAccessRequest.processed_by_admin_id = adminId;
+      existingAccessRequest.processed_at = new Date();
+      await accessCodeRequestRepo.save(existingAccessRequest);
+    } else {
+      const accessCodeRequest = accessCodeRequestRepo.create({
+        user_id: user.id,
+        course_id: course.id,
+        institution_id: course.institution_id,
+        generated_code: accessCode,
+        status: AccessCodeRequestStatus.CODE_SENT,
+        code_sent_at: new Date(),
+        processed_by_admin_id: adminId,
+        processed_at: new Date(),
+      });
+      await accessCodeRequestRepo.save(accessCodeRequest);
+    }
+
+    // Send email to learner with the access code
+    await sendEmail({
+      to: user.email,
+      subject: `Your Access Code for ${course.title}`,
+      html: `
+        <h2>Access Code Request Approved</h2>
+        <p>Hello ${user.first_name || 'Learner'},</p>
+        <p>Your request for an access code for the public SPOC course <strong>${course.title}</strong> has been approved.</p>
+        <div style="background-color: #f0f0f0; padding: 20px; text-align: center; margin: 20px 0; border-radius: 8px;">
+          <h3 style="margin: 0; color: #333;">Your Access Code</h3>
+          <p style="font-size: 32px; font-weight: bold; color: #4CAF50; margin: 10px 0;">${accessCode}</p>
+        </div>
+        <p>To enroll in the course:</p>
+        <ol>
+          <li>Go to the course page: <a href="${process.env.CLIENT_URL}/courses/${course.id}">${course.title}</a></li>
+          <li>Enter the access code in the provided field</li>
+          <li>Click "Verify & Enroll" to gain immediate access</li>
+        </ol>
+        <p>This code is for your personal use only and should not be shared.</p>
+        <p>Happy learning!</p>
+        <hr>
+        <p><a href="${process.env.CLIENT_URL}/courses/${course.id}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Go to Course</a></p>
+      `,
+    });
+
+    res.json({
+      success: true,
+      message: `Access code sent to ${user.email}`,
+      data: {
+        access_code: accessCode,
+        user_email: user.email,
+        course_title: course.title,
+        code_sent_at: new Date(),
+      },
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to send access code",
+      error: error.message,
+    });
+  }
+}
+
+  static async approvePublicCourseEnrollment(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const userId = req.user?.userId || req.user?.id;
+  
+      const userRepo = dbConnection.getRepository(User);
+      const user = await userRepo.findOne({ where: { id: userId } });
+      
+      if (!user || user.bwenge_role !== BwengeRole.SYSTEM_ADMIN) {
+        return res.status(403).json({
+          success: false,
+          message: "Access denied. System admin privileges required.",
+        });
+      }
+  
+      const enrollmentRepo = dbConnection.getRepository(Enrollment);
+      const courseRepo = dbConnection.getRepository(Course);
+      
+      const enrollment = await enrollmentRepo.findOne({
+        where: { id },
+        relations: ["user", "course"],
+      });
+  
+      if (!enrollment) {
+        return res.status(404).json({
+          success: false,
+          message: "Enrollment request not found",
+        });
+      }
+  
+      if (enrollment.approval_status !== "PENDING") {
+        return res.status(400).json({
+          success: false,
+          message: `Enrollment already ${enrollment.approval_status?.toLowerCase() || 'processed'}`,
+        });
+      }
+  
+      enrollment.approval_status = "APPROVED";
+      enrollment.status = "ACTIVE";
+      enrollment.approved_by_user_id = userId;
+      enrollment.approval_date = new Date();
+  
+      await enrollmentRepo.save(enrollment);
+  
+      // Update course enrollment count
+      if (enrollment.course) {
+        enrollment.course.enrollment_count = (enrollment.course.enrollment_count || 0) + 1;
+        await courseRepo.save(enrollment.course);
+      }
+  
+      // Send approval email
+      await sendEmail({
+        to: enrollment.user.email,
+        subject: `Enrollment Approved: ${enrollment.course.title}`,
+        html: `
+          <h2>Enrollment Approved!</h2>
+          <p>Your enrollment request for <strong>${enrollment.course.title}</strong> has been approved.</p>
+          <p>You can now access the course at ${process.env.CLIENT_URL}/courses/${enrollment.course.id}/learn</p>
+        `,
+      });
+  
+      res.json({
+        success: true,
+        message: "Enrollment approved successfully",
+        data: {
+          id: enrollment.id,
+          status: enrollment.status,
+          approval_status: enrollment.approval_status,
+        },
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to approve enrollment",
+        error: error.message,
+      });
+    }
+  }
+  
+  static async rejectPublicCourseEnrollment(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { rejection_reason } = req.body;
+      const userId = req.user?.userId || req.user?.id;
+  
+      const userRepo = dbConnection.getRepository(User);
+      const user = await userRepo.findOne({ where: { id: userId } });
+      
+      if (!user || user.bwenge_role !== BwengeRole.SYSTEM_ADMIN) {
+        return res.status(403).json({
+          success: false,
+          message: "Access denied. System admin privileges required.",
+        });
+      }
+  
+      const enrollmentRepo = dbConnection.getRepository(Enrollment);
+      const enrollment = await enrollmentRepo.findOne({
+        where: { id },
+        relations: ["user", "course"],
+      });
+  
+      if (!enrollment) {
+        return res.status(404).json({
+          success: false,
+          message: "Enrollment request not found",
+        });
+      }
+  
+      if (enrollment.approval_status !== "PENDING") {
+        return res.status(400).json({
+          success: false,
+          message: `Enrollment already ${enrollment.approval_status?.toLowerCase() || 'processed'}`,
+        });
+      }
+  
+      enrollment.approval_status = "REJECTED";
+      enrollment.status = "DROPPED";
+      enrollment.approved_by_user_id = userId;
+      enrollment.approval_date = new Date();
+  
+      await enrollmentRepo.save(enrollment);
+  
+      // Send rejection email
+      await sendEmail({
+        to: enrollment.user.email,
+        subject: `Enrollment Request Status: ${enrollment.course.title}`,
+        html: `
+          <h2>Enrollment Request Update</h2>
+          <p>Unfortunately, your enrollment request for <strong>${enrollment.course.title}</strong> was not approved at this time.</p>
+          ${rejection_reason ? `<p><strong>Reason:</strong> ${rejection_reason}</p>` : ""}
+          <p>Please contact support for more information.</p>
+        `,
+      });
+  
+      res.json({
+        success: true,
+        message: "Enrollment rejected",
+        data: {
+          id: enrollment.id,
+          status: enrollment.status,
+          approval_status: enrollment.approval_status,
+        },
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to reject enrollment",
         error: error.message,
       });
     }
@@ -617,7 +1326,6 @@ static async exportEnrollmentAnalytics(req: Request, res: Response) {
       total: enrollments.length,
     });
   } catch (error: any) {
-    console.error("❌ Export enrollment analytics error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to export enrollment analytics",
@@ -757,7 +1465,6 @@ static async exportEnrollmentAnalytics(req: Request, res: Response) {
       });
 
     } catch (error: any) {
-      console.error("❌ Get user enrollments by ID error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch user enrollments",
@@ -852,7 +1559,6 @@ static async exportEnrollmentAnalytics(req: Request, res: Response) {
         data: { count },
       });
     } catch (error: any) {
-      console.error("❌ Get pending count error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to get pending enrollments count",
@@ -1066,7 +1772,6 @@ static async exportEnrollmentAnalytics(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get pending enrollments error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch pending enrollments",
@@ -1365,7 +2070,6 @@ static async getUserEnrollments(req: Request, res: Response) {
     });
 
   } catch (error: any) {
-    console.error("❌ Get user enrollments error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch user enrollments",
@@ -1554,7 +2258,6 @@ static async getUserEnrollments(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Check eligibility error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to check enrollment eligibility",
@@ -1682,7 +2385,6 @@ static async getUserEnrollments(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Request approval error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to request enrollment approval",
@@ -1751,7 +2453,6 @@ static async getUserEnrollments(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Approve enrollment error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to approve enrollment",
@@ -1815,7 +2516,6 @@ static async getUserEnrollments(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Reject enrollment error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to reject enrollment",
@@ -1970,7 +2670,6 @@ static async getUserEnrollments(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Direct enrollment error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to enroll in course",
@@ -2187,7 +2886,6 @@ static async getUserEnrollments(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Request access code error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to request access code",
@@ -2442,7 +3140,6 @@ static async getUserEnrollments(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Redeem access code error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to redeem access code",
@@ -2654,7 +3351,6 @@ static async getUserEnrollments(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get access code requests error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch access code requests",
@@ -2879,7 +3575,6 @@ static async getUserEnrollments(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Send access code error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to send access code",
@@ -3057,7 +3752,6 @@ static async getUserEnrollments(req: Request, res: Response) {
         data: response,
       });
     } catch (error: any) {
-      console.error("❌ Check enrollment scenario error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to check enrollment scenario",
@@ -3130,7 +3824,6 @@ static async exportEnrollments(req: Request, res: Response) {
       try {
         includeFields = JSON.parse(fields as string);
       } catch (e) {
-        console.warn("Failed to parse fields JSON");
       }
     }
 
@@ -3239,7 +3932,6 @@ static async exportEnrollments(req: Request, res: Response) {
       },
     });
   } catch (error: any) {
-    console.error("❌ Export enrollments error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to export enrollments",
@@ -3309,7 +4001,6 @@ static async getExportPreview(req: Request, res: Response) {
       data: preview,
     });
   } catch (error: any) {
-    console.error("❌ Get export preview error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to get export preview",
@@ -3351,7 +4042,6 @@ static async getExportHistory(req: Request, res: Response) {
       data: mockHistory,
     });
   } catch (error: any) {
-    console.error("❌ Get export history error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to get export history",
@@ -3600,7 +4290,6 @@ static async bulkEnrollStudents(req: Request, res: Response) {
       data: results,
     });
   } catch (error: any) {
-    console.error("❌ Bulk enroll error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to bulk enroll students",
@@ -3833,7 +4522,6 @@ static async getInstitutionEnrollmentAnalytics(req: Request, res: Response) {
       },
     });
   } catch (error: any) {
-    console.error("❌ Get enrollment analytics error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch enrollment analytics",
@@ -3912,7 +4600,6 @@ static async getEnrollmentCount(req: Request, res: Response) {
       },
     });
   } catch (error: any) {
-    console.error("❌ Get enrollment count error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to get enrollment count",

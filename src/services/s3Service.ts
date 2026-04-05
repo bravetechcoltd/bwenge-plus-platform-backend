@@ -51,7 +51,6 @@ class S3Service {
     try {
       // Check if S3 is configured
       if (!process.env.AWS_ACCESS_KEY_ID || !process.env.AWS_SECRET_ACCESS_KEY || !process.env.AWS_S3_BUCKET) {
-        console.warn('⚠️ S3 not configured: Missing AWS credentials or bucket');
         return false;
       }
 
@@ -95,10 +94,8 @@ class S3Service {
         this.publicUrlBase = `https://${this.bucket}.s3.${config.region}.amazonaws.com`;
       }
 
-      console.log('✅ S3 service initialized with bucket:', this.bucket);
       return true;
     } catch (error) {
-      console.error('❌ Failed to initialize S3 service:', error);
       return false;
     }
   }
@@ -115,7 +112,6 @@ class S3Service {
       await this.s3.headBucket({ Bucket: this.bucket }).promise();
       return true;
     } catch (error) {
-      console.error('❌ S3 bucket not accessible:', error);
       return false;
     }
   }
@@ -160,7 +156,6 @@ class S3Service {
       // Upload to S3
       const result = await this.s3.upload(params).promise();
 
-      console.log(`✅ File uploaded to S3: ${finalKey} (${fileStats.size} bytes)`);
 
       return {
         key: result.Key,
@@ -171,7 +166,6 @@ class S3Service {
         location: result.Location,
       };
     } catch (error:any) {
-      console.error('❌ S3 upload failed:', error);
       throw new Error(`Failed to upload file to S3: ${error.message}`);
     }
   }
@@ -204,7 +198,6 @@ class S3Service {
 
       const result = await this.s3.upload(params).promise();
 
-      console.log(`✅ Buffer uploaded to S3: ${key} (${buffer.length} bytes)`);
 
       return {
         key: result.Key,
@@ -215,7 +208,6 @@ class S3Service {
         location: result.Location,
       };
     } catch (error) {
-      console.error('❌ S3 buffer upload failed:', error);
       throw new Error(`Failed to upload buffer to S3: ${error.message}`);
     }
   }
@@ -259,7 +251,6 @@ class S3Service {
 
       const result = await uploadPromise;
 
-      console.log(`✅ Stream uploaded to S3: ${key}`);
 
       return {
         key: result.Key,
@@ -270,7 +261,6 @@ class S3Service {
         location: result.Location,
       };
     } catch (error) {
-      console.error('❌ S3 stream upload failed:', error);
       throw new Error(`Failed to upload stream to S3: ${error.message}`);
     }
   }
@@ -298,9 +288,7 @@ class S3Service {
       // Pipe to file
       await pipeline(s3Stream, writeStream);
 
-      console.log(`✅ File downloaded from S3: ${key} -> ${downloadPath}`);
     } catch (error) {
-      console.error('❌ S3 download failed:', error);
       throw new Error(`Failed to download file from S3: ${error.message}`);
     }
   }
@@ -323,7 +311,6 @@ class S3Service {
       
       return result.Body as Buffer;
     } catch (error) {
-      console.error('❌ S3 get file failed:', error);
       throw new Error(`Failed to get file from S3: ${error.message}`);
     }
   }
@@ -344,9 +331,7 @@ class S3Service {
 
       await this.s3.deleteObject(params).promise();
 
-      console.log(`✅ File deleted from S3: ${key}`);
     } catch (error) {
-      console.error('❌ S3 delete failed:', error);
       throw new Error(`Failed to delete file from S3: ${error.message}`);
     }
   }
@@ -373,13 +358,10 @@ class S3Service {
       const result = await this.s3.deleteObjects(params).promise();
 
       if (result.Errors && result.Errors.length > 0) {
-        console.error('❌ Some files failed to delete:', result.Errors);
         throw new Error(`Failed to delete some files: ${result.Errors.map(e => e.Key).join(', ')}`);
       }
 
-      console.log(`✅ ${keys.length} files deleted from S3`);
     } catch (error) {
-      console.error('❌ S3 bulk delete failed:', error);
       throw new Error(`Failed to delete files from S3: ${error.message}`);
     }
   }
@@ -424,7 +406,6 @@ class S3Service {
 
       return await this.s3.headObject(params).promise();
     } catch (error) {
-      console.error('❌ S3 get metadata failed:', error);
       throw new Error(`Failed to get file metadata: ${error.message}`);
     }
   }
@@ -448,7 +429,6 @@ class S3Service {
       
       return result.Contents || [];
     } catch (error) {
-      console.error('❌ S3 list files failed:', error);
       throw new Error(`Failed to list files: ${error.message}`);
     }
   }
@@ -470,9 +450,7 @@ class S3Service {
 
       await this.s3.copyObject(params).promise();
 
-      console.log(`✅ File copied: ${sourceKey} -> ${destinationKey}`);
     } catch (error) {
-      console.error('❌ S3 copy failed:', error);
       throw new Error(`Failed to copy file: ${error.message}`);
     }
   }
@@ -502,7 +480,6 @@ class S3Service {
 
       return await this.s3.getSignedUrlPromise('getObject', params);
     } catch (error) {
-      console.error('❌ S3 signed URL generation failed:', error);
       throw new Error(`Failed to generate signed URL: ${error.message}`);
     }
   }
@@ -535,7 +512,6 @@ class S3Service {
 
       return await this.s3.createPresignedPost(params);
     } catch (error) {
-      console.error('❌ S3 signed upload URL generation failed:', error);
       throw new Error(`Failed to generate signed upload URL: ${error.message}`);
     }
   }
@@ -632,9 +608,7 @@ class S3Service {
 
       await this.s3.putObject(params).promise();
       
-      console.log(`✅ Folder created: ${key}`);
     } catch (error) {
-      console.error('❌ S3 folder creation failed:', error);
       throw new Error(`Failed to create folder: ${error.message}`);
     }
   }
@@ -684,7 +658,6 @@ class S3Service {
         lastModified,
       };
     } catch (error) {
-      console.error('❌ S3 bucket stats failed:', error);
       throw new Error(`Failed to get bucket stats: ${error.message}`);
     }
   }

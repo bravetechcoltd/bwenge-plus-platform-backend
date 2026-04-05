@@ -49,7 +49,6 @@ export class AuditLogService {
 
       return await auditRepo.save(auditLog);
     } catch (error) {
-      console.error("❌ Failed to create audit log:", error);
       // Don't throw - audit logging should not break the main flow
       return null as any;
     }

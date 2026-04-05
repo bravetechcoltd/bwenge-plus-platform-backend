@@ -27,7 +27,6 @@ export class InstitutionController {
 
 static async getPublicInstitutionsForHomepage(req: Request, res: Response) {
   try {
-    console.log("🏠 [getPublicInstitutionsForHomepage] Fetching public homepage data...");
 
     const institutionRepo = dbConnection.getRepository(Institution);
     const categoryRepo = dbConnection.getRepository(CourseCategory);
@@ -40,12 +39,10 @@ static async getPublicInstitutionsForHomepage(req: Request, res: Response) {
       .orderBy("institution.created_at", "DESC")
       .getMany();
 
-    console.log(`✅ Found ${institutions.length} active institutions`);
 
     // Build response with categories and courses for each institution
     const institutionsWithData = await Promise.all(
       institutions.map(async (institution) => {
-        console.log(`📊 Processing institution: ${institution.name} (${institution.id})`);
 
         // STRATEGY 1: Get all published courses for this institution first
         const allCourses = await courseRepo
@@ -57,7 +54,6 @@ static async getPublicInstitutionsForHomepage(req: Request, res: Response) {
           .orderBy("course.enrollment_count", "DESC")
           .getMany();
 
-        console.log(`   Found ${allCourses.length} published courses`);
 
         // STRATEGY 2: Get active categories for this institution
         const categories = await categoryRepo.find({
@@ -68,7 +64,6 @@ static async getPublicInstitutionsForHomepage(req: Request, res: Response) {
           order: { order_index: "ASC" },
         });
 
-        console.log(`   Found ${categories.length} categories`);
 
         // STRATEGY 3: Build categories with courses
         const categoriesWithCourses: any[] = [];
@@ -144,7 +139,6 @@ static async getPublicInstitutionsForHomepage(req: Request, res: Response) {
 
         // STRATEGY 5: If no categories exist but courses do, create a default category
         if (categoriesWithCourses.length === 0 && allCourses.length > 0) {
-          console.log(`   ⚠️ No categories found, creating default category for ${allCourses.length} courses`);
           
           const defaultCourses = allCourses
             .slice(0, 6)
@@ -176,7 +170,6 @@ static async getPublicInstitutionsForHomepage(req: Request, res: Response) {
           });
         }
 
-        console.log(`   ✅ Returning ${categoriesWithCourses.length} categories with courses`);
 
         return {
           id: institution.id,
@@ -190,14 +183,12 @@ static async getPublicInstitutionsForHomepage(req: Request, res: Response) {
       })
     );
 
-    console.log("✅ [getPublicInstitutionsForHomepage] Data prepared successfully");
 
     res.json({
       success: true,
       data: institutionsWithData,
     });
   } catch (error: any) {
-    console.error("❌ Get public institutions error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch public institutions",
@@ -257,7 +248,6 @@ static async getInstitutionSettings(req: Request, res: Response) {
       data: settings,
     });
   } catch (error: any) {
-    console.error("❌ Get settings error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch institution settings",
@@ -296,7 +286,6 @@ static async updateInstitutionSettings(req: Request, res: Response) {
       data: institution.settings,
     });
   } catch (error: any) {
-    console.error("❌ Update settings error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to update institution settings",
@@ -336,7 +325,6 @@ static async updateSecuritySettings(req: Request, res: Response) {
       data: settings.security,
     });
   } catch (error: any) {
-    console.error("❌ Update security settings error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to update security settings",
@@ -349,7 +337,6 @@ static async updateSecuritySettings(req: Request, res: Response) {
 
 static async replaceInstitutionAdmin(req: Request, res: Response) {
   try {
-    console.log("\n🔄 [REPLACE ADMIN] Starting...");
 
     const { id } = req.params;
     const {
@@ -401,7 +388,6 @@ static async replaceInstitutionAdmin(req: Request, res: Response) {
 
     // Create or update new admin user
     if (newAdminUser) {
-      console.log("⚠️ New admin user already exists, updating role...");
       
       if (!newAdminUser.institution_ids) {
         newAdminUser.institution_ids = [];
@@ -420,7 +406,6 @@ static async replaceInstitutionAdmin(req: Request, res: Response) {
       
       await userRepo.save(newAdminUser);
     } else {
-      console.log("✅ Creating new admin user...");
       
       const username = new_admin_username || 
         new_admin_email.split('@')[0] + '_' + Math.random().toString(36).substring(7);
@@ -465,7 +450,6 @@ static async replaceInstitutionAdmin(req: Request, res: Response) {
         await userRepo.save(currentAdminUser);
       }
 
-      console.log("✅ Previous admin membership deactivated");
     }
 
     // Create new admin membership
@@ -477,7 +461,6 @@ static async replaceInstitutionAdmin(req: Request, res: Response) {
     });
 
     await memberRepo.save(newMembership);
-    console.log("✅ New admin membership created");
 
     // Send email to new admin
     try {
@@ -502,9 +485,7 @@ static async replaceInstitutionAdmin(req: Request, res: Response) {
           </div>
         `,
       });
-      console.log("✅ New admin credentials email sent");
     } catch (emailError: any) {
-      console.warn("⚠️ Failed to send email:", emailError.message);
     }
 
     // Notify previous admin if exists
@@ -524,7 +505,6 @@ static async replaceInstitutionAdmin(req: Request, res: Response) {
           `,
         });
       } catch (emailError: any) {
-        console.warn("⚠️ Failed to send notification to previous admin");
       }
     }
 
@@ -551,7 +531,6 @@ static async replaceInstitutionAdmin(req: Request, res: Response) {
       },
     });
   } catch (error: any) {
-    console.error("❌ Replace admin error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to replace institution admin",
@@ -596,7 +575,6 @@ static async replaceInstitutionAdmin(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get admin error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch institution admin",
@@ -607,16 +585,10 @@ static async replaceInstitutionAdmin(req: Request, res: Response) {
 
 static async createInstitution(req: Request, res: Response) {
   try {
-    console.log("\n🏛️ [CREATE INSTITUTION] Starting...");
    
-    console.log("📁 Request files:", req.files);
-    console.log("📁 Request file (single):", req.file);
-    console.log("📁 Request body:", req.body);
     
     if (req.body && typeof req.body === 'object') {
-      console.log("📋 Form fields received:");
       Object.keys(req.body).forEach(key => {
-        console.log(`  ${key}:`, req.body[key]);
       });
     }
     
@@ -691,7 +663,6 @@ static async createInstitution(req: Request, res: Response) {
           fs.unlinkSync(logoFile.path);
         }
       } catch (uploadError: any) {
-        console.error("❌ Logo upload failed:", uploadError);
         return res.status(500).json({
           success: false,
           message: "Failed to upload institution logo",
@@ -706,7 +677,6 @@ static async createInstitution(req: Request, res: Response) {
       try {
         parsedSettings = JSON.parse(settings);
       } catch (parseError) {
-        console.warn("⚠️ Failed to parse settings JSON, using empty object");
         parsedSettings = {};
       }
     }
@@ -729,7 +699,6 @@ static async createInstitution(req: Request, res: Response) {
     });
 
     await institutionRepo.save(institution);
-    console.log("✅ Institution created:", institution.id);
 
     // Generate temporary password for admin
     const tempPassword = crypto.randomBytes(8).toString('hex');
@@ -738,7 +707,6 @@ static async createInstitution(req: Request, res: Response) {
     // Create or update admin user
     if (adminUser) {
       // User exists - just update their role
-      console.log("⚠️ Admin user already exists, updating role...");
       
       if (!adminUser.institution_ids) {
         adminUser.institution_ids = [];
@@ -756,10 +724,8 @@ static async createInstitution(req: Request, res: Response) {
       }
       
       await userRepo.save(adminUser);
-      console.log("✅ Existing user updated as institution admin");
     } else {
       // Create new admin user
-      console.log("✅ Creating new admin user...");
       
       const username = admin_username || admin_email.split('@')[0] + '_' + Math.random().toString(36).substring(7);
       
@@ -780,7 +746,6 @@ static async createInstitution(req: Request, res: Response) {
       });
 
       await userRepo.save(adminUser);
-      console.log("✅ New admin user created");
     }
 
     // Create institution membership
@@ -792,7 +757,6 @@ static async createInstitution(req: Request, res: Response) {
     });
 
     await memberRepo.save(membership);
-    console.log("✅ Admin membership created");
 
     // Send email to admin with credentials
     try {
@@ -823,9 +787,7 @@ static async createInstitution(req: Request, res: Response) {
           </div>
         `,
       });
-      console.log("✅ Admin credentials email sent");
     } catch (emailError: any) {
-      console.warn("⚠️ Failed to send email:", emailError.message);
     }
 
     return res.status(201).json({
@@ -845,7 +807,6 @@ static async createInstitution(req: Request, res: Response) {
       },
     });
   } catch (error: any) {
-    console.error("❌ Create institution error:", error);
     return res.status(500).json({
       success: false,
       message: "Failed to create institution",
@@ -880,7 +841,6 @@ static async updateInstitution(req: Request, res: Response) {
           fs.unlinkSync(logoFile.path);
         }
       } catch (uploadError: any) {
-        console.error("❌ Logo upload failed:", uploadError);
         return res.status(500).json({
           success: false,
           message: "Failed to upload institution logo",
@@ -955,7 +915,6 @@ static async updateInstitution(req: Request, res: Response) {
       data: institution,
     });
   } catch (error: any) {
-    console.error("❌ Update institution error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to update institution",
@@ -967,9 +926,6 @@ static async updateInstitution(req: Request, res: Response) {
 // Replace the addMemberToInstitution method with limit checks
 static async addMemberToInstitution(req: Request, res: Response) {
   try {
-    console.log("\n👥 [ADD MEMBER TO INSTITUTION] Starting...");
-    console.log("📝 Request params:", req.params);
-    console.log("📝 Request body:", req.body);
 
     const { id } = req.params;
     const { email, role, send_invitation, new_user_data } = req.body;
@@ -1003,7 +959,6 @@ static async addMemberToInstitution(req: Request, res: Response) {
       });
     }
 
-    console.log(`🏛️ Found institution: ${institution.name}`);
 
     // CHECK LIMITS BEFORE ADDING
     const currentMemberCount = await memberRepo.count({
@@ -1072,7 +1027,6 @@ static async addMemberToInstitution(req: Request, res: Response) {
         });
       }
 
-      console.log("👤 User not found, creating new user...");
       isNewUser = true;
 
       // Check if username is already taken
@@ -1131,10 +1085,8 @@ static async addMemberToInstitution(req: Request, res: Response) {
       });
 
       await userRepo.save(user);
-      console.log(`✅ New user created with ID: ${user.id}`);
     } else {
       // User exists
-      console.log(`✅ Found existing user: ${user.id}`);
 
       // Check if already a member of this institution
       const existingMember = await memberRepo.findOne({
@@ -1143,7 +1095,6 @@ static async addMemberToInstitution(req: Request, res: Response) {
 
       if (existingMember) {
         if (existingMember.is_active) {
-          console.log("⚠️ User is already an active member");
           return res.status(400).json({
             success: false,
             message: "User is already an active member of this institution",
@@ -1196,7 +1147,6 @@ static async addMemberToInstitution(req: Request, res: Response) {
           // Send invitation email if requested
           if (send_invitation) {
             try {
-              console.log(`📧 Sending reactivation email to ${email}...`);
               await InstitutionController.sendInvitationEmail(
                 email,
                 institution.name,
@@ -1204,9 +1154,7 @@ static async addMemberToInstitution(req: Request, res: Response) {
                 false,
                 ""
               );
-              console.log("✅ Reactivation email sent");
             } catch (emailError: any) {
-              console.warn("⚠️ Failed to send email:", emailError.message);
             }
           }
 
@@ -1231,7 +1179,6 @@ static async addMemberToInstitution(req: Request, res: Response) {
       }
 
       // User exists but is not a member - add them (limits already checked above)
-      console.log("✅ Adding existing user as new member...");
 
       // Update user's institution arrays and roles
       if (!user.institution_ids) {
@@ -1275,11 +1222,9 @@ static async addMemberToInstitution(req: Request, res: Response) {
       user.institution_role = institutionRole;
 
       await userRepo.save(user);
-      console.log(`✅ User updated with institution membership`);
     }
 
     // Create new membership
-    console.log("✅ Creating new membership...");
     const member = memberRepo.create({
       user_id: user.id,
       institution_id: id,
@@ -1289,13 +1234,11 @@ static async addMemberToInstitution(req: Request, res: Response) {
     });
 
     await memberRepo.save(member);
-    console.log(`✅ Membership created with ID: ${member.id}`);
 
     // Send invitation email if requested
     let emailSent = false;
     if (send_invitation) {
       try {
-        console.log(`📧 Sending invitation email to ${email}...`);
         await InstitutionController.sendInvitationEmail(
           email,
           institution.name,
@@ -1304,14 +1247,11 @@ static async addMemberToInstitution(req: Request, res: Response) {
           tempPassword
         );
         emailSent = true;
-        console.log("✅ Invitation email sent successfully");
       } catch (emailError: any) {
-        console.warn("⚠️ Failed to send invitation email:", emailError.message);
         emailSent = false;
       }
     }
 
-    console.log("✅ Member addition process completed successfully");
 
     // Return success response with limit info
     return res.status(201).json({
@@ -1352,7 +1292,6 @@ static async addMemberToInstitution(req: Request, res: Response) {
       },
     });
   } catch (error: any) {
-    console.error("❌ Add member error:", error);
     return res.status(500).json({
       success: false,
       message: "Failed to add member",
@@ -1407,7 +1346,6 @@ static async getInstitutionLimits(req: Request, res: Response) {
       },
     });
   } catch (error: any) {
-    console.error("❌ Get limits error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch institution limits",
@@ -1459,7 +1397,6 @@ static async getInstitutionLimits(req: Request, res: Response) {
           { is_active: false }
         );
 
-        console.log("✅ Institution members deactivated");
       } else {
         // If activating, reactivate admin membership
         const adminMember = await memberRepo.findOne({
@@ -1472,7 +1409,6 @@ static async getInstitutionLimits(req: Request, res: Response) {
         if (adminMember) {
           adminMember.is_active = true;
           await memberRepo.save(adminMember);
-          console.log("✅ Admin membership reactivated");
         }
       }
 
@@ -1485,7 +1421,6 @@ static async getInstitutionLimits(req: Request, res: Response) {
         where: { institution_id: id, is_active: true },
       });
 
-      console.log(`✅ Institution ${newStatus ? "activated" : "deactivated"}`);
 
       res.json({
         success: true,
@@ -1497,7 +1432,6 @@ static async getInstitutionLimits(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Toggle institution status error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update institution status",
@@ -1546,7 +1480,6 @@ static async activateInstitution(req: Request, res: Response) {
     if (adminMember) {
       adminMember.is_active = true;
       await memberRepo.save(adminMember);
-      console.log("✅ Admin membership reactivated");
 
       // Also update the user's institution_role if needed
       if (adminMember.user) {
@@ -1570,11 +1503,9 @@ static async activateInstitution(req: Request, res: Response) {
           `,
         });
       } catch (emailError: any) {
-        console.warn("⚠️ Failed to send activation email:", emailError.message);
       }
     }
 
-    console.log("✅ Institution activated");
 
     res.json({
       success: true,
@@ -1582,7 +1513,6 @@ static async activateInstitution(req: Request, res: Response) {
       data: institution,
     });
   } catch (error: any) {
-    console.error("❌ Activate institution error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to activate institution",
@@ -1904,7 +1834,6 @@ static async getAllInstitutions(req: Request, res: Response) {
       data: institutionsWithDetails,
     });
   } catch (error: any) {
-    console.error("❌ Get institutions error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch institutions",
@@ -2363,7 +2292,6 @@ static async getInstitutionById(req: Request, res: Response) {
       data: institutionWithDetails,
     });
   } catch (error: any) {
-    console.error("❌ Get institution error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch institution",
@@ -2468,7 +2396,6 @@ static async getInstitutionById(req: Request, res: Response) {
         }
       }
 
-      console.log(`✅ Institution deactivated - ${activeMembers.length} members affected`);
 
       // Send notification emails to all members
       for (const member of activeMembers) {
@@ -2488,7 +2415,6 @@ static async getInstitutionById(req: Request, res: Response) {
             `,
           });
         } catch (emailError: any) {
-          console.warn(`⚠️ Failed to send email to ${member.user.email}`);
         }
       }
 
@@ -2502,7 +2428,6 @@ static async getInstitutionById(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Deactivate institution error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to deactivate institution",
@@ -2553,7 +2478,6 @@ static async getInstitutionById(req: Request, res: Response) {
         message: "Institution deactivated successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete institution error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete institution",
@@ -2773,7 +2697,6 @@ static async getInstitutionById(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get members error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch members",
@@ -2804,7 +2727,6 @@ static async checkUserIsMember(req: Request, res: Response) {
       member: member || null,
     });
   } catch (error: any) {
-    console.error("❌ Check member error:", error);
     return res.status(500).json({
       success: false,
       message: "Failed to check member status",
@@ -2876,7 +2798,6 @@ private static async sendInvitationEmail(
         message: "Member removed successfully",
       });
     } catch (error: any) {
-      console.error("❌ Remove member error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to remove member",
@@ -2944,7 +2865,6 @@ private static async sendInvitationEmail(
         data: member,
       });
     } catch (error: any) {
-      console.error("❌ Update member role error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update member role",
@@ -2999,7 +2919,6 @@ private static async sendInvitationEmail(
         },
       });
     } catch (error: any) {
-      console.error("❌ Verify invite token error:", error);
       res.status(500).json({ success: false, message: "Failed to verify invite link", error: error.message });
     }
   }
@@ -3113,7 +3032,6 @@ private static async sendInvitationEmail(
         },
       });
     } catch (error: any) {
-      console.error("❌ Accept invite error:", error);
       res.status(500).json({ success: false, message: "Failed to join institution", error: error.message });
     }
   }
@@ -3179,7 +3097,6 @@ private static async sendInvitationEmail(
         data: invitation,
       });
     } catch (error: any) {
-      console.error("❌ Invite user error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to send invitation",
@@ -3225,7 +3142,6 @@ private static async sendInvitationEmail(
         data: { link, invite_link: link, token, expires_at: expiresAt, role },
       });
     } catch (error: any) {
-      console.error("❌ Generate invite link error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to generate invite link",
@@ -3274,7 +3190,6 @@ private static async sendInvitationEmail(
 
       res.json({ success: true, message: "Invitation resent successfully" });
     } catch (error: any) {
-      console.error("❌ Resend invitation error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to resend invitation",
@@ -3302,7 +3217,6 @@ private static async sendInvitationEmail(
 
       res.json({ success: true, message: "Invitation cancelled" });
     } catch (error: any) {
-      console.error("❌ Cancel invitation error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to cancel invitation",
@@ -3379,7 +3293,6 @@ private static async sendInvitationEmail(
         data: results,
       });
     } catch (error: any) {
-      console.error("❌ Bulk invite error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to send invitations",
@@ -3446,7 +3359,6 @@ private static async sendInvitationEmail(
         },
       });
     } catch (error: any) {
-      console.error("❌ Get invitations error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch invitations",
@@ -3516,7 +3428,6 @@ private static async sendInvitationEmail(
         data: member,
       });
     } catch (error: any) {
-      console.error("❌ Promote member error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to promote member",
@@ -3666,7 +3577,6 @@ private static async sendInvitationEmail(
       });
 
     } catch (error: any) {
-      console.error("❌ Bulk import error:", error);
       res.status(500).json({ success: false, message: "Failed to import users", error: error.message });
     }
   }
@@ -3702,7 +3612,6 @@ private static async sendInvitationEmail(
         },
       });
     } catch (error: any) {
-      console.error("❌ Get bulk import jobs error:", error);
       res.status(500).json({ success: false, message: "Failed to fetch jobs", error: error.message });
     }
   }
@@ -3721,7 +3630,6 @@ private static async sendInvitationEmail(
 
       res.json({ success: true, data: job });
     } catch (error: any) {
-      console.error("❌ Get bulk import job error:", error);
       res.status(500).json({ success: false, message: "Failed to fetch job", error: error.message });
     }
   }

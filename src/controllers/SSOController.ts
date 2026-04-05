@@ -11,16 +11,12 @@ export class SSOController {
   // ==================== GENERATE SSO TOKEN ====================
   static async generateToken(req: Request, res: Response) {
     try {
-      console.log("\n🔐 ========== SSO: GENERATE TOKEN ==========");
       const userId = req.user?.userId || req.user?.id;
       const { target_system } = req.body;
 
-      console.log("📋 User ID:", userId);
-      console.log("📋 Target System:", target_system);
 
       // Validate authentication
       if (!userId) {
-        console.log("❌ User not authenticated");
         return res.status(401).json({
           success: false,
           message: "User not authenticated"
@@ -29,7 +25,6 @@ export class SSOController {
 
       // Validate target system
       if (!target_system || target_system !== "BWENGE_PLUS") {
-        console.log("❌ Invalid target system:", target_system);
         return res.status(400).json({
           success: false,
           message: "Invalid target system. Must be 'BWENGE_PLUS'"
@@ -41,7 +36,6 @@ export class SSOController {
       const user = await userRepo.findOne({ where: { id: userId } });
 
       if (!user) {
-        console.log("❌ User not found:", userId);
         return res.status(404).json({
           success: false,
           message: "User not found"
@@ -49,14 +43,12 @@ export class SSOController {
       }
 
       if (!user.isUserLogin) {
-        console.log("❌ User not logged in (isUserLogin = false)");
         return res.status(403).json({
           success: false,
           message: "User not logged in to any system"
         });
       }
 
-      console.log("✅ User validated:", user.email);
 
       // Check for existing active session in target system
       const sessionRepo = dbConnection.getRepository(UserSession);
@@ -70,7 +62,6 @@ export class SSOController {
       });
 
       if (activeSession) {
-        console.log("✅ Found existing BwengePlus session");
       }
 
       // Generate SSO token
@@ -88,9 +79,6 @@ export class SSOController {
 
       await tokenRepo.save(tokenRecord);
 
-      console.log("✅ SSO Token generated:", ssoToken.substring(0, 16) + "...");
-      console.log("⏰ Expires at:", expiresAt.toISOString());
-      console.log("🔗 Redirect URL:", `${process.env.BWENGE_PLUS_URL}/sso/consume?token=${ssoToken}`);
 
       res.json({
         success: true,
@@ -105,9 +93,6 @@ export class SSOController {
         }
       });
     } catch (error: any) {
-      console.error("❌ ========== SSO: GENERATE TOKEN ERROR ==========");
-      console.error("Error:", error.message);
-      console.error("Stack:", error.stack);
       
       res.status(500).json({
         success: false,
@@ -120,13 +105,10 @@ export class SSOController {
   // ==================== CONSUME SSO TOKEN ====================
   static async consumeToken(req: Request, res: Response) {
     try {
-      console.log("\n🔓 ========== SSO: CONSUME TOKEN ==========");
       const { sso_token } = req.body;
 
-      console.log("📋 Token received:", sso_token ? sso_token.substring(0, 16) + "..." : "NONE");
 
       if (!sso_token) {
-        console.log("❌ No SSO token provided");
         return res.status(400).json({
           success: false,
           message: "SSO token is required"
@@ -144,15 +126,12 @@ export class SSOController {
       });
 
       if (!tokenRecord) {
-        console.log("❌ Token not found or expired");
         return res.status(401).json({
           success: false,
           message: "Invalid or expired SSO token"
         });
       }
 
-      console.log("✅ Token found - User ID:", tokenRecord.user_id);
-      console.log("📋 Target System:", tokenRecord.target_system);
 
       // Get user with full details
       const userRepo = dbConnection.getRepository(User);
@@ -162,7 +141,6 @@ export class SSOController {
       });
 
       if (!user) {
-        console.log("❌ User not found:", tokenRecord.user_id);
         return res.status(404).json({
           success: false,
           message: "User not found"
@@ -170,7 +148,6 @@ export class SSOController {
       }
 
       if (!user.is_active) {
-        console.log("❌ User account is deactivated");
         return res.status(403).json({
           success: false,
           message: "User account is deactivated"
@@ -178,20 +155,17 @@ export class SSOController {
       }
 
       if (!user.isUserLogin) {
-        console.log("❌ User session invalid (isUserLogin = false)");
         return res.status(403).json({
           success: false,
           message: "User session invalid"
         });
       }
 
-      console.log("✅ User validated:", user.email);
 
       // Mark token as consumed
       tokenRecord.consumed = true;
       tokenRecord.consumed_at = new Date();
       await tokenRepo.save(tokenRecord);
-      console.log("✅ Token marked as consumed");
 
       // Find or create Ongera session
       const sessionRepo = dbConnection.getRepository(UserSession);
@@ -205,7 +179,6 @@ export class SSOController {
       });
 
       if (!session) {
-        console.log("📝 Creating new Ongera session");
         const sessionToken = crypto.randomBytes(32).toString('hex');
         session = sessionRepo.create({
           user_id: user.id,
@@ -217,9 +190,7 @@ export class SSOController {
           is_active: true
         });
         await sessionRepo.save(session);
-        console.log("✅ New session created:", sessionToken.substring(0, 10) + "...");
       } else {
-        console.log("✅ Using existing Ongera session");
       }
 
       // Generate JWT for the requesting system
@@ -234,7 +205,6 @@ export class SSOController {
         { expiresIn: "7d" }
       );
 
-      console.log("✅ JWT generated for user");
 
       // Prepare user data response
       const userData = {
@@ -253,7 +223,6 @@ export class SSOController {
         profile: user.profile
       };
 
-      console.log("✅ ========== SSO: TOKEN CONSUMED SUCCESSFULLY ==========\n");
 
       res.json({
         success: true,
@@ -264,9 +233,6 @@ export class SSOController {
         }
       });
     } catch (error: any) {
-      console.error("❌ ========== SSO: CONSUME TOKEN ERROR ==========");
-      console.error("Error:", error.message);
-      console.error("Stack:", error.stack);
       
       res.status(500).json({
         success: false,
@@ -279,18 +245,15 @@ export class SSOController {
   // ==================== VALIDATE SESSION ====================
   static async validateSession(req: Request, res: Response) {
     try {
-      console.log("\n✅ ========== SSO: VALIDATE SESSION ==========");
       const userId = req.user?.userId || req.user?.id;
 
       if (!userId) {
-        console.log("❌ User not authenticated");
         return res.status(401).json({
           success: false,
           message: "User not authenticated"
         });
       }
 
-      console.log("📋 Validating sessions for user:", userId);
 
       const sessionRepo = dbConnection.getRepository(UserSession);
       
@@ -317,16 +280,12 @@ export class SSOController {
       const hasOngeraSession = !!ongeraSession;
       const hasBwengeSession = !!bwengeSession;
 
-      console.log("📊 Session Status:");
-      console.log("  - Ongera:", hasOngeraSession ? "✅ Active" : "❌ Inactive");
-      console.log("  - BwengePlus:", hasBwengeSession ? "✅ Active" : "❌ Inactive");
 
       const systemsWithSessions = [
         hasOngeraSession && "ONGERA",
         hasBwengeSession && "BWENGE_PLUS"
       ].filter(Boolean);
 
-      console.log("✅ Session validation complete\n");
 
       res.json({
         success: true,
@@ -338,8 +297,6 @@ export class SSOController {
         }
       });
     } catch (error: any) {
-      console.error("❌ ========== SSO: VALIDATE SESSION ERROR ==========");
-      console.error("Error:", error.message);
       
       res.status(500).json({
         success: false,
@@ -352,10 +309,8 @@ export class SSOController {
   // ==================== VALIDATE TOKEN (For BwengePlus) ====================
   static async validateToken(req: Request, res: Response) {
     try {
-      console.log("\n🔍 ========== SSO: VALIDATE TOKEN ==========");
       const { sso_token } = req.body;
 
-      console.log("📋 Validating token:", sso_token ? sso_token.substring(0, 16) + "..." : "NONE");
 
       if (!sso_token) {
         return res.status(400).json({
@@ -374,7 +329,6 @@ export class SSOController {
       });
 
       if (!tokenRecord) {
-        console.log("❌ Token invalid or expired");
         return res.status(401).json({
           success: false,
           message: "Invalid or expired SSO token"
@@ -392,14 +346,12 @@ export class SSOController {
       });
 
       if (!user) {
-        console.log("❌ User not found");
         return res.status(404).json({
           success: false,
           message: "User not found"
         });
       }
 
-      console.log("✅ Token validated for user:", user.email);
 
       res.json({
         success: true,
@@ -415,8 +367,6 @@ export class SSOController {
         }
       });
     } catch (error: any) {
-      console.error("❌ ========== SSO: VALIDATE TOKEN ERROR ==========");
-      console.error("Error:", error.message);
       
       res.status(500).json({
         success: false,
@@ -429,11 +379,8 @@ export class SSOController {
   // ==================== TERMINATE CROSS-SYSTEM SESSION ====================
   static async terminateCrossSystemSession(req: Request, res: Response) {
     try {
-      console.log("\n🔴 ========== SSO: TERMINATE CROSS-SYSTEM SESSION ==========");
       const { user_id, system } = req.body;
 
-      console.log("📋 User ID:", user_id);
-      console.log("📋 System:", system);
 
       if (!user_id || !system) {
         return res.status(400).json({
@@ -456,7 +403,6 @@ export class SSOController {
         }
       );
 
-      console.log("✅ Sessions terminated:", result.affected || 0);
 
       // Check if user has any remaining active sessions
       const remainingSessions = await sessionRepo.count({
@@ -467,7 +413,6 @@ export class SSOController {
         }
       });
 
-      console.log("📊 Remaining active sessions:", remainingSessions);
 
       // If no active sessions, update user.isUserLogin
       if (remainingSessions === 0) {
@@ -476,7 +421,6 @@ export class SSOController {
           { id: user_id },
           { isUserLogin: false }
         );
-        console.log("✅ User.isUserLogin set to false (no active sessions)");
       }
 
       res.json({
@@ -488,8 +432,6 @@ export class SSOController {
         }
       });
     } catch (error: any) {
-      console.error("❌ ========== SSO: TERMINATE SESSION ERROR ==========");
-      console.error("Error:", error.message);
       
       res.status(500).json({
         success: false,
@@ -552,7 +494,6 @@ export class SSOController {
   // ==================== CLEANUP EXPIRED TOKENS ====================
   static async cleanupExpiredTokens(req: Request, res: Response) {
     try {
-      console.log("\n🧹 ========== SSO: CLEANUP EXPIRED TOKENS ==========");
 
       const tokenRepo = dbConnection.getRepository(SSOToken);
       
@@ -569,7 +510,6 @@ export class SSOController {
         })
         .execute();
 
-      console.log("✅ Deleted", result.affected || 0, "expired/old tokens");
 
       res.json({
         success: true,
@@ -579,7 +519,6 @@ export class SSOController {
         }
       });
     } catch (error: any) {
-      console.error("❌ Cleanup error:", error.message);
       
       res.status(500).json({
         success: false,

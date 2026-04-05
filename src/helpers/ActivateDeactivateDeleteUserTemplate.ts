@@ -27,16 +27,18 @@ export class ActivateDeactivateDeleteUserTemplate {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Account ${statusText}</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <div style="max-width: 600px; margin: 0 auto; background: white;">
-    
+<body style="margin: 0; padding: 0; background: #f5f3ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 24px 16px;">
+  <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(91,78,150,0.10);">
+
     <!-- Header -->
-    <div style="background: #0158B7; padding: 25px 30px; text-align: center;">
-      <div style="color: white; font-size: 26px; font-weight: bold; letter-spacing: 1px;">ONGERA</div>
+    <div style="background: linear-gradient(135deg,#4a3f80 0%,#5b4e96 60%,#7c6fc4 100%); padding: 24px 32px;">
+      <div style="color: white; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">Ongera</div>
+      <div style="color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 4px; letter-spacing: 0.5px;">Account Management</div>
     </div>
     
     <!-- Body -->
-    <div style="padding: 30px; background: white;">
+    <div style="padding: 28px 32px 24px; background: white;">
       <div style="font-size: 18px; color: #1a1a1a; margin-bottom: 20px; font-weight: 600;">
         Hello ${userData.first_name},
       </div>
@@ -53,8 +55,8 @@ export class ActivateDeactivateDeleteUserTemplate {
       </span>
       
       <!-- Highlight Box -->
-      <div style="background: #E3F2FD; padding: 18px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0158B7;">
-        <div style="color: #0158B7; font-weight: 600; font-size: 14px; margin-bottom: 8px;">ACCOUNT STATUS UPDATE</div>
+      <div style="background: #f0eeff; padding: 18px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #5b4e96;">
+        <div style="color: #5b4e96; font-weight: 600; font-size: 14px; margin-bottom: 8px;">ACCOUNT STATUS UPDATE</div>
         <div style="color: #1a1a1a; font-size: 16px; font-weight: 600;">
           ${userData.first_name} ${userData.last_name}
         </div>
@@ -91,7 +93,7 @@ export class ActivateDeactivateDeleteUserTemplate {
       ${isActivation ? `
       <!-- Action Button -->
       <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/login" 
-         style="display: inline-block; background: #0158B7; color: white; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 15px; margin: 20px 0;">
+         style="display: inline-block; background: #5b4e96; color: white; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 15px; margin: 20px 0;">
         Login to Your Account
       </a>
       ` : ''}
@@ -101,7 +103,7 @@ export class ActivateDeactivateDeleteUserTemplate {
       ${!isActivation ? `
       <!-- Support Box -->
       <div style="background: white; padding: 18px; border-radius: 8px; margin-top: 20px; border: 2px solid #e9ecef;">
-        <div style="color: #0158B7; font-weight: 600; font-size: 15px; margin-bottom: 8px;">📧 Need Assistance?</div>
+        <div style="color: #5b4e96; font-weight: 600; font-size: 15px; margin-bottom: 8px;">📧 Need Assistance?</div>
         <div style="color: #6c757d; font-size: 14px; line-height: 1.5;">
           If you have questions about this deactivation or need to appeal this decision, please contact our admin team at support@ongera.com
         </div>
@@ -114,16 +116,16 @@ export class ActivateDeactivateDeleteUserTemplate {
     </div>
     
     <!-- Footer -->
-    <div style="background: #f8f9fa; padding: 25px 30px; text-align: center; border-top: 2px solid #e9ecef;">
-      <div style="color: #6c757d; font-size: 13px; line-height: 1.5; margin-bottom: 8px;">
-        <strong>Ongera Platform</strong><br>
-        Connecting Researchers & Academics Worldwide
+    <div style="background: #f8f7ff; padding: 20px 32px; text-align: center; border-top: 1px solid #e8e3f7;">
+      <div style="color: #64748b; font-size: 12px; line-height: 1.5; margin-bottom: 4px;">
+        <strong>Ongera Platform</strong> — Connecting Researchers &amp; Academics Worldwide
       </div>
-      <div style="color: #6c757d; font-size: 13px;">
+      <div style="color: #94a3b8; font-size: 11px;">
         © ${new Date().getFullYear()} Ongera. All rights reserved.
       </div>
     </div>
-    
+
+  </div>
   </div>
 </body>
 </html>
@@ -139,16 +141,18 @@ export class ActivateDeactivateDeleteUserTemplate {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Account Deleted</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <div style="max-width: 600px; margin: 0 auto; background: white;">
-    
+<body style="margin: 0; padding: 0; background: #f5f3ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 24px 16px;">
+  <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(91,78,150,0.10);">
+
     <!-- Header -->
-    <div style="background: #0158B7; padding: 25px 30px; text-align: center;">
-      <div style="color: white; font-size: 26px; font-weight: bold; letter-spacing: 1px;">ONGERA</div>
+    <div style="background: linear-gradient(135deg,#4a3f80 0%,#5b4e96 60%,#7c6fc4 100%); padding: 24px 32px;">
+      <div style="color: white; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">Ongera</div>
+      <div style="color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 4px; letter-spacing: 0.5px;">Account Management</div>
     </div>
     
     <!-- Body -->
-    <div style="padding: 30px; background: white;">
+    <div style="padding: 28px 32px 24px; background: white;">
       <div style="font-size: 18px; color: #1a1a1a; margin-bottom: 20px; font-weight: 600;">
         Hello ${userData.first_name},
       </div>
@@ -162,8 +166,8 @@ export class ActivateDeactivateDeleteUserTemplate {
       </span>
       
       <!-- Highlight Box -->
-      <div style="background: #E3F2FD; padding: 18px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0158B7;">
-        <div style="color: #0158B7; font-weight: 600; font-size: 14px; margin-bottom: 8px;">DELETED ACCOUNT</div>
+      <div style="background: #f0eeff; padding: 18px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #5b4e96;">
+        <div style="color: #5b4e96; font-weight: 600; font-size: 14px; margin-bottom: 8px;">DELETED ACCOUNT</div>
         <div style="color: #1a1a1a; font-size: 16px; font-weight: 600;">
           ${userData.first_name} ${userData.last_name}
         </div>
@@ -184,7 +188,7 @@ export class ActivateDeactivateDeleteUserTemplate {
       
       <!-- Info Box -->
       <div style="background: white; padding: 18px; border-radius: 8px; margin-top: 20px; border: 2px solid #e9ecef;">
-        <div style="color: #0158B7; font-weight: 600; font-size: 15px; margin-bottom: 8px;">ℹ️ What This Means</div>
+        <div style="color: #5b4e96; font-weight: 600; font-size: 15px; margin-bottom: 8px;">ℹ️ What This Means</div>
         <div style="color: #6c757d; font-size: 14px; line-height: 1.5;">
           • All your research projects, posts, and contributions have been removed<br>
           • Your community memberships and event registrations have been cancelled<br>
@@ -197,7 +201,7 @@ export class ActivateDeactivateDeleteUserTemplate {
       
       <!-- Support Box -->
       <div style="background: white; padding: 18px; border-radius: 8px; margin-top: 20px; border: 2px solid #e9ecef;">
-        <div style="color: #0158B7; font-weight: 600; font-size: 15px; margin-bottom: 8px;">📧 Questions or Concerns?</div>
+        <div style="color: #5b4e96; font-weight: 600; font-size: 15px; margin-bottom: 8px;">📧 Questions or Concerns?</div>
         <div style="color: #6c757d; font-size: 14px; line-height: 1.5;">
           If you believe this was done in error or have questions, please contact our support team immediately at support@ongera.com
         </div>

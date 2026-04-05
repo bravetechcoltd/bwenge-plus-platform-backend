@@ -44,7 +44,6 @@ function sanitizeUrl(url: string | undefined): string | undefined {
 function sanitizeLessonUrl(url: string | undefined): string | undefined {
   if (!url) return undefined;
   if (url.startsWith("blob:")) {
-    console.warn(`⚠️  [sanitizeLessonUrl] Stripping blob: URL — will not be persisted: "${url.substring(0, 60)}..."`);
     return undefined;
   }
   return url;
@@ -58,46 +57,30 @@ async function uploadLessonVideo(
   fallbackUrl: string | undefined
 ): Promise<string | undefined> {
   const tag = `[uploadLessonVideo][mod=${modIdx}][les=${lesIdx}]`;
-  console.log(`🎬 ${tag} ── START`);
 
   // Debug: show all multer field keys
   const allKeys = Object.keys(reqFiles);
-  console.log(`🎬 ${tag} Total multer fields: ${allKeys.length}`);
   const relevantKeys = allKeys.filter(k => k.includes(`modules[${modIdx}]`) && k.includes(`lessons[${lesIdx}]`));
-  console.log(`🎬 ${tag} Fields for this lesson: [${relevantKeys.join(", ") || "none"}]`);
 
   const fieldName = `modules[${modIdx}].lessons[${lesIdx}].video`;
   const files = reqFiles[fieldName];
 
-  console.log(`🎬 ${tag} Looking for field: "${fieldName}"`);
-  console.log(`🎬 ${tag} Field found: ${files ? "YES" : "NO"} | count: ${files?.length ?? 0}`);
 
   if (files && Array.isArray(files) && files.length > 0) {
     const file = files[0];
-    console.log(`🎬 ${tag} File info:`, {
-      originalname: file.originalname,
-      mimetype: file.mimetype,
-      size: file.size,
-      path: file.path,
-    });
     try {
       const result = await UploadToCloud(file);
-      console.log(`✅ ${tag} Cloudinary upload success: ${result.secure_url}`);
       return result.secure_url;
     } catch (err) {
-      console.error(`❌ ${tag} Cloudinary upload FAILED:`, err);
       // Fall through to fallback
     }
   } else {
-    console.log(`🎬 ${tag} No file in req.files — will use sanitized fallback`);
   }
 
   // ── FIX: Never persist blob: URLs ─────────────────────────────────────────
   const safe = sanitizeLessonUrl(fallbackUrl);
   if (fallbackUrl && !safe) {
-    console.warn(`⚠️  ${tag} fallbackUrl was a blob: URL — saving empty string instead`);
   }
-  console.log(`🎬 ${tag} Final video_url: "${safe ?? ""}"`);
   return safe ?? "";
 }
 
@@ -109,39 +92,25 @@ async function uploadLessonThumbnail(
   fallbackUrl: string | undefined
 ): Promise<string | undefined> {
   const tag = `[uploadLessonThumbnail][mod=${modIdx}][les=${lesIdx}]`;
-  console.log(`🖼️  ${tag} ── START`);
 
   const fieldName = `modules[${modIdx}].lessons[${lesIdx}].thumbnail`;
   const files = reqFiles[fieldName];
 
-  console.log(`🖼️  ${tag} Looking for field: "${fieldName}"`);
-  console.log(`🖼️  ${tag} Field found: ${files ? "YES" : "NO"} | count: ${files?.length ?? 0}`);
 
   if (files && Array.isArray(files) && files.length > 0) {
     const file = files[0];
-    console.log(`🖼️  ${tag} File info:`, {
-      originalname: file.originalname,
-      mimetype: file.mimetype,
-      size: file.size,
-      path: file.path,
-    });
     try {
       const result = await UploadToCloud(file);
-      console.log(`✅ ${tag} Cloudinary upload success: ${result.secure_url}`);
       return result.secure_url;
     } catch (err) {
-      console.error(`❌ ${tag} Cloudinary upload FAILED:`, err);
     }
   } else {
-    console.log(`🖼️  ${tag} No file in req.files — will use sanitized fallback`);
   }
 
   // ── FIX: Never persist blob: URLs ─────────────────────────────────────────
   const safe = sanitizeLessonUrl(fallbackUrl);
   if (fallbackUrl && !safe) {
-    console.warn(`⚠️  ${tag} fallbackUrl was a blob: URL — saving undefined instead`);
   }
-  console.log(`🖼️  ${tag} Final thumbnail_url: "${safe ?? "(none)"}"`);
   return safe;
 }
 
@@ -153,13 +122,10 @@ async function uploadLessonMaterials(
   existingMaterials: LessonMaterialRecord[] = []
 ): Promise<LessonMaterialRecord[]> {
   const tag = `[uploadLessonMaterials][mod=${modIdx}][les=${lesIdx}]`;
-  console.log(`📎 ${tag} ── START`);
-  console.log(`📎 ${tag} Existing persisted materials: ${existingMaterials.length}`);
 
   // Debug: list all multer fields for this lesson
   const allKeys = Object.keys(reqFiles);
   const lessonKeys = allKeys.filter(k => k.includes(`modules[${modIdx}]`) && k.includes(`lessons[${lesIdx}]`));
-  console.log(`📎 ${tag} All multer fields for this lesson: [${lessonKeys.join(", ") || "none"}]`);
 
   const uploaded: LessonMaterialRecord[] = [];
   let matIdx = 0;
@@ -172,19 +138,12 @@ async function uploadLessonMaterials(
     const files = reqFiles[fieldName];
 
     if (!files || !Array.isArray(files) || files.length === 0) {
-      console.log(`📎 ${tag} No file at materials[${matIdx}] (field: "${fieldName}") — stopping indexed scan`);
       break;
     }
 
     foundAny = true;
-    console.log(`📎 ${tag} Found ${files.length} file(s) at materials[${matIdx}]`);
 
     for (const file of files) {
-      console.log(`📎 ${tag} Uploading material [${matIdx}]:`, {
-        originalname: file.originalname,
-        mimetype: file.mimetype,
-        size: file.size,
-      });
       try {
         const result = await UploadToCloud(file);
         const record: LessonMaterialRecord = {
@@ -196,9 +155,7 @@ async function uploadLessonMaterials(
           original_name: file.originalname,
         };
         uploaded.push(record);
-        console.log(`✅ ${tag} Material [${matIdx}] uploaded: ${result.secure_url}`);
       } catch (err) {
-        console.error(`❌ ${tag} Material [${matIdx}] upload FAILED:`, err);
       }
     }
     matIdx++;
@@ -209,15 +166,9 @@ async function uploadLessonMaterials(
   const flatField = `modules[${modIdx}].lessons[${lesIdx}].materials`;
   const flatFiles = reqFiles[flatField];
   if (flatFiles && Array.isArray(flatFiles) && flatFiles.length > 0) {
-    console.log(`📎 ${tag} Found ${flatFiles.length} file(s) in flat field "${flatField}"`);
     foundAny = true;
     for (let fi = 0; fi < flatFiles.length; fi++) {
       const file = flatFiles[fi];
-      console.log(`📎 ${tag} Uploading flat material [${fi}]:`, {
-        originalname: file.originalname,
-        mimetype: file.mimetype,
-        size: file.size,
-      });
       try {
         const result = await UploadToCloud(file);
         const record: LessonMaterialRecord = {
@@ -229,20 +180,16 @@ async function uploadLessonMaterials(
           original_name: file.originalname,
         };
         uploaded.push(record);
-        console.log(`✅ ${tag} Flat material [${fi}] uploaded: ${result.secure_url}`);
       } catch (err) {
-        console.error(`❌ ${tag} Flat material [${fi}] upload FAILED:`, err);
       }
     }
   }
 
   if (!foundAny) {
-    console.log(`📎 ${tag} No new material files found in this request`);
   }
 
   // Merge: keep existing (already-persisted) materials + newly uploaded ones
   const merged = [...existingMaterials, ...uploaded];
-  console.log(`📎 ${tag} Final lesson_materials: ${merged.length} total (${existingMaterials.length} existing + ${uploaded.length} new)`);
   return merged;
 }
 
@@ -256,8 +203,6 @@ static async createCourse(req: Request, res: Response) {
       return res.status(401).json({ success: false, message: "User not authenticated" });
     }
 
-    console.log("🎓 [createCourse] ====================================");
-    console.log("🎓 [createCourse] User ID from auth:", userId);
 
     // ==================== PARSE REQUEST BODY ====================
     let coursePayload: any = {};
@@ -275,26 +220,22 @@ static async createCourse(req: Request, res: Response) {
     // Parse modules if string
     let modules = coursePayload.modules;
     if (typeof modules === "string") {
-      try { modules = JSON.parse(modules); console.log("🎓 [createCourse] Parsed modules from string"); }
-      catch (e) { console.error("Failed to parse modules:", e); modules = []; }
+      try { modules = JSON.parse(modules); }
+      catch (e) { modules = []; }
     }
 
     // Parse tags if string
     let tags = coursePayload.tags;
     if (typeof tags === "string") {
       try { tags = JSON.parse(tags); }
-      catch (e) { console.error("Failed to parse tags:", e); tags = []; }
+      catch (e) { tags = []; }
     }
 
     // Debug module structure
     if (modules && Array.isArray(modules)) {
-      console.log(`🎓 [createCourse] Processing ${modules.length} modules`);
       modules.forEach((mod: any, idx: number) => {
-        console.log(`🎓 Module ${idx + 1}: "${mod.title}"`);
-        console.log(`   - Lessons: ${mod.lessons?.length || 0}`);
         if (mod.final_assessment || mod.finalAssessment) {
           const finalData = mod.final_assessment || mod.finalAssessment;
-          console.log(`   - Has final_assessment: YES (type: ${finalData.type}, questions: ${finalData.questions?.length || 0})`);
         }
       });
     }
@@ -330,8 +271,6 @@ static async createCourse(req: Request, res: Response) {
     const user = await userRepo.findOne({ where: { id: userId } });
     if (!user) return res.status(404).json({ success: false, message: "User not found" });
 
-    console.log("👤 [createCourse] User found:", user.email, "Role:", user.bwenge_role);
-    console.log("🏢 [createCourse] Received institution_id from frontend:", institution_id);
 
     // ==================== DETERMINE INSTITUTION ID ====================
     let finalInstitutionId: string | null = null;
@@ -344,18 +283,15 @@ static async createCourse(req: Request, res: Response) {
       finalInstitutionId = user.primary_institution_id;
       institution = await institutionRepo.findOne({ where: { id: finalInstitutionId } });
       if (!institution) return res.status(404).json({ success: false, message: "Your institution was not found in the database" });
-      console.log("✅ [createCourse] Institution Admin - Using primary_institution_id:", finalInstitutionId);
     } else if (user.bwenge_role === BwengeRole.SYSTEM_ADMIN) {
       if (institution_id) {
         finalInstitutionId = institution_id;
         institution = await institutionRepo.findOne({ where: { id: finalInstitutionId } });
         if (!institution) return res.status(404).json({ success: false, message: "Institution not found" });
-        console.log("✅ [createCourse] System Admin - Using frontend institution_id:", finalInstitutionId);
       } else if (course_type === CourseType.SPOC) {
         return res.status(400).json({ success: false, message: "Institution ID is required for SPOC courses" });
       } else {
         finalInstitutionId = null;
-        console.log("ℹ️ [createCourse] System Admin - MOOC course without institution");
       }
     } else {
       if (institution_id) {
@@ -369,11 +305,9 @@ static async createCourse(req: Request, res: Response) {
       } else if (user.primary_institution_id) {
         finalInstitutionId = user.primary_institution_id;
         institution = await institutionRepo.findOne({ where: { id: finalInstitutionId } });
-        console.log("✅ [createCourse] User - Using primary_institution_id:", finalInstitutionId);
       }
     }
 
-    console.log("🏢 [createCourse] ✅ FINAL institution_id:", finalInstitutionId || "null");
 
     // ==================== DETERMINE INSTRUCTOR ID ====================
     let finalInstructorId = userId;
@@ -382,7 +316,7 @@ static async createCourse(req: Request, res: Response) {
     if (user.bwenge_role === BwengeRole.SYSTEM_ADMIN) {
       if (requestInstructorId) {
         const assignedInstructor = await userRepo.findOne({ where: { id: requestInstructorId } });
-        if (assignedInstructor) { finalInstructorId = requestInstructorId; console.log("👨‍🏫 [createCourse] System Admin assigned instructor:", assignedInstructor.email); }
+        if (assignedInstructor) { finalInstructorId = requestInstructorId; }
       }
     } else if (user.bwenge_role === BwengeRole.INSTITUTION_ADMIN) {
       createdByInstitutionAdminId = userId;
@@ -396,10 +330,8 @@ static async createCourse(req: Request, res: Response) {
           return res.status(403).json({ success: false, message: "Can only assign instructors from your institution" });
         }
       }
-      console.log("✅ Institution admin creating course for:", user.primary_institution_id);
     }
 
-    console.log("✅ [createCourse] Final instructor ID:", finalInstructorId);
 
     // ==================== HANDLE CATEGORY ====================
     let category = null;
@@ -412,7 +344,6 @@ static async createCourse(req: Request, res: Response) {
       if (!category) {
         category = categoryRepo.create({ name: category_name, institution_id: finalInstitutionId, is_active: true, order_index: 0 });
         await categoryRepo.save(category);
-        console.log("📁 [createCourse] Created new category:", category_name);
       }
     }
 
@@ -420,7 +351,6 @@ static async createCourse(req: Request, res: Response) {
     let thumbnailUrl = thumbnail_url;
 
     if (req.files) {
-      console.log("🖼️ [createCourse] Checking for thumbnail in files:", Object.keys(req.files));
       let thumbnailFile = null;
       if (req.file) { thumbnailFile = req.file; }
       else if (req.files["thumbnail"]?.[0]) { thumbnailFile = req.files["thumbnail"][0]; }
@@ -428,17 +358,13 @@ static async createCourse(req: Request, res: Response) {
 
       if (thumbnailFile) {
         try {
-          console.log("☁️ [createCourse] Uploading course thumbnail to Cloudinary...");
           const uploadResult = await UploadToCloud(thumbnailFile);
           thumbnailUrl = uploadResult.secure_url;
-          console.log("✅ [createCourse] Course thumbnail uploaded:", thumbnailUrl);
         } catch (uploadError) {
-          console.error("❌ [createCourse] Failed to upload course thumbnail:", uploadError);
         }
       }
     }
 
-    console.log("🖼️ [createCourse] Final thumbnail URL:", thumbnailUrl);
 
     // ==================== CREATE COURSE ====================
     const isSPOC = course_type === CourseType.SPOC;
@@ -494,22 +420,18 @@ static async createCourse(req: Request, res: Response) {
 
     if (courseStatus === CourseStatus.PUBLISHED) courseData.published_at = new Date();
 
-    console.log("📚 [createCourse] Creating course with institution_id:", courseData.institution_id);
 
     const course = courseRepo.create(courseData);
     const savedCourse = await courseRepo.save(course);
 
-    console.log("✅ [createCourse] Course saved. ID:", savedCourse.id, "| institution_id:", savedCourse.institution_id);
 
     // ==================== PROCESS MODULES ====================
     let totalLessons = 0;
     let totalDuration = 0;
 
     if (modules && Array.isArray(modules) && modules.length > 0) {
-      console.log(`\n📦 [createCourse] Processing ${modules.length} modules...`);
 
       for (const [modIndex, moduleData] of modules.entries()) {
-        console.log(`\n📦 [Module ${modIndex + 1}] Title: "${moduleData.title}"`);
 
         const module = moduleRepo.create({
           course_id: course.id,
@@ -530,7 +452,6 @@ static async createCourse(req: Request, res: Response) {
             // The frontend sends video_url: "blob:http://..." when a local file is selected
             // but not yet uploaded. We must never persist that URL to the database.
             const payloadVideoUrl = sanitizeLessonUrl(lessonData.video_url || lessonData.videoUrl);
-            console.log(`🎬 [createCourse][mod=${modIndex}][les=${lesIndex}] payload video_url after sanitize: "${payloadVideoUrl ?? ""}"`);
             const videoUrl = await uploadLessonVideo(
               req.files as any || {},
               modIndex, lesIndex,
@@ -540,7 +461,6 @@ static async createCourse(req: Request, res: Response) {
             // --- THUMBNAIL ---
             // FIX: Same blob: URL stripping for thumbnail.
             const payloadThumbnailUrl = sanitizeLessonUrl(lessonData.thumbnail_url);
-            console.log(`🖼️  [createCourse][mod=${modIndex}][les=${lesIndex}] payload thumbnail_url after sanitize: "${payloadThumbnailUrl ?? ""}"`);
             const lessonThumbnail = await uploadLessonThumbnail(
               req.files as any || {},
               modIndex, lesIndex,
@@ -563,7 +483,6 @@ static async createCourse(req: Request, res: Response) {
                       public_id: uploadResult.public_id
                     });
                   } catch (error) {
-                    console.error("Failed to upload resource:", error);
                   }
                 }
               }
@@ -577,7 +496,6 @@ static async createCourse(req: Request, res: Response) {
             const persistedMaterials: LessonMaterialRecord[] = Array.isArray(lessonData.lesson_materials)
               ? lessonData.lesson_materials
               : [];
-            console.log(`📎 [createCourse][mod=${modIndex}][les=${lesIndex}] persisted materials from payload: ${persistedMaterials.length}`);
             const lessonMaterials = await uploadLessonMaterials(
               req.files as any || {},
               modIndex, lesIndex,
@@ -603,7 +521,6 @@ static async createCourse(req: Request, res: Response) {
 
             totalLessons++;
             totalDuration += lesson.duration_minutes;
-            console.log(`✅ [Lesson ${lesIndex + 1}] Created: "${lesson.title}" | video: ${lesson.video_url ? "yes" : "no"} | thumbnail: ${lesson.thumbnail_url ? "yes" : "no"} | materials: ${lessonMaterials.length}`);
 
             // ==================== LESSON ASSESSMENTS ====================
             if (lessonData.assessments && Array.isArray(lessonData.assessments)) {
@@ -684,7 +601,6 @@ static async createCourse(req: Request, res: Response) {
         // ==================== MODULE FINAL ASSESSMENT ====================
         if (moduleData.final_assessment || moduleData.finalAssessment) {
           const finalData = moduleData.final_assessment || moduleData.finalAssessment;
-          console.log(`\n📋 [Module ${modIndex + 1}] Processing FINAL ASSESSMENT: "${finalData.title}" (type: ${finalData.type})`);
 
           const moduleFinal = moduleFinalRepo.create({
             module_id: module.id,
@@ -736,11 +652,9 @@ static async createCourse(req: Request, res: Response) {
             finalAssessment.questions = finalQuestions;
             await assessmentRepo.save(finalAssessment);
             moduleFinal.assessment_id = finalAssessment.id;
-            console.log(`✅ [Module ${modIndex + 1}] Final assessment saved with ${finalQuestions.length} questions`);
           }
 
           await moduleFinalRepo.save(moduleFinal);
-          console.log(`✅ [Module ${modIndex + 1}] Module final assessment saved`);
         }
       }
     }
@@ -749,7 +663,6 @@ static async createCourse(req: Request, res: Response) {
     course.total_lessons = totalLessons;
     if (totalDuration > 0) course.duration_minutes = totalDuration;
     await courseRepo.save(course);
-    console.log(`\n📊 [createCourse] Totals: lessons=${totalLessons}, duration=${totalDuration}`);
 
     // ==================== EMAIL NOTIFICATION ====================
     try {
@@ -767,7 +680,6 @@ static async createCourse(req: Request, res: Response) {
         `,
       });
     } catch (emailError) {
-      console.error("Failed to send email:", emailError);
     }
 
     // ==================== FETCH COMPLETE COURSE ====================
@@ -781,7 +693,6 @@ static async createCourse(req: Request, res: Response) {
 
     const completeCourse = await courseRepo.findOne({ where: { id: course.id }, relations });
 
-    console.log("\n✅ [createCourse] Course creation complete!");
 
     res.status(201).json({
       success: true,
@@ -803,7 +714,6 @@ static async createCourse(req: Request, res: Response) {
       },
     });
   } catch (error: any) {
-    console.error("❌ [createCourse] Error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to create course",
@@ -817,30 +727,51 @@ static async createCourse(req: Request, res: Response) {
 // Add this method to EnhancedCourseController class
 
 /**
- * Assign a public course to an institution
- * This makes a public course (is_public=true) become an institution course
- * The course will then be associated with the institution and count as an institution course
+ * Assign a public course to an institution by COPYING the full course.
+ *
+ * Behaviour:
+ *  - The original course (no institution_id) is kept 100% intact — its type
+ *    (MOOC or SPOC), content and public status are never touched.
+ *  - A complete deep-copy (course + modules + lessons + assessments + quizzes
+ *    + questions + module-final-assessments + course-instructors) is created
+ *    and linked to the target institution.
+ *  - Only the copy receives the new institution_id; everything else mirrors the
+ *    original so no content is skipped.
  */
 static async assignCourseToInstitution(req: Request, res: Response) {
   try {
     const { courseId, institutionId } = req.params;
     const userId = req.user?.userId || req.user?.id;
 
-    console.log("🏢 [assignCourseToInstitution] ====================================");
-    console.log("🏢 [assignCourseToInstitution] Assigning course:", courseId);
-    console.log("🏢 [assignCourseToInstitution] To institution:", institutionId);
-    console.log("🏢 [assignCourseToInstitution] User ID:", userId);
-
     // ==================== REPOSITORIES ====================
-    const courseRepo = dbConnection.getRepository(Course);
-    const institutionRepo = dbConnection.getRepository(Institution);
-    const userRepo = dbConnection.getRepository(User);
-    const memberRepo = dbConnection.getRepository(InstitutionMember);
+    const courseRepo           = dbConnection.getRepository(Course);
+    const institutionRepo      = dbConnection.getRepository(Institution);
+    const userRepo             = dbConnection.getRepository(User);
+    const memberRepo           = dbConnection.getRepository(InstitutionMember);
+    const moduleRepo           = dbConnection.getRepository(Module);
+    const lessonRepo           = dbConnection.getRepository(Lesson);
+    const assessmentRepo       = dbConnection.getRepository(Assessment);
+    const quizRepo             = dbConnection.getRepository(Quiz);
+    const questionRepo         = dbConnection.getRepository(Question);
+    const moduleFinalRepo      = dbConnection.getRepository(ModuleFinalAssessment);
+    const courseInstructorRepo = dbConnection.getRepository(CourseInstructor);
 
-    // ==================== VERIFY COURSE EXISTS ====================
+    // ==================== VERIFY COURSE EXISTS (load all content) ====================
     const course = await courseRepo.findOne({
       where: { id: courseId },
-      relations: ["institution", "instructor"]
+      relations: [
+        "institution",
+        "instructor",
+        "modules",
+        "modules.lessons",
+        "modules.lessons.assessments",
+        "modules.lessons.quizzes",
+        "modules.lessons.quizzes.questions",
+        "modules.final_assessment",
+        "modules.final_assessment.assessment",
+        "course_instructors",
+        "course_instructors.instructor",
+      ]
     });
 
     if (!course) {
@@ -858,11 +789,11 @@ static async assignCourseToInstitution(req: Request, res: Response) {
       });
     }
 
-    // ==================== CHECK IF COURSE ALREADY HAS INSTITUTION ====================
+    // ==================== ONLY ORIGINAL (NON-INSTITUTION) COURSES CAN BE COPIED ====================
     if (course.institution_id) {
       return res.status(400).json({
         success: false,
-        message: `Course is already assigned to institution: ${course.institution?.name || course.institution_id}`
+        message: `This course already belongs to institution: ${course.institution?.name || course.institution_id}. Only courses that do not belong to any institution can be copied to an institution.`
       });
     }
 
@@ -880,7 +811,7 @@ static async assignCourseToInstitution(req: Request, res: Response) {
 
     // ==================== CHECK USER PERMISSIONS ====================
     const user = await userRepo.findOne({ where: { id: userId } });
-    
+
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -888,14 +819,11 @@ static async assignCourseToInstitution(req: Request, res: Response) {
       });
     }
 
-    // Allow SYSTEM_ADMIN or INSTITUTION_ADMIN of the target institution
     let hasPermission = false;
-    
+
     if (user.bwenge_role === BwengeRole.SYSTEM_ADMIN) {
       hasPermission = true;
-      console.log("✅ [assignCourseToInstitution] System Admin - permission granted");
     } else if (user.bwenge_role === BwengeRole.INSTITUTION_ADMIN) {
-      // Check if user is admin of this institution
       const isMember = await memberRepo.findOne({
         where: {
           institution_id: institutionId,
@@ -904,11 +832,7 @@ static async assignCourseToInstitution(req: Request, res: Response) {
           is_active: true
         }
       });
-      
-      if (isMember) {
-        hasPermission = true;
-        console.log("✅ [assignCourseToInstitution] Institution Admin - permission granted");
-      }
+      if (isMember) hasPermission = true;
     }
 
     if (!hasPermission) {
@@ -918,16 +842,166 @@ static async assignCourseToInstitution(req: Request, res: Response) {
       });
     }
 
-    // ==================== UPDATE COURSE ====================
-    course.institution_id = institutionId;
-    // Optionally change course type to SPOC if desired (or keep as MOOC with institution)
-    // For now, keep the course type as is but mark it as institution-associated
-    
-    await courseRepo.save(course);
+    // ==================== DEEP-COPY COURSE TO INSTITUTION ====================
+    // Step 1: Create the new course (all fields copied, new UUID, institution_id set)
+    const newCourse = courseRepo.create({
+      title: course.title,
+      description: course.description,
+      short_description: course.short_description,
+      thumbnail_url: course.thumbnail_url,
+      category: course.category,
+      tags: course.tags ? [...course.tags] : [],
+      instructor_id: course.instructor_id,
+      created_by_institution_admin_id: course.created_by_institution_admin_id,
+      institution_id: institutionId,            // <-- key difference: linked to institution
+      category_id: course.category_id,
+      course_type: course.course_type,          // MOOC or SPOC — kept intact
+      is_public: course.is_public,              // preserve original public flag
+      access_codes: course.access_codes ? [...course.access_codes] : [],
+      requires_approval: course.requires_approval,
+      max_enrollments: course.max_enrollments,
+      enrollment_start_date: course.enrollment_start_date,
+      enrollment_end_date: course.enrollment_end_date,
+      is_institution_wide: course.is_institution_wide,
+      level: course.level,
+      status: course.status,
+      enrollment_count: 0,          // fresh copy starts with zero stats
+      completion_rate: 0,
+      average_rating: 0,
+      total_reviews: 0,
+      duration_minutes: course.duration_minutes,
+      total_lessons: course.total_lessons,
+      price: course.price,
+      is_certificate_available: course.is_certificate_available,
+      requirements: course.requirements,
+      what_you_will_learn: course.what_you_will_learn,
+      language: course.language,
+    });
+    const savedNewCourse = await courseRepo.save(newCourse);
 
-    // ==================== FETCH UPDATED COURSE ====================
-    const updatedCourse = await courseRepo.findOne({
-      where: { id: courseId },
+    // oldAssessmentId -> newAssessmentId — needed to wire ModuleFinalAssessment
+    const assessmentIdMap = new Map<string, string>();
+
+    // Step 2: Copy modules → lessons → assessments / quizzes / questions
+    for (const module of (course.modules || [])) {
+      const newModule = moduleRepo.create({
+        course_id: savedNewCourse.id,
+        title: module.title,
+        description: module.description,
+        order_index: module.order_index,
+        is_published: module.is_published,
+        estimated_duration_hours: module.estimated_duration_hours,
+      });
+      const savedModule = await moduleRepo.save(newModule);
+
+      for (const lesson of (module.lessons || [])) {
+        const newLesson = lessonRepo.create({
+          course_id: savedNewCourse.id,
+          module_id: savedModule.id,
+          title: lesson.title,
+          content: lesson.content,
+          video_url: lesson.video_url,
+          thumbnail_url: lesson.thumbnail_url,
+          duration_minutes: lesson.duration_minutes,
+          order_index: lesson.order_index,
+          type: lesson.type,
+          is_published: lesson.is_published,
+          is_preview: lesson.is_preview,
+          resources: lesson.resources ? [...lesson.resources] : null,
+          lesson_materials: lesson.lesson_materials ? [...lesson.lesson_materials] : [],
+        });
+        const savedLesson = await lessonRepo.save(newLesson);
+
+        // Copy assessments for this lesson
+        for (const assessment of (lesson.assessments || [])) {
+          const newAssessment = assessmentRepo.create({
+            course_id: savedNewCourse.id,
+            lesson_id: savedLesson.id,
+            module_id: savedModule.id,
+            title: assessment.title,
+            description: assessment.description,
+            type: assessment.type,
+            questions: assessment.questions ? [...assessment.questions] : [],
+            passing_score: assessment.passing_score,
+            max_attempts: assessment.max_attempts,
+            time_limit_minutes: assessment.time_limit_minutes,
+            is_published: assessment.is_published,
+            is_final_assessment: assessment.is_final_assessment,
+            is_module_final: assessment.is_module_final,
+          });
+          const savedAssessment = await assessmentRepo.save(newAssessment);
+          assessmentIdMap.set(assessment.id, savedAssessment.id);
+        }
+
+        // Copy quizzes for this lesson
+        for (const quiz of (lesson.quizzes || [])) {
+          const newQuiz = quizRepo.create({
+            course_id: savedNewCourse.id,
+            lesson_id: savedLesson.id,
+            title: quiz.title,
+            description: quiz.description,
+            passing_score: quiz.passing_score,
+            time_limit_minutes: quiz.time_limit_minutes,
+            max_attempts: quiz.max_attempts,
+            shuffle_questions: quiz.shuffle_questions,
+            show_correct_answers: quiz.show_correct_answers,
+            is_published: quiz.is_published,
+          });
+          const savedQuiz = await quizRepo.save(newQuiz);
+
+          // Copy questions for this quiz
+          for (const question of (quiz.questions || [])) {
+            const newQuestion = questionRepo.create({
+              quiz_id: savedQuiz.id,
+              question_text: question.question_text,
+              question_type: question.question_type,
+              options: question.options ? [...question.options] : null,
+              correct_answer: question.correct_answer,
+              explanation: question.explanation,
+              points: question.points,
+              order_index: question.order_index,
+              image_url: question.image_url,
+            });
+            await questionRepo.save(newQuestion);
+          }
+        }
+      }
+
+      // Step 3: Copy module final assessment (if any), remapping assessment_id
+      if (module.final_assessment) {
+        const fa = module.final_assessment;
+        const newFinalAssessment = moduleFinalRepo.create({
+          module_id: savedModule.id,
+          title: fa.title,
+          type: fa.type,
+          assessment_id: fa.assessment_id
+            ? (assessmentIdMap.get(fa.assessment_id) ?? null)
+            : null,
+          project_instructions: fa.project_instructions,
+          passing_score_percentage: fa.passing_score_percentage,
+          time_limit_minutes: fa.time_limit_minutes,
+          requires_file_submission: fa.requires_file_submission,
+        });
+        await moduleFinalRepo.save(newFinalAssessment);
+      }
+    }
+
+    // Step 4: Copy course instructors
+    for (const ci of (course.course_instructors || [])) {
+      const newCI = courseInstructorRepo.create({
+        course_id: savedNewCourse.id,
+        instructor_id: ci.instructor_id,
+        is_primary_instructor: ci.is_primary_instructor,
+        can_grade_assignments: ci.can_grade_assignments,
+        can_manage_enrollments: ci.can_manage_enrollments,
+        can_edit_course_content: ci.can_edit_course_content,
+      });
+      await courseInstructorRepo.save(newCI);
+    }
+
+    // ==================== FETCH COMPLETE COPY FOR RESPONSE ====================
+    const copiedCourse = await courseRepo.findOne({
+      where: { id: savedNewCourse.id },
       relations: [
         "instructor",
         "institution",
@@ -946,18 +1020,12 @@ static async assignCourseToInstitution(req: Request, res: Response) {
       ]
     });
 
-    // Clean the course data
-    const cleanedCourse = EnhancedCourseController.cleanCourseData(updatedCourse);
+    const cleanedCourse = EnhancedCourseController.cleanCourseData(copiedCourse);
     const stats = EnhancedCourseController.calculateCourseStatistics(cleanedCourse);
-
-    console.log("✅ [assignCourseToInstitution] Course assigned successfully!");
-    console.log(`   - Course: ${course.title}`);
-    console.log(`   - Institution: ${institution.name}`);
-    console.log(`   - New institution_id: ${course.institution_id}`);
 
     res.json({
       success: true,
-      message: `Course "${course.title}" has been successfully assigned to ${institution.name}`,
+      message: `Course "${course.title}" has been successfully copied to ${institution.name}. The original course remains available as a public course.`,
       data: {
         ...cleanedCourse,
         institution: {
@@ -967,13 +1035,14 @@ static async assignCourseToInstitution(req: Request, res: Response) {
           logo_url: institution.logo_url
         },
         statistics: stats,
+        original_course_id: courseId,           // reference to the untouched original
+        copied_course_id: savedNewCourse.id,
         was_public: true,
         now_institution_course: true
       }
     });
 
   } catch (error: any) {
-    console.error("❌ [assignCourseToInstitution] Error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to assign course to institution",
@@ -992,7 +1061,6 @@ static async getPublicCoursesForAssignment(req: Request, res: Response) {
     const { page = 1, limit = 20, course_type, status, search } = req.query;
     const userId = req.user?.userId || req.user?.id;
 
-    console.log("📚 [getPublicCoursesForAssignment] Fetching public courses for assignment");
 
     const courseRepo = dbConnection.getRepository(Course);
     const userRepo = dbConnection.getRepository(User);
@@ -1050,7 +1118,6 @@ static async getPublicCoursesForAssignment(req: Request, res: Response) {
       };
     });
 
-    console.log(`✅ [getPublicCoursesForAssignment] Found ${cleanedCourses.length} public courses available for assignment`);
 
     res.json({
       success: true,
@@ -1066,7 +1133,6 @@ static async getPublicCoursesForAssignment(req: Request, res: Response) {
     });
 
   } catch (error: any) {
-    console.error("❌ [getPublicCoursesForAssignment] Error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch public courses",
@@ -1080,9 +1146,6 @@ static async updateCourse(req: Request, res: Response) {
     const { id } = req.params;
     const userId = req.user?.userId || req.user?.id;
 
-    console.log("📝 [updateCourse] Request body type:", typeof req.body);
-    console.log("📝 [updateCourse] Request body keys:", Object.keys(req.body || {}));
-    console.log("📝 [updateCourse] Has files:", !!req.files);
 
     // ==================== PARSE REQUEST BODY ====================
     let coursePayload: any = {};
@@ -1093,20 +1156,18 @@ static async updateCourse(req: Request, res: Response) {
       for (const field of fieldsToParseAsJSON) {
         if (coursePayload[field] && typeof coursePayload[field] === "string") {
           try { coursePayload[field] = JSON.parse(coursePayload[field]); }
-          catch (e) { console.warn(`⚠️ Failed to parse ${field}, keeping as string`); }
+          catch (e) { /* keep as string */ }
         }
       }
     } else if (typeof req.body === "string") {
       try { coursePayload = JSON.parse(req.body); }
       catch (e) {
-        console.error("❌ Failed to parse request body JSON:", e);
         return res.status(400).json({ success: false, message: "Invalid JSON in request body" });
       }
     } else {
       return res.status(400).json({ success: false, message: "Invalid request body format" });
     }
 
-    console.log("✅ [updateCourse] Parsed payload keys:", Object.keys(coursePayload));
 
     let modules = coursePayload.modules;
     if (typeof modules === "string") {
@@ -1125,8 +1186,6 @@ static async updateCourse(req: Request, res: Response) {
       language, requirements, what_you_will_learn, is_certificate_available, status, course_type,
     } = coursePayload;
 
-    console.log("📚 [updateCourse] Course title:", title);
-    console.log("📦 [updateCourse] Modules count:", Array.isArray(modules) ? modules.length : 0);
 
     // ==================== REPOSITORIES ====================
     const courseRepo = dbConnection.getRepository(Course);
@@ -1139,7 +1198,6 @@ static async updateCourse(req: Request, res: Response) {
     });
     if (!course) return res.status(404).json({ success: false, message: "Course not found" });
 
-    console.log("✅ [updateCourse] Found course:", course.title);
 
     // ==================== PERMISSION CHECK ====================
     if (course.instructor_id !== userId && req.user?.bwenge_role !== "SYSTEM_ADMIN") {
@@ -1150,7 +1208,6 @@ static async updateCourse(req: Request, res: Response) {
     let finalThumbnailUrl = thumbnail_url || course.thumbnail_url;
 
     if (req.files) {
-      console.log("🖼️ [updateCourse] Checking for thumbnail in files:", Object.keys(req.files));
       let thumbnailFile = null;
       if (req.file) { thumbnailFile = req.file; }
       else if ((req.files as any)["thumbnail"]?.[0]) { thumbnailFile = (req.files as any)["thumbnail"][0]; }
@@ -1158,12 +1215,9 @@ static async updateCourse(req: Request, res: Response) {
 
       if (thumbnailFile) {
         try {
-          console.log("☁️ [updateCourse] Uploading new course thumbnail...");
           const uploadResult = await UploadToCloud(thumbnailFile);
           finalThumbnailUrl = uploadResult.secure_url;
-          console.log("✅ [updateCourse] New course thumbnail uploaded:", finalThumbnailUrl);
         } catch (uploadError) {
-          console.error("❌ [updateCourse] Failed to upload course thumbnail:", uploadError);
         }
       }
     }
@@ -1177,7 +1231,6 @@ static async updateCourse(req: Request, res: Response) {
       if (!category) {
         category = categoryRepo.create({ name: category_name, institution_id: course.institution_id || null, is_active: true, order_index: 0 });
         await categoryRepo.save(category);
-        console.log("📁 [updateCourse] Created new category:", category_name);
       }
       course.category_id = category.id;
     }
@@ -1207,11 +1260,9 @@ static async updateCourse(req: Request, res: Response) {
     }
 
     await courseRepo.save(course);
-    console.log("✅ [updateCourse] Basic course fields updated");
 
     // ==================== UPDATE MODULES WITH FILE UPLOADS ====================
     if (modules && Array.isArray(modules) && modules.length > 0) {
-      console.log(`📦 [updateCourse] Processing ${modules.length} modules...`);
       const cleanedModules = await EnhancedCourseController.cleanModuleData(modules);
 
       // Process each module's lessons to upload media files.
@@ -1223,14 +1274,12 @@ static async updateCourse(req: Request, res: Response) {
 
             // Video — FIX: strip blob: URL from payload before using as fallback
             const payloadVideoUrl = sanitizeLessonUrl(lessonData.video_url);
-            console.log(`🎬 [updateCourse][mod=${modIndex}][les=${lesIndex}] payload video_url after sanitize: "${payloadVideoUrl ?? ""}"`);
             lessonData.video_url = await uploadLessonVideo(
               req.files as any || {}, modIndex, lesIndex, payloadVideoUrl
             );
 
             // Thumbnail — FIX: strip blob: URL from payload before using as fallback
             const payloadThumbnailUrl = sanitizeLessonUrl(lessonData.thumbnail_url);
-            console.log(`🖼️  [updateCourse][mod=${modIndex}][les=${lesIndex}] payload thumbnail_url after sanitize: "${payloadThumbnailUrl ?? ""}"`);
             lessonData.thumbnail_url = await uploadLessonThumbnail(
               req.files as any || {}, modIndex, lesIndex, payloadThumbnailUrl
             );
@@ -1238,7 +1287,6 @@ static async updateCourse(req: Request, res: Response) {
             // Materials
             const existingMaterials: LessonMaterialRecord[] = Array.isArray(lessonData.lesson_materials)
               ? lessonData.lesson_materials : [];
-            console.log(`📎 [updateCourse][mod=${modIndex}][les=${lesIndex}] existing materials from payload: ${existingMaterials.length}`);
             lessonData.lesson_materials = await uploadLessonMaterials(
               req.files as any || {}, modIndex, lesIndex, existingMaterials
             );
@@ -1253,7 +1301,6 @@ static async updateCourse(req: Request, res: Response) {
       course.duration_minutes = result.totalDuration;
       await courseRepo.save(course);
 
-      console.log("📊 [updateCourse] Updated totals:", { totalLessons: result.totalLessons, totalDuration: result.totalDuration });
     }
 
     // ==================== FETCH UPDATED COURSE ====================
@@ -1267,7 +1314,6 @@ static async updateCourse(req: Request, res: Response) {
 
     const updatedCourse = await courseRepo.findOne({ where: { id: course.id }, relations });
 
-    console.log("✅ [updateCourse] Course update complete!");
 
     res.json({
       success: true,
@@ -1275,7 +1321,6 @@ static async updateCourse(req: Request, res: Response) {
       data: updatedCourse,
     });
   } catch (error: any) {
-    console.error("❌ [updateCourse] Error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to update course",
@@ -1381,7 +1426,6 @@ static async updateCourse(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get all courses with full info error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch public courses",
@@ -1391,6 +1435,7 @@ static async updateCourse(req: Request, res: Response) {
     }
   }
 
+
   // ==================== GET COURSE DETAILS ====================
 
   static async getCourseDetails(req: Request, res: Response) {
@@ -1398,7 +1443,6 @@ static async updateCourse(req: Request, res: Response) {
       const { id } = req.params;
       const userId = req.user?.userId || req.user?.id;
 
-      console.log("📖 [getCourseDetails] Fetching course:", id);
 
       const courseRepo = dbConnection.getRepository(Course);
 
@@ -1439,11 +1483,6 @@ static async updateCourse(req: Request, res: Response) {
             module.lessons.forEach((lesson: any) => {
 
               // Log lesson media for debugging
-              console.log(`📖 [getCourseDetails] Lesson "${lesson.title}":`);
-              console.log(`   - video_url: ${lesson.video_url || "none"}`);
-              console.log(`   - thumbnail_url: ${lesson.thumbnail_url || "none"}`);
-              console.log(`   - lesson_materials: ${(lesson.lesson_materials || []).length} item(s)`);
-              console.log(`   - resources: ${(lesson.resources || []).length} link(s)`);
 
               // Deduplicate quizzes vs assessments (existing logic preserved)
               if (lesson.assessments && lesson.assessments.length > 0) {
@@ -1534,12 +1573,10 @@ static async updateCourse(req: Request, res: Response) {
           },
         };
 
-        console.log(`✅ [getCourseDetails] Institution "${institutionWithMembers.name}" loaded with ${membersWithFullInfo.length} members`);
       }
 
       const stats = EnhancedCourseController.calculateCourseStatistics(cleanedCourse);
 
-      console.log("✅ [getCourseDetails] Course fetched and cleaned successfully");
 
       res.json({
         success: true,
@@ -1550,7 +1587,6 @@ static async updateCourse(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get course details error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch course details",
@@ -1641,7 +1677,6 @@ static async updateCourse(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Generate access codes error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to generate access codes",
@@ -1656,8 +1691,6 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
     const userId = req.user?.userId || req.user?.id;
     const { page = 1, limit = 20, status, course_type } = req.query;
 
-    console.log("🏢 [getInstitutionOwnedCourses] Fetching courses for institution:", institutionId);
-    console.log("🏢 [getInstitutionOwnedCourses] Query params:", { page, limit, status, course_type });
 
     const userRepo = dbConnection.getRepository(User);
     const courseRepo = dbConnection.getRepository(Course);
@@ -1678,7 +1711,6 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
       });
     }
 
-    console.log("✅ [getInstitutionOwnedCourses] User has access to institution");
 
     // Build query - REMOVED course_type filter to get both MOOC and SPOC
     const queryBuilder = courseRepo
@@ -1694,18 +1726,15 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
     // Apply optional filters
     if (status) {
       queryBuilder.andWhere("course.status = :status", { status });
-      console.log("🔍 [getInstitutionOwnedCourses] Filtering by status:", status);
     }
 
     // ✅ NEW: Allow filtering by course_type if provided
     if (course_type && (course_type === 'MOOC' || course_type === 'SPOC')) {
       queryBuilder.andWhere("course.course_type = :course_type", { course_type });
-      console.log("🔍 [getInstitutionOwnedCourses] Filtering by course_type:", course_type);
     }
 
     // Get total count
     const total = await queryBuilder.getCount();
-    console.log("📊 [getInstitutionOwnedCourses] Total courses found:", total);
 
     // Apply pagination and fetch
     const skip = (Number(page) - 1) * Number(limit);
@@ -1715,7 +1744,6 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
       .take(Number(limit))
       .getMany();
 
-    console.log("✅ [getInstitutionOwnedCourses] Fetched", courses.length, "courses");
 
     // Clean and return courses
     const cleanedCourses = courses.map(course =>
@@ -1731,7 +1759,6 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
       draft_count: courses.filter(c => c.status === 'DRAFT').length,
     };
 
-    console.log("📊 [getInstitutionOwnedCourses] Stats:", stats);
 
     res.json({
       success: true,
@@ -1748,7 +1775,6 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
     });
 
   } catch (error: any) {
-    console.error("❌ Get institution courses error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch institution courses",
@@ -1760,10 +1786,8 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
 
 
   private static cleanAndDeduplicateModules(modules: any[]): any[] {
-    console.log("🧹 [cleanAndDeduplicateModules] Starting cleaning process...");
 
     return modules.map((module, index) => {
-      console.log(`🧹 [cleanAndDeduplicateModules] Processing module ${index + 1}: "${module.title}"`);
 
       const cleanedModule = {
         ...module,
@@ -1797,9 +1821,6 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
       if (module.final_assessment || module.finalAssessment) {
         const finalData = module.final_assessment || module.finalAssessment;
 
-        console.log(`🧹 [cleanAndDeduplicateModules] Module "${module.title}" has final_assessment:`);
-        console.log(`   - Type: ${finalData.type}`);
-        console.log(`   - Questions in original: ${finalData.questions?.length || 0}`);
 
         // ✅ PRESERVE all final assessment data INCLUDING QUESTIONS REGARDLESS OF TYPE
         cleanedModule.final_assessment = {
@@ -1811,13 +1832,9 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
           }))
         };
 
-        console.log(`   - Questions after cleaning: ${cleanedModule.final_assessment.questions?.length || 0}`);
 
         if (cleanedModule.final_assessment.questions && cleanedModule.final_assessment.questions.length > 0) {
-          console.log(`   ✅ Questions preserved for type: ${cleanedModule.final_assessment.type}`);
-          console.log(`   - First question: "${cleanedModule.final_assessment.questions[0].question?.substring(0, 50)}..."`);
         } else {
-          console.log(`   ℹ️ No questions in final_assessment (type: ${cleanedModule.final_assessment.type})`);
         }
       }
 
@@ -1833,9 +1850,6 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
       const { id } = req.params;
       const userId = req.user?.userId || req.user?.id;
 
-      console.log("📦 [updateCourseModules] ====================================");
-      console.log("📦 [updateCourseModules] Starting update for course:", id);
-      console.log("📦 [updateCourseModules] User ID:", userId);
 
       // ==================== STEP 1: PARSE AND VALIDATE REQUEST ====================
       let payload: any = {};
@@ -1853,7 +1867,6 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
         if (payload.modules && typeof payload.modules === 'string') {
           try {
             payload.modules = JSON.parse(payload.modules);
-            console.log("📦 [STEP 1] Parsed modules from string");
           } catch (e: any) {
             return res.status(400).json({
               success: false,
@@ -1874,18 +1887,12 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
         });
       }
 
-      console.log(`📦 [STEP 1] ✅ Validated ${modules.length} modules in request`);
 
       // ✅ DEBUG: Log final assessment questions BEFORE cleaning
       modules.forEach((mod: any, idx: number) => {
         if (mod.final_assessment || mod.finalAssessment) {
           const finalData = mod.final_assessment || mod.finalAssessment;
-          console.log(`📦 [STEP 1] Module ${idx + 1} "${mod.title}" BEFORE CLEANING:`);
-          console.log(`   - final_assessment exists: true`);
-          console.log(`   - questions array: ${finalData.questions ? 'EXISTS' : 'NULL'}`);
-          console.log(`   - question count: ${finalData.questions?.length || 0}`);
           if (finalData.questions && finalData.questions.length > 0) {
-            console.log(`   - First question: "${finalData.questions[0].question?.substring(0, 60)}..."`);
           }
         }
       });
@@ -1911,30 +1918,18 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
         });
       }
 
-      console.log("📦 [STEP 2] ✅ Course verified and permissions checked");
 
       // ==================== STEP 3: CLEAN AND DEDUPLICATE DATA ====================
-      console.log("\n📦 [STEP 3] ========================================");
       const cleanedModules = EnhancedCourseController.cleanAndDeduplicateModules(modules);
-      console.log("📦 [STEP 3] ✅ Cleaning complete");
 
       // ✅ DEBUG: Verify questions AFTER cleaning
-      console.log("\n📦 [STEP 3] VERIFICATION AFTER CLEANING:");
       cleanedModules.forEach((mod, idx) => {
         if (mod.final_assessment || mod.finalAssessment) {
           const finalData = mod.final_assessment || mod.finalAssessment;
-          console.log(`📦 [STEP 3] Module ${idx + 1} "${mod.title}" AFTER CLEANING:`);
-          console.log(`   - Title: ${finalData.title}`);
-          console.log(`   - Type: ${finalData.type}`);
-          console.log(`   - Questions array: ${finalData.questions ? 'EXISTS' : 'NULL'}`);
-          console.log(`   - Question count: ${finalData.questions?.length || 0}`);
           if (finalData.questions && finalData.questions.length > 0) {
-            console.log(`   ✅ Questions preserved in cleaning`);
             finalData.questions.forEach((q: any, qIdx: number) => {
-              console.log(`   Question ${qIdx + 1}: "${q.question?.substring(0, 50)}..."`);
             });
           } else {
-            console.log(`   ❌❌❌ QUESTIONS LOST DURING CLEANING!`);
           }
         }
       });
@@ -1944,7 +1939,6 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
       await queryRunner.connect();
       await queryRunner.startTransaction();
 
-      console.log("\n📦 [STEP 4] ✅ Database transaction started");
 
       try {
         const moduleRepo = queryRunner.manager.getRepository(Module);
@@ -1960,9 +1954,6 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
 
         // ==================== STEP 5: BATCH PROCESS MODULES ====================
         for (const [modIndex, mod] of cleanedModules.entries()) {
-          console.log(`\n📦 [STEP 5.${modIndex + 1}] ========================================`);
-          console.log(`📦 [STEP 5.${modIndex + 1}] Processing module: "${mod.title}"`);
-          console.log(`📦 [STEP 5.${modIndex + 1}] Module ID: ${mod.id || 'NEW'}`);
 
           let moduleEntity: Module;
 
@@ -1973,7 +1964,6 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
             });
 
             if (moduleEntity) {
-              console.log(`📦 [STEP 5.${modIndex + 1}] ✅ Found existing module`);
 
               Object.assign(moduleEntity, {
                 title: mod.title ?? moduleEntity.title,
@@ -1985,7 +1975,6 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
               await moduleRepo.save(moduleEntity);
               processedModuleIds.push(moduleEntity.id);
             } else {
-              console.log(`⚠️  [STEP 5.${modIndex + 1}] Module ${mod.id} not found, skipping`);
               continue;
             }
           } else {
@@ -2076,26 +2065,11 @@ static async getInstitutionOwnedCourses(req: Request, res: Response) {
 if (mod.final_assessment || mod.finalAssessment) {
   const finalData = mod.final_assessment || mod.finalAssessment;
 
-  console.log(`\n📋 [STEP 7] ========================================`);
-  console.log(`📋 [STEP 7] Processing FINAL ASSESSMENT for module: "${moduleEntity.title}"`);
-  console.log(`📋 [STEP 7] Module ID: ${moduleEntity.id}`);
-  console.log(`📋 [STEP 7] Final assessment data received:`);
-  console.log(`   - Title: "${finalData.title}"`);
-  console.log(`   - Type: "${finalData.type}"`);
-  console.log(`   - Questions provided: ${!!(finalData.questions)}`);
-  console.log(`   - Question count: ${finalData.questions?.length || 0}`);
 
   if (finalData.questions && Array.isArray(finalData.questions)) {
-    console.log(`📋 [STEP 7] ✅ Question details:`);
     finalData.questions.forEach((q: any, qIdx: number) => {
-      console.log(`   Question ${qIdx + 1}:`);
-      console.log(`     - Text: "${q.question?.substring(0, 60)}..."`);
-      console.log(`     - Type: ${q.type}`);
-      console.log(`     - Options: ${q.options?.length || 0}`);
-      console.log(`     - Correct: "${(q.correct_answer || q.correctAnswer)?.substring(0, 40)}..."`);
     });
   } else {
-    console.log(`📋 [STEP 7] No questions array in finalData`);
   }
 
   let moduleFinal = await moduleFinalRepo.findOne({
@@ -2104,7 +2078,6 @@ if (mod.final_assessment || mod.finalAssessment) {
   });
 
   if (moduleFinal) {
-    console.log(`📋 [STEP 7] 🔄 UPDATING existing module final`);
     
     // ✅ Determine module final type based on finalData.type
     let moduleFinalType = ModuleFinalType.ASSESSMENT;
@@ -2124,10 +2097,8 @@ if (mod.final_assessment || mod.finalAssessment) {
 
     // ✅✅✅ PROCESS QUESTIONS FOR ALL TYPES THAT HAVE THEM (ASSIGNMENT, ASSESSMENT, etc.)
     if (finalData.questions && Array.isArray(finalData.questions) && finalData.questions.length > 0) {
-      console.log(`📋 [STEP 7] Processing ${finalData.questions.length} questions for type: ${finalData.type}`);
       
       if (moduleFinal.assessment_id && moduleFinal.assessment) {
-        console.log(`📋 [STEP 7] Updating existing assessment ${moduleFinal.assessment.id} for type: ${finalData.type}`);
         
         const assessment = await assessmentRepo.findOne({
           where: { id: moduleFinal.assessment.id }
@@ -2154,7 +2125,6 @@ if (mod.final_assessment || mod.finalAssessment) {
           assessment.max_attempts = finalData.max_attempts ?? assessment.max_attempts;
           assessment.updated_at = new Date();
           
-          console.log(`📋 [STEP 7] 📝 Updating with ${finalData.questions.length} questions for ${assessmentType}`);
 
           assessment.questions = finalData.questions.map((q: any, qIndex: number) => {
             const questionType = EnhancedCourseController.normalizeQuestionType(q.type);
@@ -2175,10 +2145,8 @@ if (mod.final_assessment || mod.finalAssessment) {
           });
 
           await assessmentRepo.save(assessment);
-          console.log(`📋 [STEP 7] ✅✅✅ Assessment UPDATED with ${assessment.questions.length} questions for type: ${assessmentType}`);
         }
       } else {
-        console.log(`📋 [STEP 7] Creating NEW assessment for type: ${finalData.type}`);
         
         // ✅ Determine assessment type based on finalData.type
         let assessmentType = "EXAM"; // default
@@ -2207,7 +2175,6 @@ if (mod.final_assessment || mod.finalAssessment) {
           questions: []
         });
 
-        console.log(`📋 [STEP 7] 📝 Adding ${finalData.questions.length} questions to new assessment (type: ${assessmentType})`);
 
         newAssessment.questions = finalData.questions.map((q: any, qIndex: number) => ({
           id: q.id || crypto.randomUUID(),
@@ -2225,17 +2192,14 @@ if (mod.final_assessment || mod.finalAssessment) {
         await assessmentRepo.save(newAssessment);
         moduleFinal.assessment_id = newAssessment.id;
         
-        console.log(`📋 [STEP 7] ✅✅✅ Assessment CREATED with ${newAssessment.questions.length} questions for type: ${assessmentType}`);
       }
     } else if (moduleFinal.assessment_id && moduleFinal.assessment && (!finalData.questions || finalData.questions.length === 0)) {
       // If no questions provided but assessment exists, keep it (don't delete)
-      console.log(`📋 [STEP 7] No questions provided, keeping existing assessment for ${finalData.type}`);
     }
 
     await moduleFinalRepo.save(moduleFinal);
     
   } else {
-    console.log(`📋 [STEP 7] Creating NEW module final assessment`);
     
     // ✅ Determine module final type based on finalData.type
     let moduleFinalType = ModuleFinalType.ASSESSMENT;
@@ -2255,7 +2219,6 @@ if (mod.final_assessment || mod.finalAssessment) {
 
     // ✅✅✅ CREATE ASSESSMENT WITH QUESTIONS FOR ALL TYPES THAT HAVE THEM
     if (finalData.questions && Array.isArray(finalData.questions) && finalData.questions.length > 0) {
-      console.log(`📋 [STEP 7] Creating assessment with questions for type: ${finalData.type}`);
       
       // ✅ Determine assessment type based on finalData.type
       let assessmentType = "EXAM"; // default
@@ -2285,7 +2248,6 @@ if (mod.final_assessment || mod.finalAssessment) {
       });
 
       if (finalData.questions && Array.isArray(finalData.questions)) {
-        console.log(`📋 [STEP 7] 📝 Adding ${finalData.questions.length} questions for ${assessmentType}`);
         
         assessment.questions = finalData.questions.map((q: any, qIndex: number) => ({
           id: crypto.randomUUID(),
@@ -2304,15 +2266,12 @@ if (mod.final_assessment || mod.finalAssessment) {
       await assessmentRepo.save(assessment);
       newModuleFinal.assessment_id = assessment.id;
       
-      console.log(`📋 [STEP 7] ✅✅✅ Assessment CREATED with ${assessment.questions.length} questions for type: ${assessmentType}`);
     } else {
-      console.log(`📋 [STEP 7] No questions to add for type: ${finalData.type}`);
     }
 
     await moduleFinalRepo.save(newModuleFinal);
   }
   
-  console.log(`📋 [STEP 7] ========================================\n`);
 }
         }
 
@@ -2353,10 +2312,8 @@ if (mod.final_assessment || mod.finalAssessment) {
           ]
         });
 
-        console.log("\n🔍 [VERIFICATION] Final check:");
         updatedCourse?.modules?.forEach((module, idx) => {
           if (module.final_assessment?.assessment) {
-            console.log(`Module ${idx + 1}: ${module.final_assessment.assessment.questions?.length || 0} questions`);
           }
         });
 
@@ -2381,7 +2338,6 @@ if (mod.final_assessment || mod.finalAssessment) {
 
     } catch (error: any) {
       const duration = Date.now() - startTime;
-      console.error(`\n❌ [ERROR] After ${duration}ms:`, error.message);
 
       res.status(500).json({
         success: false,
@@ -2400,7 +2356,6 @@ if (mod.final_assessment || mod.finalAssessment) {
       const { page = 1, limit = 20, status, type } = req.query;
       const requestingUserId = req.user?.userId || req.user?.id;
 
-      console.log("👨‍🏫 [getInstructorCoursesById] Fetching courses for instructor:", instructorId);
 
       const userRepo = dbConnection.getRepository(User);
       const courseRepo = dbConnection.getRepository(Course);
@@ -2463,7 +2418,6 @@ if (mod.final_assessment || mod.finalAssessment) {
           : 0,
       };
 
-      console.log(`✅ [getInstructorCoursesById] Fetched ${cleanedCourses.length} courses for instructor ${instructorId}`);
 
       res.json({
         success: true,
@@ -2489,7 +2443,6 @@ if (mod.final_assessment || mod.finalAssessment) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get instructor courses by ID error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch instructor courses",
@@ -2659,7 +2612,6 @@ if (mod.final_assessment || mod.finalAssessment) {
         message: "Module deleted successfully"
       });
     } catch (error: any) {
-      console.error("❌ Delete module error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete module",
@@ -2714,7 +2666,6 @@ if (mod.final_assessment || mod.finalAssessment) {
         message: "Lesson deleted successfully"
       });
     } catch (error: any) {
-      console.error("❌ Delete lesson error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete lesson",
@@ -2757,7 +2708,6 @@ if (mod.final_assessment || mod.finalAssessment) {
         message: "Assessment deleted successfully"
       });
     } catch (error: any) {
-      console.error("❌ Delete assessment error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete assessment",
@@ -2888,7 +2838,6 @@ if (mod.final_assessment || mod.finalAssessment) {
         }
       });
     } catch (error: any) {
-      console.error("❌ Get course students error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch students",
@@ -2992,7 +2941,6 @@ if (mod.final_assessment || mod.finalAssessment) {
         }
       });
     } catch (error: any) {
-      console.error("❌ Export students error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to export students data",
@@ -3099,7 +3047,6 @@ if (mod.final_assessment || mod.finalAssessment) {
                     const videoUpload = await UploadToCloud(videoFile);
                     lesson.video_url = videoUpload.secure_url;
                   } catch (uploadError) {
-                    console.error(`Failed to upload video:`, uploadError);
                   }
                 } else {
                   lesson.video_url = les.videoUrl || les.video_url ?? lesson.video_url;
@@ -3118,7 +3065,6 @@ if (mod.final_assessment || mod.finalAssessment) {
                     const thumbnailUpload = await UploadToCloud(thumbnailFile);
                     lesson.thumbnail_url = thumbnailUpload.secure_url;
                   } catch (uploadError) {
-                    console.error(`Failed to upload thumbnail:`, uploadError);
                   }
                 } else {
                   lesson.thumbnail_url = les.thumbnail_url ?? lesson.thumbnail_url;
@@ -3145,7 +3091,6 @@ if (mod.final_assessment || mod.finalAssessment) {
                         public_id: uploadResult.public_id
                       });
                     } catch (uploadError) {
-                      console.error(`Failed to upload resource:`, uploadError);
                     }
                   }
 
@@ -3188,7 +3133,6 @@ if (mod.final_assessment || mod.finalAssessment) {
                   const videoUpload = await UploadToCloud(videoFile);
                   videoUrl = videoUpload.secure_url;
                 } catch (uploadError) {
-                  console.error(`Failed to upload video:`, uploadError);
                 }
               }
 
@@ -3201,7 +3145,6 @@ if (mod.final_assessment || mod.finalAssessment) {
                   const thumbnailUpload = await UploadToCloud(thumbnailFile);
                   thumbnailUrl = thumbnailUpload.secure_url;
                 } catch (uploadError) {
-                  console.error(`Failed to upload thumbnail:`, uploadError);
                 }
               }
 
@@ -3222,7 +3165,6 @@ if (mod.final_assessment || mod.finalAssessment) {
                       public_id: uploadResult.public_id
                     });
                   } catch (uploadError) {
-                    console.error(`Failed to upload resource:`, uploadError);
                   }
                 }
 
@@ -3330,7 +3272,6 @@ if (mod.final_assessment || mod.finalAssessment) {
           const uploadResult = await UploadToCloud(file);
           thumbnailUrl = uploadResult.secure_url;
         } catch (uploadError: any) {
-          console.error("❌ Failed to upload thumbnail:", uploadError);
           return res.status(500).json({
             success: false,
             message: "Failed to upload thumbnail to Cloudinary",
@@ -3349,7 +3290,6 @@ if (mod.final_assessment || mod.finalAssessment) {
         data: { thumbnail_url: thumbnailUrl },
       });
     } catch (error: any) {
-      console.error("❌ Update course thumbnail error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update course thumbnail",
@@ -3488,7 +3428,6 @@ if (mod.final_assessment || mod.finalAssessment) {
         data: assignment,
       });
     } catch (error: any) {
-      console.error("❌ Assign instructor error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to assign instructor",
@@ -3521,7 +3460,6 @@ if (mod.final_assessment || mod.finalAssessment) {
         message: "Instructor removed successfully",
       });
     } catch (error: any) {
-      console.error("❌ Remove instructor error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to remove instructor",
@@ -3566,7 +3504,6 @@ if (mod.final_assessment || mod.finalAssessment) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Validate access code error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to validate access code",
@@ -3844,7 +3781,6 @@ if (mod.final_assessment || mod.finalAssessment) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get course categories error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch course categories",
@@ -3857,7 +3793,6 @@ if (mod.final_assessment || mod.finalAssessment) {
 
 // ==================== HELPER: CLEAN COURSE DATA (DEDUPLICATE RESOURCES AND ASSESSMENTS) ====================
 private static cleanCourseData(course: Course): Course {
-  console.log("🧹 [cleanCourseData] Starting data cleaning...");
 
   if (!course.modules || !Array.isArray(course.modules)) {
     return course;
@@ -3903,7 +3838,6 @@ private static cleanCourseData(course: Course): Course {
             deduplicatedResourceCount = lesson.resources.length;
 
             if (originalResourceCount !== deduplicatedResourceCount) {
-              console.log(`⚠️  [cleanCourseData] Lesson "${lesson.title}": Removed ${originalResourceCount - deduplicatedResourceCount} duplicate resources (${originalResourceCount} → ${deduplicatedResourceCount})`);
             }
           } else {
             lesson.resources = [];
@@ -3955,7 +3889,6 @@ private static cleanCourseData(course: Course): Course {
             } else {
               // This is a duplicate - mark it
               duplicateQuizzesMap.set(fullKey, item.data.title || 'Unknown');
-              console.log(`🔄 [cleanCourseData] Found duplicate: ${item.data.title}`);
             }
           });
 
@@ -4024,7 +3957,6 @@ private static cleanCourseData(course: Course): Course {
       return module;
     });
 
-  console.log("✅ [cleanCourseData] Data cleaning completed");
   return course;
 }
 
@@ -4260,7 +4192,6 @@ private static cleanCourseData(course: Course): Course {
         data: course,
       });
     } catch (error: any) {
-      console.error("❌ Publish course error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to publish course",
@@ -4293,7 +4224,6 @@ private static cleanCourseData(course: Course): Course {
         data: course,
       });
     } catch (error: any) {
-      console.error("❌ Unpublish course error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to unpublish course",
@@ -4326,7 +4256,6 @@ private static cleanCourseData(course: Course): Course {
         message: "Course deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete course error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete course",
@@ -4376,7 +4305,6 @@ private static cleanCourseData(course: Course): Course {
         data: clonedCourse,
       });
     } catch (error: any) {
-      console.error("❌ Clone course error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to clone course",
@@ -4391,7 +4319,6 @@ private static cleanCourseData(course: Course): Course {
     try {
       const { page = 1, limit = 20, category, level, search } = req.query;
 
-      console.log("📚 [getPublicMOOCs] Fetching MOOC courses");
 
       const courseRepo = dbConnection.getRepository(Course);
       const queryBuilder = courseRepo
@@ -4432,7 +4359,6 @@ private static cleanCourseData(course: Course): Course {
         EnhancedCourseController.cleanCourseData(course)
       );
 
-      console.log(`✅ [getPublicMOOCs] Fetched and cleaned ${cleanedCourses.length} courses`);
 
       res.json({
         success: true,
@@ -4447,7 +4373,6 @@ private static cleanCourseData(course: Course): Course {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get MOOCs error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch MOOC courses",
@@ -4462,7 +4387,6 @@ private static cleanCourseData(course: Course): Course {
       const { institutionId } = req.params;
       const userId = req.user?.userId || req.user?.id;
 
-      console.log("🏢 [getInstitutionSPOCs] Fetching SPOC courses for institution:", institutionId);
 
       const courseRepo = dbConnection.getRepository(Course);
       const courses = await courseRepo.find({
@@ -4485,14 +4409,12 @@ private static cleanCourseData(course: Course): Course {
         EnhancedCourseController.cleanCourseData(course)
       );
 
-      console.log(`✅ [getInstitutionSPOCs] Fetched and cleaned ${cleanedCourses.length} courses`);
 
       res.json({
         success: true,
         data: cleanedCourses,
       });
     } catch (error: any) {
-      console.error("❌ Get SPOC courses error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch SPOC courses",
@@ -4507,7 +4429,6 @@ private static cleanCourseData(course: Course): Course {
       const { categoryId } = req.params;
       const userId = req.user?.userId || req.user?.id;
 
-      console.log("📁 [getCoursesByCategory] Fetching courses for category:", categoryId);
 
       const courseRepo = dbConnection.getRepository(Course);
       const queryBuilder = courseRepo
@@ -4534,14 +4455,12 @@ private static cleanCourseData(course: Course): Course {
         EnhancedCourseController.cleanCourseData(course)
       );
 
-      console.log(`✅ [getCoursesByCategory] Fetched and cleaned ${cleanedCourses.length} courses`);
 
       res.json({
         success: true,
         data: cleanedCourses,
       });
     } catch (error: any) {
-      console.error("❌ Get courses by category error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch courses",
@@ -4567,7 +4486,6 @@ private static cleanCourseData(course: Course): Course {
         sortBy = "relevance",
       } = req.query;
 
-      console.log("🔍 [searchCourses] Searching courses with query:", q);
 
       const courseRepo = dbConnection.getRepository(Course);
       const queryBuilder = courseRepo
@@ -4648,7 +4566,6 @@ private static cleanCourseData(course: Course): Course {
         EnhancedCourseController.cleanCourseData(course)
       );
 
-      console.log(`✅ [searchCourses] Found and cleaned ${cleanedCourses.length} courses`);
 
       res.json({
         success: true,
@@ -4663,7 +4580,6 @@ private static cleanCourseData(course: Course): Course {
         },
       });
     } catch (error: any) {
-      console.error("❌ Search courses error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to search courses",
@@ -4678,7 +4594,6 @@ private static cleanCourseData(course: Course): Course {
       const userId = req.user?.userId || req.user?.id;
       const { page = 1, limit = 20, status, type } = req.query;
 
-      console.log("👨‍🏫 [getInstructorCourses] Fetching courses for instructor:", userId);
 
       const courseRepo = dbConnection.getRepository(Course);
       const queryBuilder = courseRepo
@@ -4708,7 +4623,6 @@ private static cleanCourseData(course: Course): Course {
         EnhancedCourseController.cleanCourseData(course)
       );
 
-      console.log(`✅ [getInstructorCourses] Fetched and cleaned ${cleanedCourses.length} courses`);
 
       res.json({
         success: true,
@@ -4723,7 +4637,6 @@ private static cleanCourseData(course: Course): Course {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get instructor courses error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch instructor courses",
@@ -4737,7 +4650,6 @@ private static cleanCourseData(course: Course): Course {
     try {
       const { id } = req.params;
 
-      console.log("📖 [getCourseCurriculum] Fetching curriculum for course:", id);
 
       const courseRepo = dbConnection.getRepository(Course);
       const course = await courseRepo
@@ -4761,14 +4673,12 @@ private static cleanCourseData(course: Course): Course {
       // CRITICAL FIX: Clean course data before returning
       const cleanedCourse = EnhancedCourseController.cleanCourseData(course);
 
-      console.log("✅ [getCourseCurriculum] Curriculum fetched and cleaned successfully");
 
       res.json({
         success: true,
         data: cleanedCourse,
       });
     } catch (error: any) {
-      console.error("❌ Get course curriculum error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch course curriculum",
@@ -5069,7 +4979,6 @@ private static cleanCourseData(course: Course): Course {
       },
     });
   } catch (error: any) {
-    console.error("❌ Get course analytics error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch course analytics",
@@ -5137,7 +5046,6 @@ static async exportCourseAnalytics(req: Request, res: Response) {
 
     return res.send(csvContent);
   } catch (error: any) {
-    console.error("❌ Export course analytics error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to export course analytics",

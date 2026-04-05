@@ -13,7 +13,6 @@ async function cleanupSpecificIndexes() {
 
   try {
     await dataSource.initialize();
-    console.log('✅ Connected to database');
 
     // List of indexes that are causing problems (non-PK indexes)
     const indexesToDrop = [
@@ -29,7 +28,6 @@ async function cleanupSpecificIndexes() {
       { table: 'space_message', name: 'IDX_7de1443208ed741853efc4a81a' },
     ];
     
-    console.log('🗑️  Dropping problematic indexes...\n');
     
     for (const idx of indexesToDrop) {
       try {
@@ -43,23 +41,17 @@ async function cleanupSpecificIndexes() {
         
         if (exists[0].exists) {
           await dataSource.query(`DROP INDEX IF EXISTS "${idx.name}"`);
-          console.log(`  ✅ Dropped index: ${idx.name}`);
         } else {
-          console.log(`  ⏭️  Index ${idx.name} does not exist, skipping`);
         }
       } catch (err: any) {
         if (err.message?.includes('cannot drop index')) {
-          console.log(`  ⚠️ Cannot drop index ${idx.name} (likely a primary key), skipping`);
         } else {
-          console.log(`  ⚠️ Error dropping ${idx.name}:`, err.message);
         }
       }
     }
     
-    console.log('\n✅ Index cleanup completed');
     
   } catch (error) {
-    console.error('❌ Error during cleanup:', error);
   } finally {
     if (dataSource.isInitialized) {
       await dataSource.destroy();

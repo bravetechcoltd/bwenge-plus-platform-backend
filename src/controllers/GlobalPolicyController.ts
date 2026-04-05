@@ -70,7 +70,6 @@ export class GlobalPolicyController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get policies error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch policies",
@@ -101,7 +100,6 @@ export class GlobalPolicyController {
         data: policy,
       });
     } catch (error: any) {
-      console.error("❌ Get policy error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch policy",
@@ -144,7 +142,6 @@ export class GlobalPolicyController {
         data: policy,
       });
     } catch (error: any) {
-      console.error("❌ Get latest policy error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch latest policy",
@@ -226,7 +223,6 @@ export class GlobalPolicyController {
         data: policy,
       });
     } catch (error: any) {
-      console.error("❌ Create policy error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create policy",
@@ -309,7 +305,6 @@ export class GlobalPolicyController {
         data: policy,
       });
     } catch (error: any) {
-      console.error("❌ Update policy error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update policy",
@@ -360,7 +355,6 @@ export class GlobalPolicyController {
         message: "Policy deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete policy error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete policy",
@@ -411,7 +405,6 @@ export class GlobalPolicyController {
         data: policy,
       });
     } catch (error: any) {
-      console.error("❌ Publish policy error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to publish policy",
@@ -448,7 +441,6 @@ export class GlobalPolicyController {
         data: policy,
       });
     } catch (error: any) {
-      console.error("❌ Archive policy error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to archive policy",
@@ -491,7 +483,6 @@ export class GlobalPolicyController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get policy acceptances error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch policy acceptances",
@@ -516,7 +507,6 @@ export class GlobalPolicyController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get policy types error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch policy types",

@@ -155,7 +155,6 @@ export class InstitutionAdminController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get admin dashboard error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch dashboard data",
@@ -189,7 +188,6 @@ export class InstitutionAdminController {
 
       return parseFloat(result?.total || "0");
     } catch (error) {
-      console.error("❌ Revenue calculation error:", error);
       return 0;
     }
   }
@@ -233,7 +231,6 @@ export class InstitutionAdminController {
         status: "active"
       }));
     } catch (error) {
-      console.error("❌ Top courses error:", error);
       return [];
     }
   }
@@ -298,7 +295,6 @@ export class InstitutionAdminController {
         new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
       ).slice(0, 8);
     } catch (error) {
-      console.error("❌ Recent activity error:", error);
       return [];
     }
   }
@@ -357,7 +353,6 @@ export class InstitutionAdminController {
         }))
       ];
     } catch (error) {
-      console.error("❌ Pending requests error:", error);
       return [];
     }
   }
@@ -449,7 +444,6 @@ export class InstitutionAdminController {
         }
       });
     } catch (error: any) {
-      console.error("❌ Get institution info error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch institution information",
@@ -504,7 +498,6 @@ export class InstitutionAdminController {
         }
       });
     } catch (error: any) {
-      console.error("❌ Get institution courses error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch institution courses",
@@ -547,7 +540,6 @@ export class InstitutionAdminController {
         }))
       });
     } catch (error: any) {
-      console.error("❌ Get institution instructors error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch institution instructors",
@@ -606,7 +598,6 @@ export class InstitutionAdminController {
         }
       });
     } catch (error: any) {
-      console.error("❌ Get institution enrollments error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch institution enrollments",

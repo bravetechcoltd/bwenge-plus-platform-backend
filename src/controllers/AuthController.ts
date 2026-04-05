@@ -42,7 +42,6 @@ async function markUserLoggedIn(userId: string): Promise<void> {
     })
     .where("id = :id", { id: userId })
     .execute();
-  console.log("✅ [markUserLoggedIn] isUserLogin=true, timestamps updated for", userId);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -73,9 +72,7 @@ async function ensureSessions(userId: string, req: Request): Promise<void> {
       is_active: true,
     });
     await sessionRepo.save(bwengeSession);
-    console.log("✅ [ensureSessions] BwengePlus session created");
   } else {
-    console.log("✅ [ensureSessions] Existing BwengePlus session reused");
   }
 
   // Ongera SSO session
@@ -99,9 +96,7 @@ async function ensureSessions(userId: string, req: Request): Promise<void> {
       is_active: true,
     });
     await sessionRepo.save(ongeraSession);
-    console.log("✅ [ensureSessions] Ongera session created (SSO)");
   } else {
-    console.log("✅ [ensureSessions] Existing Ongera session reused");
   }
 }
 
@@ -111,22 +106,18 @@ export class BwengePlusAuthController {
   // GOOGLE ONE TAP LOGIN
   // ===========================================================================
   static async googleOneTapLogin(req: Request, res: Response) {
-    console.log("\n🔐 ========== GOOGLE ONE TAP LOGIN START ==========");
 
     try {
       const { credential } = req.body;
 
       // Validate input
       if (!credential) {
-        console.log("❌ Missing credential");
         return res.status(400).json({
           success: false,
           message: "Google credential is required"
         });
       }
 
-      console.log("🔍 Verifying Google One Tap token...");
-      console.log("📋 Credential length:", credential.length);
 
       // Verify the Google token
       let ticket;
@@ -136,7 +127,6 @@ export class BwengePlusAuthController {
           audience: process.env.GOOGLE_CLIENT_ID,
         });
       } catch (verifyError: any) {
-        console.error("❌ Token verification failed:", verifyError.message);
         return res.status(400).json({
           success: false,
           message: "Invalid Google token",
@@ -146,16 +136,12 @@ export class BwengePlusAuthController {
 
       const payload = ticket.getPayload();
       if (!payload || !payload.email) {
-        console.log("❌ Invalid token payload");
         return res.status(400).json({
           success: false,
           message: "Invalid Google token - missing email"
         });
       }
 
-      console.log("✅ Google token verified");
-      console.log("📧 Email:", payload.email);
-      console.log("👤 Name:", payload.name);
 
       const email = payload.email;
       const googleId = payload.sub;
@@ -172,13 +158,6 @@ export class BwengePlusAuthController {
       });
 
       if (user) {
-        console.log("✅ Existing user found:", user.email);
-        console.log("📊 User details:", {
-          id: user.id,
-          bwenge_role: user.bwenge_role,
-          is_institution_member: user.is_institution_member,
-          primary_institution_id: user.primary_institution_id
-        });
 
         // ==================== UPDATE EXISTING USER ====================
         const updates: any = {};
@@ -189,35 +168,30 @@ export class BwengePlusAuthController {
           updates.social_auth_provider = "google";
           updates.social_auth_id = googleId;
           needsUpdate = true;
-          console.log("➕ Adding Google auth info");
         }
 
         // Update profile picture if not set
         if (!user.profile_picture_url) {
           updates.profile_picture_url = profilePicture;
           needsUpdate = true;
-          console.log("➕ Adding profile picture");
         }
 
         // Verify email if not already verified
         if (!user.is_verified) {
           updates.is_verified = true;
           needsUpdate = true;
-          console.log("✅ Verifying email");
         }
 
         // Ensure system identification is set
         if (!user.IsForWhichSystem) {
           updates.IsForWhichSystem = SystemType.BWENGE_PLUS;
           needsUpdate = true;
-          console.log("➕ Setting system type");
         }
 
         // Ensure bwenge role is set
         if (!user.bwenge_role) {
           updates.bwenge_role = BwengeRole.LEARNER;
           needsUpdate = true;
-          console.log("➕ Setting bwenge role");
         }
 
         if (needsUpdate) {
@@ -227,7 +201,6 @@ export class BwengePlusAuthController {
             .set(updates)
             .where("id = :id", { id: user.id })
             .execute();
-          console.log("✅ Updated existing user with Google One Tap data");
         }
 
         // Protect the existing role
@@ -235,7 +208,6 @@ export class BwengePlusAuthController {
           user.setOriginalBwengeRole(user.bwenge_role);
         }
       } else {
-        console.log("❌ No account found for Google One Tap email:", email);
         return res.status(404).json({
           success: false,
           message: "No account found with this Google email. Please apply to join BwengePlus first.",
@@ -245,7 +217,6 @@ export class BwengePlusAuthController {
 
       // ==================== CHECK ACCOUNT STATUS ====================
       if (!user.is_active) {
-        console.log("❌ Account not active, status:", user.application_status);
         if (user.application_status === ApplicationStatus.PENDING) {
           return res.status(403).json({
             success: false,
@@ -278,15 +249,12 @@ export class BwengePlusAuthController {
       let primaryInstitutionId: string | null = null;
       let userInstitutionRole: InstitutionRole | null = null;
 
-      console.log("🏢 Checking institution memberships...");
-      console.log("📊 Memberships count:", user.institution_memberships?.length || 0);
 
       if (user.institution_memberships && user.institution_memberships.length > 0) {
         const activeMemberships = user.institution_memberships.filter(member =>
           member.is_active && member.institution
         );
 
-        console.log("✅ Active memberships:", activeMemberships.length);
 
         if (activeMemberships.length > 0) {
           let primaryMembership: any = null;
@@ -296,7 +264,6 @@ export class BwengePlusAuthController {
             primaryMembership = activeMemberships.find(m =>
               m.institution_id === user.primary_institution_id
             );
-            console.log("🔍 Found primary by ID:", !!primaryMembership);
           }
 
           // Priority 2: ADMIN role for INSTITUTION account type
@@ -304,13 +271,11 @@ export class BwengePlusAuthController {
             primaryMembership = activeMemberships.find(m =>
               m.role === InstitutionMemberRole.ADMIN
             );
-            console.log("🔍 Found primary by ADMIN role:", !!primaryMembership);
           }
 
           // Priority 3: first active membership
           if (!primaryMembership) {
             primaryMembership = activeMemberships[0];
-            console.log("🔍 Using first active membership");
           }
 
           if (primaryMembership && primaryMembership.institution) {
@@ -340,8 +305,6 @@ export class BwengePlusAuthController {
               user_role: userInstitutionRole
             };
 
-            console.log("✅ Primary institution found:", institutionData.name);
-            console.log("📊 Institution role:", userInstitutionRole);
           }
 
           // Update user's institution-related fields
@@ -378,14 +341,11 @@ export class BwengePlusAuthController {
             user.institution_role = userInstitutionRole;
           }
 
-          console.log("✅ User institution data updated");
         }
       } else {
-        console.log("ℹ️ No institution memberships found");
       }
 
       // ==================== CREATE CROSS-SYSTEM SESSIONS ====================
-      console.log("🔐 Creating cross-system sessions...");
 
       // ✅ FIX: Use ensureSessions helper — prevents duplicates, guarantees both sessions exist
       await ensureSessions(user.id, req);
@@ -393,7 +353,6 @@ export class BwengePlusAuthController {
       // ✅ FIX: Always call markUserLoggedIn — guarantees isUserLogin=true in DB
       await markUserLoggedIn(user.id);
 
-      console.log("✅ Login status updated");
 
       // ==================== GENERATE JWT TOKEN ====================
       const tokenPayload: any = {
@@ -414,7 +373,6 @@ export class BwengePlusAuthController {
         { expiresIn: "7d" }
       );
 
-      console.log("✅ JWT token generated");
 
       // ==================== PREPARE RESPONSE ====================
       const responseData: any = {
@@ -461,14 +419,6 @@ export class BwengePlusAuthController {
         social_auth_id: user.social_auth_id
       };
 
-      console.log("✅ ========== GOOGLE ONE TAP LOGIN SUCCESS ==========");
-      console.log("📊 User authenticated:", {
-        userId: user.id,
-        email: user.email,
-        role: user.bwenge_role,
-        hasInstitution: !!institutionData
-      });
-      console.log("=================================================\n");
 
       res.json({
         success: true,
@@ -480,9 +430,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ ========== GOOGLE ONE TAP LOGIN FAILED ==========");
-      console.error("Error:", error.message);
-      console.error("Stack:", error.stack);
 
       res.status(500).json({
         success: false,
@@ -493,7 +440,6 @@ export class BwengePlusAuthController {
   }
 
   static async register(req: Request, res: Response) {
-    console.log("\n📝 ========== BWENGEPLUS: APPLY (REGISTER) START ==========");
 
     try {
       const {
@@ -592,7 +538,6 @@ export class BwengePlusAuthController {
       });
 
       await userRepo.save(newUser);
-      console.log("✅ [APPLY] Application user created:", newUser.email);
 
       // ── Create profile ────────────────────────────────────────────────
       const profileRepo = dbConnection.getRepository(UserProfile);
@@ -601,7 +546,6 @@ export class BwengePlusAuthController {
         linkedin_url: linkedin_url || null,
       });
       await profileRepo.save(profile);
-      console.log("✅ [APPLY] Profile created");
 
       // ── Send applicant confirmation email ─────────────────────────────
       try {
@@ -610,9 +554,7 @@ export class BwengePlusAuthController {
           newUser.first_name,
           newUser.last_name
         );
-        console.log("✅ [APPLY] Application confirmation email sent to applicant");
       } catch (emailErr: any) {
-        console.warn("⚠️ [APPLY] Failed to send confirmation email:", emailErr.message);
       }
 
       // ── Notify system admin(s) ────────────────────────────────────────
@@ -633,13 +575,10 @@ export class BwengePlusAuthController {
             applied_at: new Date().toLocaleString(),
             applicationId: newUser.id,
           });
-          console.log("✅ [APPLY] Admin notification email sent");
         }
       } catch (emailErr: any) {
-        console.warn("⚠️ [APPLY] Failed to send admin notification:", emailErr.message);
       }
 
-      console.log("✅ ========== BWENGEPLUS: APPLICATION SUBMITTED ==========\n");
 
       return res.status(201).json({
         success: true,
@@ -657,8 +596,6 @@ export class BwengePlusAuthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ ========== BWENGEPLUS: APPLICATION FAILED ==========");
-      console.error("Error:", error.message);
 
       res.status(500).json({
         success: false,
@@ -675,7 +612,6 @@ export class BwengePlusAuthController {
   // ADMIN: APPROVE USER APPLICATION
   // ===========================================================================
   static async approveUser(req: Request, res: Response) {
-    console.log("\n✅ ========== ADMIN: APPROVE USER ==========");
     try {
       const requestingUserId = req.user?.userId || req.user?.id;
       const { userId } = req.body;
@@ -716,12 +652,9 @@ export class BwengePlusAuthController {
       // Send activation email
       try {
         await sendAccountActivatedEmail(applicant.email, applicant.first_name, applicant.last_name);
-        console.log("✅ [APPROVE] Activation email sent to:", applicant.email);
       } catch (emailErr: any) {
-        console.warn("⚠️ [APPROVE] Failed to send activation email:", emailErr.message);
       }
 
-      console.log("✅ [APPROVE] User approved:", applicant.email);
 
       return res.json({
         success: true,
@@ -729,7 +662,6 @@ export class BwengePlusAuthController {
         data: { userId, email: applicant.email, application_status: "approved" }
       });
     } catch (error: any) {
-      console.error("❌ Approve user error:", error);
       return res.status(500).json({ success: false, message: "Failed to approve application", error: error.message });
     }
   }
@@ -738,7 +670,6 @@ export class BwengePlusAuthController {
   // ADMIN: REJECT USER APPLICATION
   // ===========================================================================
   static async rejectUser(req: Request, res: Response) {
-    console.log("\n❌ ========== ADMIN: REJECT USER ==========");
     try {
       const requestingUserId = req.user?.userId || req.user?.id;
       const { userId, reason } = req.body;
@@ -774,12 +705,9 @@ export class BwengePlusAuthController {
       // Send rejection email
       try {
         await sendAccountRejectedEmail(applicant.email, applicant.first_name, applicant.last_name, reason);
-        console.log("✅ [REJECT] Rejection email sent to:", applicant.email);
       } catch (emailErr: any) {
-        console.warn("⚠️ [REJECT] Failed to send rejection email:", emailErr.message);
       }
 
-      console.log("✅ [REJECT] Application rejected for:", applicant.email);
 
       return res.json({
         success: true,
@@ -787,7 +715,6 @@ export class BwengePlusAuthController {
         data: { userId, email: applicant.email, application_status: "rejected" }
       });
     } catch (error: any) {
-      console.error("❌ Reject user error:", error);
       return res.status(500).json({ success: false, message: "Failed to reject application", error: error.message });
     }
   }
@@ -796,7 +723,6 @@ export class BwengePlusAuthController {
   // ADMIN: GET ALL APPLICATIONS
   // ===========================================================================
   static async getApplications(req: Request, res: Response) {
-    console.log("\n📋 ========== ADMIN: GET APPLICATIONS ==========");
     try {
       const requestingUserId = req.user?.userId || req.user?.id;
       const { status, page = "1", limit = "20" } = req.query;
@@ -856,7 +782,6 @@ export class BwengePlusAuthController {
         }
       });
     } catch (error: any) {
-      console.error("❌ Get applications error:", error);
       return res.status(500).json({ success: false, message: "Failed to fetch applications", error: error.message });
     }
   }
@@ -920,7 +845,6 @@ export class BwengePlusAuthController {
         user: null,
       });
     } catch (error: any) {
-      console.error("❌ Check user exists error:", error);
       return res.status(500).json({
         success: false,
         message: "Failed to check user existence",
@@ -933,7 +857,6 @@ export class BwengePlusAuthController {
   // UPDATE PROFILE
   // ===========================================================================
   static async updateProfile(req: Request, res: Response) {
-    console.log("\n📝 ========== BWENGEPLUS: UPDATE PROFILE ==========");
 
     try {
       const userId = req.user?.userId || req.user?.id;
@@ -961,7 +884,6 @@ export class BwengePlusAuthController {
         });
       }
 
-      console.log("📋 Updating profile for user:", user.email);
 
       // Extract fields from request body
       const {
@@ -1089,7 +1011,6 @@ export class BwengePlusAuthController {
       // Exclude sensitive data
       const { password_hash, ...userData } = updatedUser!;
 
-      console.log("✅ Profile updated successfully");
 
       res.json({
         success: true,
@@ -1098,7 +1019,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ Update profile error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update profile",
@@ -1112,7 +1032,6 @@ export class BwengePlusAuthController {
   // UPLOAD PROFILE PICTURE
   // ===========================================================================
   static async uploadProfilePicture(req: Request, res: Response) {
-    console.log("\n🖼️ ========== BWENGEPLUS: UPLOAD PROFILE PICTURE ==========");
 
     try {
       const userId = req.user?.userId || req.user?.id;
@@ -1132,16 +1051,13 @@ export class BwengePlusAuthController {
         });
       }
 
-      console.log("📋 Uploading profile picture for user:", userId);
 
       // Upload to Cloudinary
       let profilePictureUrl = "";
       try {
         const uploadResult = await UploadToCloud(req.file);
         profilePictureUrl = uploadResult.secure_url;
-        console.log("✅ Profile picture uploaded to Cloudinary:", profilePictureUrl);
       } catch (uploadError: any) {
-        console.error("❌ Cloudinary upload failed:", uploadError);
         return res.status(500).json({
           success: false,
           message: "Failed to upload image to Cloudinary",
@@ -1155,7 +1071,6 @@ export class BwengePlusAuthController {
         profile_picture_url: profilePictureUrl
       });
 
-      console.log("✅ Profile picture updated in database");
 
       res.json({
         success: true,
@@ -1166,7 +1081,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ Upload profile picture error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to upload profile picture",
@@ -1180,7 +1094,6 @@ export class BwengePlusAuthController {
   // UPLOAD CV FILE
   // ===========================================================================
   static async uploadCV(req: Request, res: Response) {
-    console.log("\n📄 ========== BWENGEPLUS: UPLOAD CV ==========");
 
     try {
       const userId = req.user?.userId || req.user?.id;
@@ -1200,16 +1113,13 @@ export class BwengePlusAuthController {
         });
       }
 
-      console.log("📋 Uploading CV for user:", userId);
 
       // Upload to Cloudinary
       let cvFileUrl = "";
       try {
         const uploadResult = await UploadToCloud(req.file);
         cvFileUrl = uploadResult.secure_url;
-        console.log("✅ CV uploaded to Cloudinary:", cvFileUrl);
       } catch (uploadError: any) {
-        console.error("❌ Cloudinary upload failed:", uploadError);
         return res.status(500).json({
           success: false,
           message: "Failed to upload CV to Cloudinary",
@@ -1236,7 +1146,6 @@ export class BwengePlusAuthController {
 
       await userProfileRepo.save(profile);
 
-      console.log("✅ CV URL updated in database");
 
       res.json({
         success: true,
@@ -1247,7 +1156,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ Upload CV error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to upload CV",
@@ -1324,7 +1232,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get profile completion status error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to get profile completion status",
@@ -1337,7 +1244,6 @@ export class BwengePlusAuthController {
   // UPDATE ACCOUNT TYPE
   // ===========================================================================
   static async updateAccountType(req: Request, res: Response) {
-    console.log("\n👤 ========== BWENGEPLUS: UPDATE ACCOUNT TYPE ==========");
 
     try {
       const userId = req.user?.userId || req.user?.id;
@@ -1370,7 +1276,6 @@ export class BwengePlusAuthController {
         bwenge_role: newBwengeRole
       });
 
-      console.log(`✅ Account type updated to: ${account_type}, role: ${newBwengeRole}`);
 
       res.json({
         success: true,
@@ -1382,7 +1287,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ Update account type error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update account type",
@@ -1395,7 +1299,6 @@ export class BwengePlusAuthController {
   // EMAIL / PASSWORD LOGIN
   // ===========================================================================
   static async login(req: Request, res: Response) {
-    console.log("\n🔐 ========== BWENGEPLUS: LOGIN START ==========");
 
     try {
       const { email, password } = req.body;
@@ -1417,10 +1320,8 @@ export class BwengePlusAuthController {
           relations: ["profile", "institution_memberships", "institution_memberships.institution"]
         });
       } catch (queryError: any) {
-        console.error("❌ Database query error:", queryError.message);
 
         if (queryError.message.includes('isUserLogin')) {
-          console.warn("⚠️ isUserLogin column missing - fetching user without it");
 
           user = await userRepo
             .createQueryBuilder("user")
@@ -1435,7 +1336,6 @@ export class BwengePlusAuthController {
       }
 
       if (!user) {
-        console.log("❌ User not found");
         return res.status(401).json({
           success: false,
           message: "Invalid credentials"
@@ -1443,22 +1343,14 @@ export class BwengePlusAuthController {
       }
 
       // ==================== ✅ ENHANCED: CHECK EXISTING VALUES BEFORE UPDATES ====================
-      console.log("📋 [LOGIN PROTECTION] Checking existing user values:");
-      console.log(`  - IsForWhichSystem: ${user.IsForWhichSystem}`);
-      console.log(`  - BwengeRole: ${user.bwenge_role}`);
-      console.log(`  - Institution IDs: ${user.institution_ids?.length || 0}`);
-      console.log(`  - Primary Institution: ${user.primary_institution_id}`);
-      console.log(`  - Institution Role: ${user.institution_role}`);
 
       // ✅ Protect the existing role from accidental changes
       if (user.bwenge_role) {
         user.setOriginalBwengeRole(user.bwenge_role);
-        console.log("✅ Original BwengePlus role protected:", user.bwenge_role);
       }
 
       // Check if account is active (handles pending/rejected applications)
       if (!user.is_active) {
-        console.log("❌ Account not active, status:", user.application_status);
         if (user.application_status === ApplicationStatus.PENDING) {
           return res.status(403).json({
             success: false,
@@ -1483,7 +1375,6 @@ export class BwengePlusAuthController {
 
       // Check if email is verified
       if (!user.is_verified) {
-        console.log("❌ Email not verified");
         return res.status(403).json({
           success: false,
           message: "Email not verified. Please verify your email first.",
@@ -1495,21 +1386,18 @@ export class BwengePlusAuthController {
       // Verify password
       const isValidPassword = await bcrypt.compare(password, user.password_hash);
       if (!isValidPassword) {
-        console.log("❌ Invalid password");
         return res.status(401).json({
           success: false,
           message: "Invalid credentials"
         });
       }
 
-      console.log("✅ User authenticated:", user.email);
 
       // ==================== ✅ ENHANCED: GET INSTITUTION INFORMATION WITH PROTECTION ====================
       let institutionData: any = null;
       let primaryInstitutionId: string | null = user.primary_institution_id; // Preserve existing
       let userInstitutionRole: InstitutionRole | null = user.institution_role; // Preserve existing
 
-      console.log("🏢 Checking institution memberships...");
 
       if (user.institution_memberships && user.institution_memberships.length > 0) {
         const activeMemberships = user.institution_memberships.filter(member =>
@@ -1590,7 +1478,6 @@ export class BwengePlusAuthController {
             .where("id = :id", { id: user.id })
             .execute();
 
-          console.log("✅ User institution data updated with protection");
         }
       }
 
@@ -1668,12 +1555,6 @@ export class BwengePlusAuthController {
         updated_at: user.updated_at?.toISOString() || null,
       };
 
-      console.log("✅ ========== BWENGEPLUS: LOGIN SUCCESS ==========");
-      console.log("📋 User:", user.email);
-      console.log("📋 System:", user.IsForWhichSystem || SystemType.BWENGE_PLUS);
-      console.log("📋 Bwenge Role:", user.bwenge_role);
-      console.log("📋 Institution Data Protected:", !!institutionData);
-      console.log("=================================================\n");
 
       res.json({
         success: true,
@@ -1685,8 +1566,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ ========== BWENGEPLUS: LOGIN FAILED ==========");
-      console.error("Error:", error.message);
 
       res.status(500).json({
         success: false,
@@ -1700,20 +1579,16 @@ export class BwengePlusAuthController {
   // SSO CONSUME
   // ===========================================================================
   static async ssoConsume(req: Request, res: Response) {
-    console.log("\n🔓 ========== BWENGEPLUS: SSO CONSUME START ==========");
 
     try {
       const { token } = req.query;
 
       if (!token) {
-        console.log("❌ No SSO token provided");
         return res.redirect(`${process.env.CLIENT_URL}/sso/callback?error=missing_token`);
       }
 
-      console.log("📋 SSO Token:", (token as string).substring(0, 16) + "...");
 
       // ==================== VALIDATE TOKEN WITH ONGERA ====================
-      console.log("🔍 Validating token with Ongera...");
 
       let ongeraResponse;
       try {
@@ -1729,17 +1604,14 @@ export class BwengePlusAuthController {
           }
         );
       } catch (axiosError: any) {
-        console.error("❌ Ongera API call failed:", axiosError.message);
         return res.redirect(`${process.env.CLIENT_URL}/sso/callback?error=validation_failed`);
       }
 
       if (!ongeraResponse.data.success) {
-        console.log("❌ Token validation failed");
         return res.redirect(`${process.env.CLIENT_URL}/sso/callback?error=invalid_token`);
       }
 
       const userData = ongeraResponse.data.data;
-      console.log("✅ Token validated - User:", userData.email);
 
       // ==================== FIND/CREATE USER ====================
       const userRepo = dbConnection.getRepository(User);
@@ -1749,17 +1621,11 @@ export class BwengePlusAuthController {
       });
 
       if (!user) {
-        console.log("❌ User not found in BwengePlus database");
         return res.redirect(`${process.env.CLIENT_URL}/sso/callback?error=user_not_found`);
       }
 
-      console.log("✅ User found:", user.email);
 
       // ==================== ✅ ENHANCED: PROTECT EXISTING VALUES ====================
-      console.log("📋 [SSO PROTECTION] Checking existing user values:");
-      console.log(`  - IsForWhichSystem: ${user.IsForWhichSystem}`);
-      console.log(`  - BwengeRole: ${user.bwenge_role}`);
-      console.log(`  - Institution IDs: ${user.institution_ids?.length || 0}`);
 
       // ✅ CRITICAL: Preserve ALL existing values, only fill missing ones
       const updates: any = {};
@@ -1769,7 +1635,6 @@ export class BwengePlusAuthController {
       if (!user.IsForWhichSystem) {
         updates.IsForWhichSystem = SystemType.BWENGE_PLUS;
         needsUpdate = true;
-        console.log("✅ Setting IsForWhichSystem to BWENGEPLUS");
       }
 
       // Only set bwenge_role if it doesn't exist
@@ -1777,7 +1642,6 @@ export class BwengePlusAuthController {
         const defaultRole = mapAccountTypeToBwengeRole(user.account_type);
         updates.bwenge_role = defaultRole;
         needsUpdate = true;
-        console.log(`✅ Setting default BwengePlus role: ${defaultRole}`);
       }
 
       // Update last login timestamp
@@ -1791,11 +1655,9 @@ export class BwengePlusAuthController {
           .set(updates)
           .where("id = :id", { id: user.id })
           .execute();
-        console.log("✅ Updated user with protected values");
       }
 
       // ==================== CONSUME TOKEN WITH ONGERA ====================
-      console.log("🔄 Consuming token with Ongera...");
 
       try {
         await axios.post(
@@ -1808,15 +1670,12 @@ export class BwengePlusAuthController {
             timeout: 5000
           }
         );
-        console.log("✅ Token consumed successfully");
       } catch (consumeError: any) {
-        console.warn("⚠️ Token consumption failed (non-critical):", consumeError.message);
       }
 
       // ==================== CREATE BWENGEPLUS SESSION ====================
       // ✅ FIX: Use ensureSessions helper — prevents duplicates, guarantees both sessions exist
       await ensureSessions(user.id, req);
-      console.log("✅ BwengePlus session created");
 
       // ✅ FIX: Always call markUserLoggedIn — guarantees isUserLogin=true in DB
       await markUserLoggedIn(user.id);
@@ -1834,7 +1693,6 @@ export class BwengePlusAuthController {
         { expiresIn: "7d" }
       );
 
-      console.log("✅ JWT generated");
 
       // ==================== SET COOKIE & REDIRECT ====================
       res.cookie('bwenge_token', jwtToken, {
@@ -1844,13 +1702,10 @@ export class BwengePlusAuthController {
         sameSite: 'lax'
       });
 
-      console.log("✅ ========== BWENGEPLUS: SSO CONSUME SUCCESS ==========\n");
 
       res.redirect(`${process.env.CLIENT_URL}/sso/callback?sso=success`);
 
     } catch (error: any) {
-      console.error("❌ ========== BWENGEPLUS: SSO CONSUME FAILED ==========");
-      console.error("Error:", error.message);
 
       res.redirect(`${process.env.CLIENT_URL}/sso/callback?error=sso_failed`);
     }
@@ -1860,7 +1715,6 @@ export class BwengePlusAuthController {
   // LOGOUT
   // ===========================================================================
   static async logout(req: Request, res: Response) {
-    console.log("\n👋 ========== BWENGEPLUS: LOGOUT START ==========");
 
     try {
       const userId = req.user?.userId || req.user?.id;
@@ -1873,15 +1727,12 @@ export class BwengePlusAuthController {
         });
       }
 
-      console.log("📋 User ID:", userId);
-      console.log("📋 Logout all systems:", logout_all_systems === 'true');
 
       const sessionRepo = dbConnection.getRepository(UserSession);
       const userRepo = dbConnection.getRepository(User);
 
       if (logout_all_systems === 'true') {
         // ==================== LOGOUT FROM ALL SYSTEMS ====================
-        console.log("🔴 Logging out from ALL systems...");
 
         // Deactivate ALL sessions
         await sessionRepo.update(
@@ -1897,7 +1748,6 @@ export class BwengePlusAuthController {
           .where("id = :id", { id: userId })
           .execute();
 
-        console.log("✅ All sessions terminated");
 
         // Notify Ongera to logout
         try {
@@ -1914,14 +1764,11 @@ export class BwengePlusAuthController {
               timeout: 5000
             }
           );
-          console.log("✅ Ongera notified of logout");
         } catch (notifyError: any) {
-          console.warn("⚠️ Failed to notify Ongera:", notifyError.message);
         }
 
       } else {
         // ==================== LOGOUT FROM BWENGEPLUS ONLY ====================
-        console.log("🔴 Logging out from BwengePlus only...");
 
         // Deactivate BwengePlus sessions only
         await sessionRepo.update(
@@ -1932,7 +1779,6 @@ export class BwengePlusAuthController {
           { is_active: false }
         );
 
-        console.log("✅ BwengePlus sessions terminated");
 
         // Check if user has remaining sessions
         const remainingSessions = await sessionRepo.count({
@@ -1950,14 +1796,12 @@ export class BwengePlusAuthController {
             .set({ isUserLogin: false })
             .where("id = :id", { id: userId })
             .execute();
-          console.log("✅ No remaining sessions - isUserLogin set to false");
         }
       }
 
       // Clear cookie
       res.clearCookie('bwenge_token');
 
-      console.log("✅ ========== BWENGEPLUS: LOGOUT SUCCESS ==========\n");
 
       res.json({
         success: true,
@@ -1968,8 +1812,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ ========== BWENGEPLUS: LOGOUT FAILED ==========");
-      console.error("Error:", error.message);
 
       res.status(500).json({
         success: false,
@@ -1983,7 +1825,6 @@ export class BwengePlusAuthController {
   // CROSS-SYSTEM LOGOUT (Called by Ongera)
   // ===========================================================================
   static async crossSystemLogout(req: Request, res: Response) {
-    console.log("\n🔴 ========== BWENGEPLUS: CROSS-SYSTEM LOGOUT ==========");
 
     try {
       const { user_id } = req.body;
@@ -1995,7 +1836,6 @@ export class BwengePlusAuthController {
         });
       }
 
-      console.log("📋 Terminating BwengePlus session for user:", user_id);
 
       const sessionRepo = dbConnection.getRepository(UserSession);
 
@@ -2009,7 +1849,6 @@ export class BwengePlusAuthController {
         { is_active: false }
       );
 
-      console.log("✅ Terminated", result.affected || 0, "sessions");
 
       res.json({
         success: true,
@@ -2020,7 +1859,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ Cross-system logout failed:", error.message);
       res.status(500).json({
         success: false,
         message: "Cross-system logout failed",
@@ -2125,7 +1963,6 @@ export class BwengePlusAuthController {
   // GET USER SETTINGS
   // ===========================================================================
   static async getUserSettings(req: Request, res: Response) {
-    console.log("\n⚙️ ========== BWENGEPLUS: GET USER SETTINGS ==========");
 
     try {
       const userId = req.user?.userId || req.user?.id;
@@ -2150,7 +1987,6 @@ export class BwengePlusAuthController {
         });
       }
 
-      console.log("📋 Fetching settings for user:", user.email);
 
       // Extract settings
       const settings = {
@@ -2175,7 +2011,6 @@ export class BwengePlusAuthController {
         }
       };
 
-      console.log("✅ Settings retrieved successfully");
 
       res.json({
         success: true,
@@ -2184,7 +2019,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get user settings error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to get user settings",
@@ -2198,7 +2032,6 @@ export class BwengePlusAuthController {
   // UPDATE APPEARANCE SETTINGS
   // ===========================================================================
   static async updateAppearanceSettings(req: Request, res: Response) {
-    console.log("\n🎨 ========== BWENGEPLUS: UPDATE APPEARANCE SETTINGS ==========");
 
     try {
       const userId = req.user?.userId || req.user?.id;
@@ -2211,8 +2044,6 @@ export class BwengePlusAuthController {
         });
       }
 
-      console.log("📋 Updating appearance for user:", userId);
-      console.log("📋 New settings:", { theme, language });
 
       const userRepo = dbConnection.getRepository(User);
       const user = await userRepo.findOne({
@@ -2236,7 +2067,6 @@ export class BwengePlusAuthController {
 
       await userRepo.save(user);
 
-      console.log("✅ Appearance settings updated successfully");
 
       res.json({
         success: true,
@@ -2248,7 +2078,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ Update appearance settings error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update appearance settings",
@@ -2262,7 +2091,6 @@ export class BwengePlusAuthController {
   // TOGGLE TWO-FACTOR AUTHENTICATION
   // ===========================================================================
   static async toggleTwoFactor(req: Request, res: Response) {
-    console.log("\n🔐 ========== BWENGEPLUS: TOGGLE 2FA ==========");
 
     try {
       const userId = req.user?.userId || req.user?.id;
@@ -2282,8 +2110,6 @@ export class BwengePlusAuthController {
         });
       }
 
-      console.log("📋 Toggling 2FA for user:", userId);
-      console.log("📋 Enable:", enable);
 
       const userRepo = dbConnection.getRepository(User);
       const user = await userRepo.findOne({
@@ -2306,7 +2132,6 @@ export class BwengePlusAuthController {
 
       await userRepo.save(user);
 
-      console.log(`✅ 2FA ${enable ? 'enabled' : 'disabled'} successfully`);
 
       res.json({
         success: true,
@@ -2317,7 +2142,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ Toggle 2FA error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to toggle two-factor authentication",
@@ -2331,7 +2155,6 @@ export class BwengePlusAuthController {
   // CHANGE PASSWORD
   // ===========================================================================
   static async changePassword(req: Request, res: Response) {
-    console.log("\n🔑 ========== BWENGEPLUS: CHANGE PASSWORD ==========");
 
     try {
       const userId = req.user?.userId || req.user?.id;
@@ -2366,7 +2189,6 @@ export class BwengePlusAuthController {
         });
       }
 
-      console.log("📋 Changing password for user:", userId);
 
       const userRepo = dbConnection.getRepository(User);
       const user = await userRepo.findOne({
@@ -2402,7 +2224,6 @@ export class BwengePlusAuthController {
 
       await userRepo.save(user);
 
-      console.log("✅ Password changed successfully");
 
       res.json({
         success: true,
@@ -2410,7 +2231,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ Change password error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to change password",
@@ -2699,7 +2519,6 @@ export class BwengePlusAuthController {
   // GOOGLE LOGIN (standard token)
   // ===========================================================================
   static async googleLogin(req: Request, res: Response) {
-    console.log("\n🔐 ========== GOOGLE LOGIN START ==========");
 
     try {
       const { token } = req.body;
@@ -2711,7 +2530,6 @@ export class BwengePlusAuthController {
         });
       }
 
-      console.log("🔍 Verifying Google token...");
 
       const ticket = await googleClient.verifyIdToken({
         idToken: token,
@@ -2726,7 +2544,6 @@ export class BwengePlusAuthController {
         });
       }
 
-      console.log("✅ Google token verified");
 
       const email = payload.email;
       const googleId = payload.sub;
@@ -2743,7 +2560,6 @@ export class BwengePlusAuthController {
       });
 
       if (user) {
-        console.log("✅ Existing user found:", user.email);
 
         // ✅ ENHANCED: Preserve existing values
         const updates: any = {};
@@ -2785,7 +2601,6 @@ export class BwengePlusAuthController {
             .set(updates)
             .where("id = :id", { id: user.id })
             .execute();
-          console.log("✅ Updated existing user with protected values");
         }
 
         // Protect the existing role
@@ -2793,7 +2608,6 @@ export class BwengePlusAuthController {
           user.setOriginalBwengeRole(user.bwenge_role);
         }
       } else {
-        console.log("❌ No account found for Google login email:", email);
         return res.status(404).json({
           success: false,
           message: "No account found with this Google email. Please apply to join BwengePlus first.",
@@ -2803,7 +2617,6 @@ export class BwengePlusAuthController {
 
       // Check if account is active
       if (!user.is_active) {
-        console.log("❌ Account not active, status:", user.application_status);
         if (user.application_status === ApplicationStatus.PENDING) {
           return res.status(403).json({
             success: false,
@@ -2836,7 +2649,6 @@ export class BwengePlusAuthController {
       let primaryInstitutionId: string | null = null;
       let userInstitutionRole: InstitutionRole | null = null;
 
-      console.log("🏢 Checking institution memberships...");
 
       if (user.institution_memberships && user.institution_memberships.length > 0) {
         const activeMemberships = user.institution_memberships.filter(member =>
@@ -2892,7 +2704,6 @@ export class BwengePlusAuthController {
               user_role: userInstitutionRole
             };
 
-            console.log("✅ Primary institution found:", institutionData.name);
           }
 
           // Update user's institution-related fields
@@ -2937,7 +2748,6 @@ export class BwengePlusAuthController {
       }
 
       // ==================== CREATE SESSIONS FOR BOTH SYSTEMS ====================
-      console.log("🔐 Creating cross-system sessions...");
 
       // ✅ FIX: Use ensureSessions helper — prevents duplicates, guarantees both sessions exist
       await ensureSessions(user.id, req);
@@ -3009,7 +2819,6 @@ export class BwengePlusAuthController {
         social_auth_id: user.social_auth_id
       };
 
-      console.log("✅ ========== GOOGLE LOGIN SUCCESS ==========\n");
 
       res.json({
         success: true,
@@ -3021,8 +2830,6 @@ export class BwengePlusAuthController {
       });
 
     } catch (error: any) {
-      console.error("❌ ========== GOOGLE LOGIN FAILED ==========");
-      console.error("Error:", error.message);
 
       res.status(500).json({
         success: false,
@@ -3049,7 +2856,6 @@ function mapAccountTypeToBwengeRole(accountType: AccountType): BwengeRole {
   const role = mapping[accountType];
 
   if (!role) {
-    console.warn(`⚠️ Unknown account type: ${accountType}, defaulting to LEARNER`);
     return BwengeRole.LEARNER;
   }
 

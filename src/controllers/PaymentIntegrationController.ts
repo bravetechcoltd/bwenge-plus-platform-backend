@@ -77,7 +77,6 @@ export class PaymentIntegrationController {
         data: sanitizedIntegrations,
       });
     } catch (error: any) {
-      console.error("❌ Get payment integrations error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch payment integrations",
@@ -108,7 +107,6 @@ export class PaymentIntegrationController {
         data: integration,
       });
     } catch (error: any) {
-      console.error("❌ Get payment integration error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch payment integration",
@@ -208,7 +206,6 @@ export class PaymentIntegrationController {
         data: integration,
       });
     } catch (error: any) {
-      console.error("❌ Create payment integration error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create payment integration",
@@ -294,7 +291,6 @@ export class PaymentIntegrationController {
         data: integration,
       });
     } catch (error: any) {
-      console.error("❌ Update payment integration error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update payment integration",
@@ -345,7 +341,6 @@ export class PaymentIntegrationController {
         message: "Payment integration deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete payment integration error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete payment integration",
@@ -433,7 +428,6 @@ export class PaymentIntegrationController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Test payment integration error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to test payment integration",
@@ -462,7 +456,6 @@ export class PaymentIntegrationController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get payment providers error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch payment providers",
@@ -538,7 +531,6 @@ export class PaymentIntegrationController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get payment transactions error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch payment transactions",

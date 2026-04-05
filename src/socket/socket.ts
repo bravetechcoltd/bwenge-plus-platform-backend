@@ -52,7 +52,6 @@ export const initSocket = (server: http.Server) => {
       }
 
       if (!token) {
-        console.error("❌ Socket authentication: No token provided")
         return next(new Error("Authentication required"))
       }
 
@@ -62,27 +61,23 @@ export const initSocket = (server: http.Server) => {
       try {
         decoded = jwt.verify(token, JWT_SECRET) as any
       } catch (jwtError: any) {
-        console.error("❌ Socket JWT verification failed:", jwtError.message)
         return next(new Error("Invalid token"))
       }
 
       const userId = decoded.userId || decoded.id || decoded.user_id || decoded.sub
 
       if (!userId) {
-        console.error("❌ No user ID found in token payload")
         return next(new Error("Invalid token format - missing user ID"))
       }
 
       socket.data.userId = userId
       next()
     } catch (error) {
-      console.error("❌ Socket authentication error:", error)
       next(new Error("Invalid token"))
     }
   })
 
   io.on("connection", (socket: SocketWithUser) => {
-    console.log("✅ Socket connected:", socket.id, "User:", socket.data.userId)
 
     if (socket.data.userId) {
       socket.join(`user-${socket.data.userId}`)
@@ -125,7 +120,6 @@ export const initSocket = (server: http.Server) => {
             socket.emit("error", { message: "Not a member of this space" })
           }
         } catch (error) {
-          console.error("Error verifying space membership:", error)
           socket.emit("error", { message: "Failed to verify space membership" })
         }
       }
@@ -151,7 +145,6 @@ export const initSocket = (server: http.Server) => {
 
     // ── Disconnect ────────────────────────────────────────────────────────────
     socket.on("disconnect", (reason) => {
-      console.log("❌ Socket disconnected:", socket.id, "Reason:", reason)
 
       if (socket.data.userId) {
         // Only mark offline if no other socket for same user is connected
@@ -164,7 +157,6 @@ export const initSocket = (server: http.Server) => {
     })
 
     socket.on("error", (error) => {
-      console.error("❌ Socket error:", error)
     })
   })
 

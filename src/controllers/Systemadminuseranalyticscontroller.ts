@@ -229,7 +229,6 @@ export class SystemAdminUserAnalyticsController {
         },
       });
     } catch (error: any) {
-      console.error("❌ User analytics error:", error);
       return res.status(500).json({
         success: false,
         message: "Failed to fetch user analytics",

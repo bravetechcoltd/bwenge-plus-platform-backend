@@ -89,7 +89,6 @@ export class SavedCourseController {
         total: transformed.length,
       });
     } catch (error: any) {
-      console.error("❌ Get user saved courses error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch saved courses",
@@ -198,7 +197,6 @@ export class SavedCourseController {
         data: transformed,
       });
     } catch (error: any) {
-      console.error("❌ Save course error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to save course",
@@ -247,7 +245,6 @@ export class SavedCourseController {
         message: "Course removed from saved",
       });
     } catch (error: any) {
-      console.error("❌ Unsave course error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to unsave course",
@@ -293,7 +290,6 @@ export class SavedCourseController {
         data: { notes: savedCourse.notes },
       });
     } catch (error: any) {
-      console.error("❌ Update notes error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update notes",
@@ -329,7 +325,6 @@ export class SavedCourseController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Check saved error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to check saved status",

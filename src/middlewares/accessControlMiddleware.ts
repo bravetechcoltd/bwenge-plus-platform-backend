@@ -69,7 +69,6 @@ export class AccessControlMiddleware {
         data: institution,
       });
     } catch (error: any) {
-      console.error("❌ Toggle institution status error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update institution status",

@@ -130,7 +130,6 @@ export class GradesController {
         data: grades,
       });
     } catch (error: any) {
-      console.error("❌ Get user grades error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch grades",
@@ -235,7 +234,6 @@ export class GradesController {
         data: graded,
       });
     } catch (error: any) {
-      console.error("❌ Get graded assignments error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch graded assignments",
@@ -367,7 +365,6 @@ export class GradesController {
         data: exportData,
       });
     } catch (error: any) {
-      console.error("❌ Export grades error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to export grades",

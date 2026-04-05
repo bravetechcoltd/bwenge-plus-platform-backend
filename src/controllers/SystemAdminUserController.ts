@@ -19,7 +19,6 @@ export class SystemAdminUserController {
 
 static async getUserDetails(req: Request, res: Response) {
   try {
-    console.log("\n👤 [GET USER DETAILS] Starting...");
 
     const { userId } = req.params;
 
@@ -176,7 +175,6 @@ static async getUserDetails(req: Request, res: Response) {
     });
 
   } catch (error: any) {
-    console.error("❌ Get user details error:", error);
     return res.status(500).json({
       success: false,
       message: "Failed to fetch user details",
@@ -187,7 +185,6 @@ static async getUserDetails(req: Request, res: Response) {
 
 static async createUser(req: Request, res: Response) {
   try {
-    console.log("\n➕ [CREATE USER] Starting...");
 
     // STEP 1: Verify System Admin
     const currentUser = await dbConnection.getRepository(User).findOne({
@@ -296,7 +293,6 @@ static async createUser(req: Request, res: Response) {
     });
 
     await userRepo.save(newUser);
-    console.log(`✅ User created with system: ${IsForWhichSystem}`);
 
 
 
@@ -383,14 +379,11 @@ if (profile) {
             </div>
           `
         });
-        console.log("✅ Welcome email sent");
       } catch (emailError: any) {
-        console.warn("⚠️ Failed to send welcome email:", emailError.message);
       }
     }
 
     // STEP 10: Log Admin Action
-    console.log(`✅ User created by admin ${currentUser.email}`);
 
     // STEP 11: Return Response
     const { password_hash, ...userData } = newUser;
@@ -413,7 +406,6 @@ if (profile) {
     });
 
   } catch (error: any) {
-    console.error("❌ Create user error:", error);
     return res.status(500).json({
       success: false,
       message: "Failed to create user",
@@ -425,7 +417,6 @@ if (profile) {
 // ==================== METHOD 4: UPDATE USER (FIXED) ====================
 static async updateUser(req: Request, res: Response) {
   try {
-    console.log("\n✏️ [UPDATE USER] Starting...");
 
     const { userId } = req.params;
 
@@ -702,7 +693,6 @@ static async updateUser(req: Request, res: Response) {
     // STEP 10: Save All Changes
     await userRepo.save(user);
 
-    console.log(`✅ User updated: ${changes.join(", ")}`);
 
     // STEP 11: Return Response
     const { password_hash, ...userData } = user;
@@ -725,7 +715,6 @@ static async updateUser(req: Request, res: Response) {
     });
 
   } catch (error: any) {
-    console.error("❌ Update user error:", error);
     return res.status(500).json({
       success: false,
       message: "Failed to update user",
@@ -736,7 +725,6 @@ static async updateUser(req: Request, res: Response) {
   // ==================== METHOD 1: GET ALL USERS ====================
   static async getAllUsers(req: Request, res: Response) {
     try {
-      console.log("\n👥 [GET ALL USERS] Starting...");
 
       // STEP 1: Verify System Admin Access
       const currentUser = await dbConnection.getRepository(User).findOne({
@@ -770,7 +758,6 @@ static async updateUser(req: Request, res: Response) {
       const limitNum = Math.min(parseInt(limit as string), 100);
       const offset = (pageNum - 1) * limitNum;
 
-      console.log("📋 Filters:", { search, bwenge_role, institution_role, account_type });
 
       // STEP 2: Build Base Query
       const userRepo = dbConnection.getRepository(User);
@@ -963,7 +950,6 @@ static async updateUser(req: Request, res: Response) {
         institution_members: allUsers.filter(u => u.is_institution_member).length
       };
 
-      console.log(`✅ Found ${formattedUsers.length} users`);
 
       return res.json({
         success: true,
@@ -992,7 +978,6 @@ static async updateUser(req: Request, res: Response) {
       });
 
     } catch (error: any) {
-      console.error("❌ Get all users error:", error);
       return res.status(500).json({
         success: false,
         message: "Failed to fetch users",
@@ -1008,7 +993,6 @@ static async updateUser(req: Request, res: Response) {
   // ==================== METHOD 5: DELETE USER ====================
   static async deleteUser(req: Request, res: Response) {
     try {
-      console.log("\n🗑️ [DELETE USER] Starting...");
 
       const { userId } = req.params;
       const { permanent = 'false', force = 'false' } = req.query;
@@ -1083,7 +1067,6 @@ static async updateUser(req: Request, res: Response) {
           { is_active: false }
         );
 
-        console.log("✅ User soft deleted");
 
         return res.json({
           success: true,
@@ -1120,7 +1103,6 @@ static async updateUser(req: Request, res: Response) {
         // Delete user
         await userRepo.delete(userId);
 
-        console.log("✅ User permanently deleted");
 
         return res.json({
           success: true,
@@ -1147,7 +1129,6 @@ static async updateUser(req: Request, res: Response) {
       });
 
     } catch (error: any) {
-      console.error("❌ Delete user error:", error);
       return res.status(500).json({
         success: false,
         message: "Failed to delete user",
@@ -1159,7 +1140,6 @@ static async updateUser(req: Request, res: Response) {
   // ==================== METHOD 6: BATCH UPDATE USERS ====================
   static async batchUpdateUsers(req: Request, res: Response) {
     try {
-      console.log("\n📦 [BATCH UPDATE] Starting...");
 
       const { user_ids, updates } = req.body;
 
@@ -1227,7 +1207,6 @@ static async updateUser(req: Request, res: Response) {
       });
 
     } catch (error: any) {
-      console.error("❌ Batch update error:", error);
       return res.status(500).json({
         success: false,
         message: "Failed to batch update users",
@@ -1239,7 +1218,6 @@ static async updateUser(req: Request, res: Response) {
   // ==================== METHOD 7: GET USER STATISTICS ====================
   static async getUserStatistics(req: Request, res: Response) {
     try {
-      console.log("\n📊 [GET STATISTICS] Starting...");
 
       // Verify System Admin
       const currentUser = await dbConnection.getRepository(User).findOne({
@@ -1291,7 +1269,6 @@ static async updateUser(req: Request, res: Response) {
       });
 
     } catch (error: any) {
-      console.error("❌ Get statistics error:", error);
       return res.status(500).json({
         success: false,
         message: "Failed to fetch statistics",

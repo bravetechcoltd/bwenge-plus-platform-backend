@@ -1,7 +1,7 @@
 // ============================================================
 // BwengePlus Email Templates
 // Replace the email template functions in emailTemplates.ts
-// Primary color: #2563EB (blue-600) — matches BwengePlus brand
+// Primary color: #5b4e96 (blue-600) — matches BwengePlus brand
 // ============================================================
 
 import nodemailer from "nodemailer";
@@ -33,14 +33,14 @@ const emailBase = (content: string) => `
   <title>BwengePlus</title>
   <!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
 </head>
-<body style="margin:0;padding:0;background:#F0F4FF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#F0F4FF;padding:32px 16px;">
+<body style="margin:0;padding:0;background:#f5f3ff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f3ff;padding:32px 16px;">
     <tr><td align="center">
-      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(37,99,235,0.10);">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(91,78,150,0.10);">
 
         <!-- Header -->
         <tr>
-          <td style="background:linear-gradient(135deg,#1d4ed8 0%,#2563EB 60%,#3b82f6 100%);padding:28px 32px 24px;">
+          <td style="background:linear-gradient(135deg,#4a3f80 0%,#5b4e96 60%,#7c6fc4 100%);padding:28px 32px 24px;">
             <table width="100%" cellpadding="0" cellspacing="0">
               <tr>
                 <td>
@@ -66,10 +66,10 @@ const emailBase = (content: string) => `
 
         <!-- Footer -->
         <tr>
-          <td style="background:#F8FAFF;border-top:1px solid #E8EFFF;padding:20px 32px;text-align:center;">
+          <td style="background:#f8f7ff;border-top:1px solid #e8e3f7;padding:20px 32px;text-align:center;">
             <p style="margin:0 0 4px;color:#64748b;font-size:12px;">BwengePlus — Rwanda's Premier Learning Platform</p>
             <p style="margin:0;color:#94a3b8;font-size:11px;">
-              Questions? <a href="mailto:support@bwengeplus.rw" style="color:#2563EB;text-decoration:none;font-weight:600;">support@bwengeplus.rw</a>
+              Questions? <a href="mailto:support@bwengeplus.rw" style="color:#5b4e96;text-decoration:none;font-weight:600;">support@bwengeplus.rw</a>
             </p>
             <p style="margin:8px 0 0;color:#cbd5e1;font-size:11px;">© ${new Date().getFullYear()} BwengePlus. All rights reserved.</p>
           </td>
@@ -84,16 +84,16 @@ const emailBase = (content: string) => `
 
 // ─── OTP Code Block ───────────────────────────────────────────────────────────
 const otpBlock = (otp: string, label = "Your Verification Code", expiry = "10 minutes") => `
-  <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:24px;text-align:center;margin:20px 0;">
-    <p style="margin:0 0 10px;color:#1d4ed8;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">${label}</p>
-    <div style="font-family:'Courier New',monospace;font-size:40px;font-weight:800;color:#1e40af;letter-spacing:14px;margin:8px 0 12px;">${otp}</div>
-    <p style="margin:0;color:#3b82f6;font-size:12px;">⏱ Expires in ${expiry}</p>
+  <div style="background:#f0eeff;border:1px solid #c5bcee;border-radius:12px;padding:24px;text-align:center;margin:20px 0;">
+    <p style="margin:0 0 10px;color:#5b4e96;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">${label}</p>
+    <div style="font-family:'Courier New',monospace;font-size:40px;font-weight:800;color:#4a3f80;letter-spacing:14px;margin:8px 0 12px;">${otp}</div>
+    <p style="margin:0;color:#7c6fc4;font-size:12px;">⏱ Expires in ${expiry}</p>
   </div>
 `;
 
 // ─── Section header ───────────────────────────────────────────────────────────
 const sectionHeading = (icon: string, text: string) => `
-  <p style="margin:0 0 10px;color:#1e40af;font-size:13px;font-weight:700;">${icon} ${text}</p>
+  <p style="margin:0 0 10px;color:#4a3f80;font-size:13px;font-weight:700;">${icon} ${text}</p>
 `;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -111,11 +111,11 @@ export const sendBwengeWelcomeOTP = async (
       Your BwengePlus account has been created. Verify your email to unlock full access to thousands of courses.
     </p>
 
-    <div style="display:inline-block;background:#DBEAFE;color:#1d4ed8;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:4px;">🎓 LEARNER ACCOUNT</div>
+    <div style="display:inline-block;background:#ede9ff;color:#5b4e96;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:4px;">🎓 LEARNER ACCOUNT</div>
 
     ${otpBlock(otp, "Email Verification Code", "10 minutes")}
 
-    <div style="background:#F8FAFF;border-radius:10px;padding:16px;margin-top:4px;">
+    <div style="background:#f8f7ff;border-radius:10px;padding:16px;margin-top:4px;">
       ${sectionHeading("📋", "How to verify:")}
       <ol style="margin:0;padding-left:18px;color:#475569;font-size:13px;line-height:2;">
         <li>Enter the 6-digit code on the verification page</li>
@@ -139,7 +139,6 @@ export const sendBwengeWelcomeOTP = async (
     });
     return true;
   } catch (err) {
-    console.error("sendBwengeWelcomeOTP error:", err);
     return false;
   }
 };
@@ -159,11 +158,11 @@ export const sendVerificationOTP = async (
       Please use the verification code below to confirm your BwengePlus email address.
     </p>
 
-    <div style="display:inline-block;background:#DBEAFE;color:#1d4ed8;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:4px;">🔐 VERIFICATION REQUIRED</div>
+    <div style="display:inline-block;background:#ede9ff;color:#5b4e96;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:4px;">🔐 VERIFICATION REQUIRED</div>
 
     ${otpBlock(otp, "Email Verification Code", "10 minutes")}
 
-    <div style="background:#F8FAFF;border-radius:10px;padding:16px;margin-top:4px;">
+    <div style="background:#f8f7ff;border-radius:10px;padding:16px;margin-top:4px;">
       ${sectionHeading("📋", "Steps:")}
       <ol style="margin:0;padding-left:18px;color:#475569;font-size:13px;line-height:2;">
         <li>Enter the 6-digit code on the verification page</li>
@@ -187,7 +186,6 @@ export const sendVerificationOTP = async (
     });
     return true;
   } catch (err) {
-    console.error("sendVerificationOTP error:", err);
     return false;
   }
 };
@@ -207,7 +205,7 @@ export const sendPasswordChangeOTP = async (
       Hi <strong>${firstName}</strong>, use the code below to reset your BwengePlus password.
     </p>
 
-    <div style="display:inline-block;background:#DBEAFE;color:#1d4ed8;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:4px;">🔑 PASSWORD RESET</div>
+    <div style="display:inline-block;background:#ede9ff;color:#5b4e96;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:4px;">🔑 PASSWORD RESET</div>
 
     ${otpBlock(otp, "Password Reset Code", "10 minutes")}
 
@@ -235,7 +233,6 @@ export const sendPasswordChangeOTP = async (
     });
     return true;
   } catch (err) {
-    console.error("sendPasswordChangeOTP error:", err);
     return false;
   }
 };
@@ -255,25 +252,25 @@ export const sendEmailVerifiedNotification = async (
 
     <div style="display:inline-block;background:#DCFCE7;color:#15803d;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin:12px 0 4px;">✅ ACCOUNT ACTIVATED</div>
 
-    <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:20px;text-align:center;margin:16px 0 8px;">
+    <div style="background:#f0eeff;border:1px solid #c5bcee;border-radius:12px;padding:20px;text-align:center;margin:16px 0 8px;">
       <div style="font-size:42px;margin-bottom:8px;">🎓</div>
-      <p style="margin:0;color:#1e40af;font-size:16px;font-weight:800;">Welcome to BwengePlus!</p>
-      <p style="margin:6px 0 0;color:#3b82f6;font-size:13px;">Your learning journey starts now.</p>
+      <p style="margin:0;color:#4a3f80;font-size:16px;font-weight:800;">Welcome to BwengePlus!</p>
+      <p style="margin:6px 0 0;color:#7c6fc4;font-size:13px;">Your learning journey starts now.</p>
     </div>
 
-    <div style="background:#F8FAFF;border-radius:10px;padding:16px;margin-top:12px;">
+    <div style="background:#f8f7ff;border-radius:10px;padding:16px;margin-top:12px;">
       ${sectionHeading("🚀", "Get started:")}
       <div style="margin-top:8px;">
         <div style="display:flex;align-items:flex-start;margin-bottom:10px;">
-          <span style="display:inline-block;background:#2563EB;color:#fff;width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;font-size:11px;font-weight:700;margin-right:10px;flex-shrink:0;">1</span>
+          <span style="display:inline-block;background:#5b4e96;color:#fff;width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;font-size:11px;font-weight:700;margin-right:10px;flex-shrink:0;">1</span>
           <span style="color:#475569;font-size:13px;line-height:1.5;"><strong style="color:#0f172a;">Browse courses</strong> — explore thousands of free &amp; premium courses</span>
         </div>
         <div style="display:flex;align-items:flex-start;margin-bottom:10px;">
-          <span style="display:inline-block;background:#2563EB;color:#fff;width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;font-size:11px;font-weight:700;margin-right:10px;flex-shrink:0;">2</span>
+          <span style="display:inline-block;background:#5b4e96;color:#fff;width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;font-size:11px;font-weight:700;margin-right:10px;flex-shrink:0;">2</span>
           <span style="color:#475569;font-size:13px;line-height:1.5;"><strong style="color:#0f172a;">Complete your profile</strong> — personalize your learning experience</span>
         </div>
         <div style="display:flex;align-items:flex-start;">
-          <span style="display:inline-block;background:#2563EB;color:#fff;width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;font-size:11px;font-weight:700;margin-right:10px;flex-shrink:0;">3</span>
+          <span style="display:inline-block;background:#5b4e96;color:#fff;width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;font-size:11px;font-weight:700;margin-right:10px;flex-shrink:0;">3</span>
           <span style="color:#475569;font-size:13px;line-height:1.5;"><strong style="color:#0f172a;">Earn certificates</strong> — showcase your skills to the world</span>
         </div>
       </div>
@@ -281,7 +278,7 @@ export const sendEmailVerifiedNotification = async (
 
     <div style="text-align:center;margin-top:20px;">
       <a href="${frontendUrl}/dashboard/learner/learning/courses"
-         style="display:inline-block;background:#2563EB;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:10px;font-weight:700;font-size:14px;letter-spacing:0.2px;">
+         style="display:inline-block;background:#5b4e96;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:10px;font-weight:700;font-size:14px;letter-spacing:0.2px;">
         🏠 Go to Dashboard →
       </a>
     </div>
@@ -295,7 +292,6 @@ export const sendEmailVerifiedNotification = async (
     });
     return true;
   } catch (err) {
-    console.error("sendEmailVerifiedNotification error:", err);
     return false;
   }
 };
@@ -317,22 +313,22 @@ export const sendInstructorCredentials = async (
       Your instructor account on BwengePlus has been created by <strong>${institutionName}</strong>.
     </p>
 
-    <div style="display:inline-block;background:#DBEAFE;color:#1d4ed8;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:16px;">👨‍🏫 INSTRUCTOR ACCOUNT</div>
+    <div style="display:inline-block;background:#ede9ff;color:#5b4e96;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:16px;">👨‍🏫 INSTRUCTOR ACCOUNT</div>
 
-    <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:20px;margin-bottom:16px;">
-      <p style="margin:0 0 12px;color:#1d4ed8;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Your Login Credentials</p>
+    <div style="background:#f0eeff;border:1px solid #c5bcee;border-radius:12px;padding:20px;margin-bottom:16px;">
+      <p style="margin:0 0 12px;color:#5b4e96;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Your Login Credentials</p>
       <div style="background:#fff;border-radius:8px;padding:12px;margin-bottom:8px;">
         <p style="margin:0 0 3px;color:#94a3b8;font-size:11px;">Email:</p>
-        <p style="margin:0;font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:#1e40af;">${email}</p>
+        <p style="margin:0;font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:#4a3f80;">${email}</p>
       </div>
       <div style="background:#fff;border-radius:8px;padding:12px;">
         <p style="margin:0 0 3px;color:#94a3b8;font-size:11px;">Temporary Password:</p>
-        <p style="margin:0;font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:#1e40af;">${password}</p>
+        <p style="margin:0;font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:#4a3f80;">${password}</p>
       </div>
-      <p style="margin:10px 0 0;color:#3b82f6;font-size:12px;">⚠️ Change your password after first login</p>
+      <p style="margin:10px 0 0;color:#7c6fc4;font-size:12px;">⚠️ Change your password after first login</p>
     </div>
 
-    <div style="background:#F8FAFF;border-radius:10px;padding:16px;margin-bottom:16px;">
+    <div style="background:#f8f7ff;border-radius:10px;padding:16px;margin-bottom:16px;">
       ${sectionHeading("📋", "Your Responsibilities:")}
       <ol style="margin:6px 0 0;padding-left:18px;color:#475569;font-size:13px;line-height:1.9;">
         <li>Review student research projects assigned to you</li>
@@ -343,7 +339,7 @@ export const sendInstructorCredentials = async (
 
     <div style="text-align:center;margin-top:20px;">
       <a href="${frontendUrl}/login"
-         style="display:inline-block;background:#2563EB;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:10px;font-weight:700;font-size:14px;">
+         style="display:inline-block;background:#5b4e96;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:10px;font-weight:700;font-size:14px;">
         🚀 Login to Dashboard →
       </a>
     </div>
@@ -363,7 +359,6 @@ export const sendInstructorCredentials = async (
     });
     return true;
   } catch (err) {
-    console.error("sendInstructorCredentials error:", err);
     return false;
   }
 };
@@ -388,17 +383,17 @@ export const sendStudentCredentials = async (
 
     <div style="display:inline-block;background:#DCFCE7;color:#15803d;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:16px;">🎓 STUDENT ACCOUNT</div>
 
-    <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:20px;margin-bottom:16px;">
-      <p style="margin:0 0 12px;color:#1d4ed8;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Your Login Credentials</p>
+    <div style="background:#f0eeff;border:1px solid #c5bcee;border-radius:12px;padding:20px;margin-bottom:16px;">
+      <p style="margin:0 0 12px;color:#5b4e96;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Your Login Credentials</p>
       <div style="background:#fff;border-radius:8px;padding:12px;margin-bottom:8px;">
         <p style="margin:0 0 3px;color:#94a3b8;font-size:11px;">Email:</p>
-        <p style="margin:0;font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:#1e40af;">${email}</p>
+        <p style="margin:0;font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:#4a3f80;">${email}</p>
       </div>
       <div style="background:#fff;border-radius:8px;padding:12px;">
         <p style="margin:0 0 3px;color:#94a3b8;font-size:11px;">Temporary Password:</p>
-        <p style="margin:0;font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:#1e40af;">${password}</p>
+        <p style="margin:0;font-family:'Courier New',monospace;font-size:15px;font-weight:700;color:#4a3f80;">${password}</p>
       </div>
-      <p style="margin:10px 0 0;color:#3b82f6;font-size:12px;">⚠️ Change your password after first login</p>
+      <p style="margin:10px 0 0;color:#7c6fc4;font-size:12px;">⚠️ Change your password after first login</p>
     </div>
 
     <div style="background:#F0FDF4;border-left:3px solid #22c55e;border-radius:6px;padding:14px 16px;margin-bottom:12px;">
@@ -407,7 +402,7 @@ export const sendStudentCredentials = async (
       <p style="margin:4px 0 0;color:#16a34a;font-size:11px;">Your projects will be reviewed by this instructor.</p>
     </div>
 
-    <div style="background:#F8FAFF;border-radius:10px;padding:16px;margin-bottom:16px;">
+    <div style="background:#f8f7ff;border-radius:10px;padding:16px;margin-bottom:16px;">
       ${sectionHeading("📚", "How It Works:")}
       <ol style="margin:6px 0 0;padding-left:18px;color:#475569;font-size:13px;line-height:1.9;">
         <li>Upload your research project</li>
@@ -418,7 +413,7 @@ export const sendStudentCredentials = async (
 
     <div style="text-align:center;margin-top:20px;">
       <a href="${frontendUrl}/login"
-         style="display:inline-block;background:#2563EB;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:10px;font-weight:700;font-size:14px;">
+         style="display:inline-block;background:#5b4e96;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:10px;font-weight:700;font-size:14px;">
         🚀 Login to Dashboard →
       </a>
     </div>
@@ -438,7 +433,6 @@ export const sendStudentCredentials = async (
     });
     return true;
   } catch (err) {
-    console.error("sendStudentCredentials error:", err);
     return false;
   }
 };
@@ -459,8 +453,8 @@ export const sendApplicationReceivedEmail = async (
 
     <div style="display:inline-block;background:#FEF9C3;color:#92400e;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:16px;">⏳ PENDING REVIEW</div>
 
-    <div style="background:#F8FAFF;border-radius:12px;padding:20px;margin-bottom:16px;">
-      <p style="margin:0 0 10px;color:#1e40af;font-size:13px;font-weight:700;">📋 What happens next:</p>
+    <div style="background:#f8f7ff;border-radius:12px;padding:20px;margin-bottom:16px;">
+      <p style="margin:0 0 10px;color:#4a3f80;font-size:13px;font-weight:700;">📋 What happens next:</p>
       <ol style="margin:0;padding-left:18px;color:#475569;font-size:13px;line-height:2;">
         <li>Our system admin will review your application</li>
         <li>You will receive an email once a decision is made</li>
@@ -468,9 +462,9 @@ export const sendApplicationReceivedEmail = async (
       </ol>
     </div>
 
-    <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:10px;padding:16px;margin-bottom:16px;text-align:center;">
-      <p style="margin:0 0 6px;color:#1d4ed8;font-size:13px;font-weight:700;">⏱ Expected Review Time</p>
-      <p style="margin:0;color:#3b82f6;font-size:14px;font-weight:600;">24–48 hours</p>
+    <div style="background:#f0eeff;border:1px solid #c5bcee;border-radius:10px;padding:16px;margin-bottom:16px;text-align:center;">
+      <p style="margin:0 0 6px;color:#5b4e96;font-size:13px;font-weight:700;">⏱ Expected Review Time</p>
+      <p style="margin:0;color:#7c6fc4;font-size:14px;font-weight:600;">24–48 hours</p>
       <p style="margin:4px 0 0;color:#64748b;font-size:12px;">We'll notify you by email</p>
     </div>
 
@@ -489,7 +483,6 @@ export const sendApplicationReceivedEmail = async (
     });
     return true;
   } catch (err) {
-    console.error("sendApplicationReceivedEmail error:", err);
     return false;
   }
 };
@@ -521,19 +514,19 @@ export const sendAdminNewApplicationEmail = async (
       A new user has applied to join BwengePlus and is awaiting your approval.
     </p>
 
-    <div style="display:inline-block;background:#DBEAFE;color:#1d4ed8;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:16px;">👤 NEW APPLICANT</div>
+    <div style="display:inline-block;background:#ede9ff;color:#5b4e96;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:16px;">👤 NEW APPLICANT</div>
 
-    <div style="background:#F8FAFF;border-radius:12px;padding:20px;margin-bottom:16px;">
-      <p style="margin:0 0 12px;color:#1e40af;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Applicant Details</p>
+    <div style="background:#f8f7ff;border-radius:12px;padding:20px;margin-bottom:16px;">
+      <p style="margin:0 0 12px;color:#4a3f80;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Applicant Details</p>
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;"><span style="color:#64748b;font-size:12px;">Full Name</span></td><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;text-align:right;"><span style="color:#0f172a;font-size:13px;font-weight:600;">${applicant.first_name} ${applicant.last_name}</span></td></tr>
-        <tr><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;"><span style="color:#64748b;font-size:12px;">Email</span></td><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;text-align:right;"><span style="color:#2563EB;font-size:13px;font-weight:600;">${applicant.email}</span></td></tr>
+        <tr><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;"><span style="color:#64748b;font-size:12px;">Email</span></td><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;text-align:right;"><span style="color:#5b4e96;font-size:13px;font-weight:600;">${applicant.email}</span></td></tr>
         ${applicant.phone_number ? `<tr><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;"><span style="color:#64748b;font-size:12px;">Phone</span></td><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;text-align:right;"><span style="color:#0f172a;font-size:13px;">${applicant.phone_number}</span></td></tr>` : ''}
         ${applicant.country ? `<tr><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;"><span style="color:#64748b;font-size:12px;">Country</span></td><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;text-align:right;"><span style="color:#0f172a;font-size:13px;">${applicant.country}</span></td></tr>` : ''}
         ${applicant.date_of_birth ? `<tr><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;"><span style="color:#64748b;font-size:12px;">Date of Birth</span></td><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;text-align:right;"><span style="color:#0f172a;font-size:13px;">${applicant.date_of_birth}</span></td></tr>` : ''}
         ${applicant.gender ? `<tr><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;"><span style="color:#64748b;font-size:12px;">Gender</span></td><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;text-align:right;"><span style="color:#0f172a;font-size:13px;">${applicant.gender}</span></td></tr>` : ''}
         ${applicant.education_level ? `<tr><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;"><span style="color:#64748b;font-size:12px;">Education Level</span></td><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;text-align:right;"><span style="color:#0f172a;font-size:13px;">${applicant.education_level}</span></td></tr>` : ''}
-        ${applicant.linkedin_url ? `<tr><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;"><span style="color:#64748b;font-size:12px;">LinkedIn</span></td><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;text-align:right;"><a href="${applicant.linkedin_url}" style="color:#2563EB;font-size:12px;">View Profile</a></td></tr>` : ''}
+        ${applicant.linkedin_url ? `<tr><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;"><span style="color:#64748b;font-size:12px;">LinkedIn</span></td><td style="padding:6px 0;border-bottom:1px solid #e2e8f0;text-align:right;"><a href="${applicant.linkedin_url}" style="color:#5b4e96;font-size:12px;">View Profile</a></td></tr>` : ''}
         <tr><td style="padding:6px 0;"><span style="color:#64748b;font-size:12px;">Applied At</span></td><td style="padding:6px 0;text-align:right;"><span style="color:#0f172a;font-size:13px;">${applicant.applied_at}</span></td></tr>
       </table>
     </div>
@@ -547,7 +540,7 @@ export const sendAdminNewApplicationEmail = async (
 
     <div style="text-align:center;margin-top:20px;">
       <a href="${frontendUrl}/dashboard/system-admin/applications"
-         style="display:inline-block;background:#2563EB;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:10px;font-weight:700;font-size:14px;margin-right:10px;">
+         style="display:inline-block;background:#5b4e96;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:10px;font-weight:700;font-size:14px;margin-right:10px;">
         ✅ Review Application →
       </a>
     </div>
@@ -561,7 +554,6 @@ export const sendAdminNewApplicationEmail = async (
     });
     return true;
   } catch (err) {
-    console.error("sendAdminNewApplicationEmail error:", err);
     return false;
   }
 };
@@ -581,14 +573,14 @@ export const sendAccountActivatedEmail = async (
 
     <div style="display:inline-block;background:#DCFCE7;color:#15803d;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin:12px 0 16px;">✅ ACCOUNT ACTIVATED</div>
 
-    <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:20px;text-align:center;margin-bottom:16px;">
+    <div style="background:#f0eeff;border:1px solid #c5bcee;border-radius:12px;padding:20px;text-align:center;margin-bottom:16px;">
       <div style="font-size:42px;margin-bottom:8px;">🎓</div>
-      <p style="margin:0;color:#1e40af;font-size:16px;font-weight:800;">Welcome to BwengePlus!</p>
-      <p style="margin:6px 0 0;color:#3b82f6;font-size:13px;">You can now log in and start your learning journey.</p>
+      <p style="margin:0;color:#4a3f80;font-size:16px;font-weight:800;">Welcome to BwengePlus!</p>
+      <p style="margin:6px 0 0;color:#7c6fc4;font-size:13px;">You can now log in and start your learning journey.</p>
     </div>
 
-    <div style="background:#F8FAFF;border-radius:10px;padding:16px;margin-bottom:16px;">
-      <p style="margin:0 0 10px;color:#1e40af;font-size:13px;font-weight:700;">🚀 Get started:</p>
+    <div style="background:#f8f7ff;border-radius:10px;padding:16px;margin-bottom:16px;">
+      <p style="margin:0 0 10px;color:#4a3f80;font-size:13px;font-weight:700;">🚀 Get started:</p>
       <ol style="margin:0;padding-left:18px;color:#475569;font-size:13px;line-height:2;">
         <li>Click the button below to go to the login page</li>
         <li>Use your registered email and password to sign in</li>
@@ -598,7 +590,7 @@ export const sendAccountActivatedEmail = async (
 
     <div style="text-align:center;margin-top:20px;">
       <a href="${frontendUrl}/login"
-         style="display:inline-block;background:#2563EB;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:10px;font-weight:700;font-size:14px;">
+         style="display:inline-block;background:#5b4e96;color:#ffffff;text-decoration:none;padding:13px 32px;border-radius:10px;font-weight:700;font-size:14px;">
         🔐 Login to BwengePlus →
       </a>
     </div>
@@ -612,7 +604,6 @@ export const sendAccountActivatedEmail = async (
     });
     return true;
   } catch (err) {
-    console.error("sendAccountActivatedEmail error:", err);
     return false;
   }
 };
@@ -641,12 +632,12 @@ export const sendAccountRejectedEmail = async (
     </div>
     ` : ''}
 
-    <div style="background:#F8FAFF;border-radius:10px;padding:16px;margin-bottom:16px;">
+    <div style="background:#f8f7ff;border-radius:10px;padding:16px;margin-bottom:16px;">
       <p style="margin:0 0 8px;color:#475569;font-size:13px;line-height:1.7;">
         If you believe this decision was made in error or would like to provide additional information, please contact our support team.
       </p>
       <p style="margin:0;color:#475569;font-size:13px;">
-        Email: <a href="mailto:support@bwengeplus.rw" style="color:#2563EB;text-decoration:none;font-weight:600;">support@bwengeplus.rw</a>
+        Email: <a href="mailto:support@bwengeplus.rw" style="color:#5b4e96;text-decoration:none;font-weight:600;">support@bwengeplus.rw</a>
       </p>
     </div>
   `;
@@ -659,7 +650,6 @@ export const sendAccountRejectedEmail = async (
     });
     return true;
   } catch (err) {
-    console.error("sendAccountRejectedEmail error:", err);
     return false;
   }
 };

@@ -14,19 +14,12 @@ export const socketAuthMiddleware = async (socket: Socket, next: (err?: Error) =
     const token = socket.handshake.auth.token
 
     if (!token) {
-      console.error("❌ [socketAuth] No token provided")
       return next(new Error("Authentication token required"))
     }
 
     // Verify JWT token
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "your-secret-key") as DecodedToken
 
-    console.log("✅ [socketAuth] Token decoded:", {
-      id: decoded.id,
-      userId: decoded.userId,
-      email: decoded.email,
-      account_type: decoded.account_type
-    })
 
     // FIXED: Attach user data with BOTH id and userId for compatibility
     socket.data.user = {
@@ -37,15 +30,9 @@ export const socketAuthMiddleware = async (socket: Socket, next: (err?: Error) =
       account_type: decoded.account_type,
     }
 
-    console.log("✅ [socketAuth] User authenticated:", {
-      id: socket.data.user.id,
-      userId: socket.data.user.userId,
-      email: socket.data.user.email
-    })
 
     next()
   } catch (error) {
-    console.error("❌ [socketAuth] Authentication failed:", error)
     next(new Error("Authentication failed"))
   }
 }

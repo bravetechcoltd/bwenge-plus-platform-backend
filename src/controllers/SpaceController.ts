@@ -11,6 +11,7 @@ import { logActivity } from "../middleware/ActivityLog";
 import { io } from "../index";
 import { InstitutionMember } from "../database/models/InstitutionMember";
 import { isInstitutionAdmin, isMemberOfInstitution } from "../utils/institutionChatGuard";
+import { emitToSpace } from "../socket/socketEmitter";
 
 export interface CustomRequest extends Request {
   user?: {
@@ -204,7 +205,6 @@ export const createSpace = async (req: Request, res: Response) => {
       data: completeSpace,
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to create space" });
   }
 };
@@ -230,7 +230,6 @@ export const getSpace = async (req: Request, res: Response) => {
       data: space,
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to fetch space" });
   }
 };
@@ -265,7 +264,6 @@ export const getSpaceMessages = async (req: Request, res: Response) => {
       },
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to fetch space messages" });
   }
 };
@@ -289,7 +287,6 @@ export const getSpaceByCourse = async (req: Request, res: Response) => {
       data: spaces,
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to fetch spaces" });
   }
 };
@@ -341,7 +338,6 @@ export const getSpacesByMember = async (req: Request, res: Response) => {
       data: spaces,
     });
   } catch (err) {
-    console.error(err);
     // Fallback to simpler query if the relation query fails
     try {
       const simpleMemberships = await memberRepo.find({
@@ -359,7 +355,6 @@ export const getSpacesByMember = async (req: Request, res: Response) => {
         data: spaces,
       });
     } catch (fallbackErr) {
-      console.error("Fallback also failed:", fallbackErr);
       res.status(500).json({ 
         success: false, 
         message: "Failed to fetch spaces",
@@ -417,12 +412,17 @@ export const updateSpace = async (req: Request, res: Response) => {
       details: `Updated space ${space.id} by ${customReq.user.first_name} ${customReq.user.last_name}`,
     });
 
+    // ── Real-time: Notify space members about settings change ───────────────
+    emitToSpace(space.id, "space-settings-updated", {
+      spaceId: space.id,
+      name: space.name,
+    });
+
     res.json({
       success: true,
       data: space,
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to update space" });
   }
 };
@@ -476,7 +476,6 @@ export const deleteSpace = async (req: Request, res: Response) => {
       message: "Space deleted",
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to delete space" });
   }
 };
@@ -557,12 +556,22 @@ export const addMemberToSpace = async (req: Request, res: Response) => {
       details: `User ${user.first_name} ${user.last_name} was added to space ${space.id}`,
     });
 
+    // ── Real-time: Notify space members about new member ────────────────────
+    emitToSpace(spaceId, "space-member-joined", {
+      spaceId,
+      member: {
+        id: user.id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        profile_picture_url: user.profile_picture_url,
+      },
+    });
+
     res.status(201).json({
       success: true,
       message: "Member added to space",
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to add member" });
   }
 };
@@ -624,12 +633,18 @@ export const removeMemberFromSpace = async (req: Request, res: Response) => {
       details: `User ${member.user?.first_name} ${member.user?.last_name} was removed from space ${spaceId}`,
     });
 
+    // ── Real-time: Notify space members about removal ───────────────────────
+    emitToSpace(spaceId, "space-member-left", {
+      spaceId,
+      userId,
+      memberName: `${member.user?.first_name || ""} ${member.user?.last_name || ""}`.trim(),
+    });
+
     res.status(200).json({
       success: true,
       message: "Member removed from space",
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to remove member" });
   }
 };
@@ -725,26 +740,19 @@ export const sendMessage = async (req: Request, res: Response) => {
 
     if (io) {
       try {
-        console.log('📡 Emitting space message to room:', `space-${spaceId}`);
-        console.log('📡 Message sender:', sender?.first_name, sender?.last_name);
         
         const room = io.to(`space-${spaceId}`);
         
         // Check if there are any sockets in the room
         const roomSockets = await io.in(`space-${spaceId}`).fetchSockets();
-        console.log(`📡 Room ${spaceId} has ${roomSockets.length} connected sockets`);
         
         if (roomSockets.length > 0) {
           room.emit("new-space-message", messageWithSender);
-          console.log('✅ Space message emitted successfully');
         } else {
-          console.log('⚠️ No sockets in space room, message will be delivered on reconnect');
         }
       } catch (emitError) {
-        console.error('❌ Error emitting space message:', emitError);
       }
     } else {
-      console.error('❌ Socket.io instance not available');
     }
 
     res.status(201).json({
@@ -753,7 +761,6 @@ export const sendMessage = async (req: Request, res: Response) => {
       data: completeMessage,
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to send message" });
   }
 };
@@ -783,7 +790,6 @@ export const editSpaceMessage = async (req: Request, res: Response) => {
 
     res.json({ success: true, data: message });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to edit message" });
   }
 };
@@ -812,7 +818,6 @@ export const deleteSpaceMessage = async (req: Request, res: Response) => {
 
     res.json({ success: true });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to delete message" });
   }
 };
@@ -840,7 +845,6 @@ export const searchSpaceMessages = async (req: Request, res: Response) => {
 
     res.json({ success: true, data: messages });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to search messages" });
   }
 };

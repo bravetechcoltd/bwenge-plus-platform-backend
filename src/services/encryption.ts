@@ -46,7 +46,6 @@ export function encrypt(text: string): string {
     
     return result.toString('base64');
   } catch (error) {
-    console.error('❌ Encryption error:', error);
     throw new Error('Failed to encrypt data');
   }
 }
@@ -80,7 +79,6 @@ export function decrypt(encryptedData: string): string {
     
     return decrypted.toString('utf8');
   } catch (error) {
-    console.error('❌ Decryption error:', error);
     throw new Error('Failed to decrypt data');
   }
 }

@@ -71,7 +71,6 @@ export class DatabaseController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get backups error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch backups",
@@ -108,7 +107,7 @@ export class DatabaseController {
       await backupRepo.save(backup);
 
       // Start backup process asynchronously
-      DatabaseController.runBackup(backup.id, backupPath).catch(console.error);
+      DatabaseController.runBackup(backup.id, backupPath).catch(() => {});
 
       res.status(202).json({
         success: true,
@@ -116,7 +115,6 @@ export class DatabaseController {
         data: backup,
       });
     } catch (error: any) {
-      console.error("❌ Create backup error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to start backup",
@@ -184,7 +182,6 @@ export class DatabaseController {
       // Clean up local file
       fs.unlinkSync(backupPath);
     } catch (error: any) {
-      console.error("Backup failed:", error);
 
       await backupRepo.update(backupId, {
         status: BackupStatus.FAILED,
@@ -229,7 +226,7 @@ export class DatabaseController {
       await backupRepo.save(backup);
 
       // Start restore asynchronously
-      DatabaseController.runRestore(backup).catch(console.error);
+      DatabaseController.runRestore(backup).catch(() => {});
 
       res.json({
         success: true,
@@ -237,7 +234,6 @@ export class DatabaseController {
         data: backup,
       });
     } catch (error: any) {
-      console.error("❌ Restore backup error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to start restore",
@@ -283,7 +279,6 @@ export class DatabaseController {
         log: [...log, "Restore completed successfully"],
       });
     } catch (error: any) {
-      console.error("Restore failed:", error);
 
       await backupRepo.update(backup.id, {
         status: BackupStatus.FAILED,
@@ -324,7 +319,6 @@ export class DatabaseController {
         message: "Backup deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete backup error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete backup",
@@ -356,7 +350,6 @@ export class DatabaseController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get health status error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to get database health status",
@@ -512,7 +505,6 @@ export class DatabaseController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get database status error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to get database status",
@@ -542,7 +534,6 @@ export class DatabaseController {
         message: `Vacuum ${full ? "FULL " : ""}completed successfully`,
       });
     } catch (error: any) {
-      console.error("❌ Run vacuum error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to run vacuum",
@@ -571,7 +562,6 @@ export class DatabaseController {
         message: "Analyze completed successfully",
       });
     } catch (error: any) {
-      console.error("❌ Run analyze error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to run analyze",
@@ -615,7 +605,6 @@ export class DatabaseController {
         })),
       });
     } catch (error: any) {
-      console.error("❌ Get active queries error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to get active queries",
@@ -640,7 +629,6 @@ export class DatabaseController {
         message: `Query ${pid} terminated successfully`,
       });
     } catch (error: any) {
-      console.error("❌ Terminate query error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to terminate query",
@@ -686,7 +674,6 @@ export class DatabaseController {
         })),
       });
     } catch (error: any) {
-      console.error("❌ Get database settings error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to get database settings",

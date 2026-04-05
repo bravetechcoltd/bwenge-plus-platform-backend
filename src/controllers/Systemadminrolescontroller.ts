@@ -96,7 +96,6 @@ export class SystemAdminRolesController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get roles error:", error);
       return res.status(500).json({ success: false, message: "Failed to fetch roles", error: error.message });
     }
   }

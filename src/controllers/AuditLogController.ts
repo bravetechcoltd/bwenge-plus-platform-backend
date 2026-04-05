@@ -164,7 +164,6 @@ export class AuditLogController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get audit logs error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch audit logs",
@@ -232,7 +231,6 @@ export class AuditLogController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get audit log summary error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch audit log summary",
@@ -263,7 +261,6 @@ export class AuditLogController {
         data: log,
       });
     } catch (error: any) {
-      console.error("❌ Get audit log details error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch audit log details",
@@ -297,7 +294,6 @@ export class AuditLogController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get user audit trail error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch user audit trail",
@@ -345,7 +341,6 @@ export class AuditLogController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get institution audit trail error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch institution audit trail",
@@ -400,7 +395,6 @@ export class AuditLogController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Clear audit logs error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to clear audit logs",

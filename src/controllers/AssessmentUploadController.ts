@@ -17,30 +17,13 @@ export class AssessmentUploadController {
    */
   static async uploadAssessmentFile(req: Request, res: Response) {
     try {
-      console.log("=".repeat(80));
-      console.log("📁 [uploadAssessmentFile] Starting file upload");
-      console.log("=".repeat(80));
       
       const userId = req.user?.userId || req.user?.id;
       const { assessment_id, course_id, enrollment_id } = req.body;
       
-      console.log("📋 [uploadAssessmentFile] Request data:", {
-        userId,
-        assessment_id,
-        course_id,
-        enrollment_id,
-        hasFile: !!req.file,
-        fileInfo: req.file ? {
-          originalname: req.file.originalname,
-          mimetype: req.file.mimetype,
-          size: req.file.size,
-          fieldname: req.file.fieldname
-        } : null
-      });
 
       // ==================== VALIDATION ====================
       if (!userId) {
-        console.error("❌ [uploadAssessmentFile] No user ID found");
         return res.status(401).json({
           success: false,
           message: "Authentication required",
@@ -48,7 +31,6 @@ export class AssessmentUploadController {
       }
 
       if (!req.file) {
-        console.error("❌ [uploadAssessmentFile] No file provided");
         return res.status(400).json({
           success: false,
           message: "Assessment file is required",
@@ -56,7 +38,6 @@ export class AssessmentUploadController {
       }
 
       if (!assessment_id) {
-        console.error("❌ [uploadAssessmentFile] No assessment ID provided");
         return res.status(400).json({
           success: false,
           message: "Assessment ID is required",
@@ -71,35 +52,28 @@ export class AssessmentUploadController {
       const enrollmentRepo = dbConnection.getRepository(Enrollment);
 
       // ==================== VERIFY USER ====================
-      console.log("👤 [uploadAssessmentFile] Verifying user...");
       const user = await userRepo.findOne({ where: { id: userId } });
       if (!user) {
-        console.error("❌ [uploadAssessmentFile] User not found");
         return res.status(404).json({
           success: false,
           message: "User not found",
         });
       }
-      console.log("✅ [uploadAssessmentFile] User verified:", user.email);
 
       // ==================== VERIFY ASSESSMENT ====================
-      console.log("📝 [uploadAssessmentFile] Verifying assessment...");
       const assessment = await assessmentRepo.findOne({
         where: { id: assessment_id },
         relations: ["module", "module.course"],
       });
 
       if (!assessment) {
-        console.error("❌ [uploadAssessmentFile] Assessment not found");
         return res.status(404).json({
           success: false,
           message: "Assessment not found",
         });
       }
-      console.log("✅ [uploadAssessmentFile] Assessment found:", assessment.title);
 
       // ==================== VERIFY ENROLLMENT ====================
-      console.log("🎓 [uploadAssessmentFile] Verifying enrollment...");
       let enrollment: Enrollment | null = null;
       
       if (enrollment_id) {
@@ -129,13 +103,10 @@ export class AssessmentUploadController {
       }
 
       if (!enrollment) {
-        console.warn("⚠️ [uploadAssessmentFile] No active enrollment found, but proceeding with upload");
       } else {
-        console.log("✅ [uploadAssessmentFile] Enrollment verified:", enrollment.id);
       }
 
       // ==================== UPLOAD TO CLOUDINARY ====================
-      console.log("☁️ [uploadAssessmentFile] Uploading to Cloudinary...");
       let uploadResult;
       try {
         // Create a temporary file-like object for Cloudinary
@@ -151,13 +122,7 @@ export class AssessmentUploadController {
 
         // Upload to Cloudinary with assessment-specific folder
         uploadResult = await UploadToCloud(tempFile as any);
-        console.log("✅ [uploadAssessmentFile] File uploaded to Cloudinary:", {
-          secure_url: uploadResult.secure_url,
-          public_id: uploadResult.public_id,
-          bytes: uploadResult.bytes
-        });
       } catch (uploadError: any) {
-        console.error("❌ [uploadAssessmentFile] Cloudinary upload failed:", uploadError);
         return res.status(500).json({
           success: false,
           message: "Failed to upload file to Cloudinary",
@@ -167,7 +132,6 @@ export class AssessmentUploadController {
       }
 
       // ==================== CREATE/UPDATE SUBMISSION ====================
-      console.log("💾 [uploadAssessmentFile] Creating/updating submission...");
       
       // Check if submission already exists
       let submission = await submissionRepo.findOne({
@@ -200,9 +164,7 @@ export class AssessmentUploadController {
         if (submission.public_id) {
           try {
             await DeleteFromCloud(submission.public_id, "raw");
-            console.log("🗑️ [uploadAssessmentFile] Deleted old file from Cloudinary:", submission.public_id);
           } catch (deleteError) {
-            console.warn("⚠️ [uploadAssessmentFile] Failed to delete old file:", deleteError);
           }
         }
 
@@ -215,7 +177,6 @@ export class AssessmentUploadController {
         };
         submission.submitted_at = new Date();
         submission.status = "PENDING";
-        console.log("🔄 [uploadAssessmentFile] Updating existing submission:", submission.id);
       } else {
         // Create new submission
         submission = submissionRepo.create({
@@ -227,14 +188,11 @@ export class AssessmentUploadController {
           submitted_at: new Date(),
           status: "PENDING",
         });
-        console.log("✨ [uploadAssessmentFile] Creating new submission");
       }
 
       await submissionRepo.save(submission);
-      console.log("✅ [uploadAssessmentFile] Submission saved:", submission.id);
 
       // ==================== SEND NOTIFICATION TO INSTRUCTOR ====================
-      console.log("📧 [uploadAssessmentFile] Sending notifications...");
       try {
         // Get course with instructor
         const course = await courseRepo.findOne({
@@ -268,14 +226,11 @@ export class AssessmentUploadController {
               </div>
             `,
           });
-          console.log("✅ [uploadAssessmentFile] Notification sent to instructor:", course.instructor.email);
         }
       } catch (emailError) {
-        console.warn("⚠️ [uploadAssessmentFile] Failed to send email:", emailError);
       }
 
       // ==================== SEND RESPONSE (MATCHING FRONTEND EXPECTATIONS) ====================
-      console.log("📤 [uploadAssessmentFile] Sending response to frontend...");
       const responseData = {
         success: true,
         data: {
@@ -293,20 +248,10 @@ export class AssessmentUploadController {
         message: "File uploaded successfully"
       };
 
-      console.log("✅ [uploadAssessmentFile] Upload complete!");
-      console.log("=".repeat(80));
       
       res.json(responseData);
 
     } catch (error: any) {
-      console.error("❌ [uploadAssessmentFile] Error:", error);
-      console.error("📋 [uploadAssessmentFile] Error details:", {
-        message: error.message,
-        stack: error.stack,
-        code: error.code,
-        http_code: error.http_code
-      });
-      console.log("=".repeat(80));
       
       res.status(500).json({
         success: false,
@@ -392,7 +337,6 @@ export class AssessmentUploadController {
       res.json(response);
 
     } catch (error: any) {
-      console.error("❌ [getAssessmentFile] Error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch assessment file",

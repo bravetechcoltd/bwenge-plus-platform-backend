@@ -13,13 +13,11 @@ async function finalCleanup() {
 
   try {
     await dataSource.initialize();
-    console.log('✅ Connected to database');
 
     // Get all tables
     const tables = ['conversation', 'space', 'message', 'space_message', 'space_member'];
     
     for (const table of tables) {
-      console.log(`\n📋 Processing table: ${table}`);
       
       // Get all indexes for the table
       const indexes = await dataSource.query(`
@@ -28,22 +26,18 @@ async function finalCleanup() {
         WHERE tablename = '${table}'
       `);
       
-      console.log(`Found ${indexes.length} indexes on ${table}:`);
       
       for (const idx of indexes) {
         // Skip primary key indexes
         if (idx.indexname.includes('pkey') || idx.indexdef.includes('PRIMARY KEY')) {
-          console.log(`  ⏭️  Skipping PK: ${idx.indexname}`);
           continue;
         }
         
         // Skip unique constraints that are not causing issues
         if (idx.indexname.includes('UQ_') && !idx.indexname.includes('333423eb8599228680261054462')) {
-          console.log(`  ⏭️  Skipping unique constraint: ${idx.indexname}`);
           continue;
         }
         
-        console.log(`  Found index: ${idx.indexname}`);
         
         // Check if this is a problematic index
         const problematicPatterns = ['IDX_16a9af5352d00170944c4cdf3b', 'IDX_5d4fd47a9f15f3f8134a5f4502'];
@@ -52,18 +46,14 @@ async function finalCleanup() {
         if (isProblematic) {
           try {
             await dataSource.query(`DROP INDEX IF EXISTS "${idx.indexname}"`);
-            console.log(`    ✅ Dropped problematic index: ${idx.indexname}`);
           } catch (err: any) {
-            console.log(`    ⚠️ Could not drop: ${err.message}`);
           }
         }
       }
     }
     
-    console.log('\n✅ Final cleanup completed');
     
   } catch (error) {
-    console.error('❌ Error during cleanup:', error);
   } finally {
     if (dataSource.isInitialized) {
       await dataSource.destroy();

@@ -44,21 +44,18 @@ export class LessonController {
 
       // Upload video file
       if (files?.video && files.video[0]) {
-        console.log("📹 Uploading video file...");
         const videoUpload = await UploadToCloud(files.video[0]);
         video_url = videoUpload.secure_url;
       }
 
       // Upload thumbnail
       if (files?.thumbnail && files.thumbnail[0]) {
-        console.log("🖼️ Uploading thumbnail...");
         const thumbnailUpload = await UploadToCloud(files.thumbnail[0]);
         thumbnail_url = thumbnailUpload.secure_url;
       }
 
       // Upload resource files
       if (files?.resources) {
-        console.log("📎 Uploading resource files...");
         for (const file of files.resources) {
           const upload = await UploadToCloud(file);
           resources.push({
@@ -93,7 +90,6 @@ export class LessonController {
         data: lesson,
       });
     } catch (error: any) {
-      console.error("❌ Create lesson error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create lesson",
@@ -121,7 +117,6 @@ export class LessonController {
 
       // Handle video upload
       if (files?.video && files.video[0]) {
-        console.log("📹 Updating video file...");
         
         // Delete old video if exists
         if (lesson.video_url) {
@@ -129,7 +124,6 @@ export class LessonController {
             const publicId = lesson.video_url.split("/").slice(-2).join("/").split(".")[0];
             await DeleteFromCloud(publicId, "video");
           } catch (err) {
-            console.warn("⚠️ Could not delete old video:", err);
           }
         }
 
@@ -139,14 +133,12 @@ export class LessonController {
 
       // Handle thumbnail upload
       if (files?.thumbnail && files.thumbnail[0]) {
-        console.log("🖼️ Updating thumbnail...");
         
         if (lesson.thumbnail_url) {
           try {
             const publicId = lesson.thumbnail_url.split("/").slice(-2).join("/").split(".")[0];
             await DeleteFromCloud(publicId, "image");
           } catch (err) {
-            console.warn("⚠️ Could not delete old thumbnail:", err);
           }
         }
 
@@ -156,7 +148,6 @@ export class LessonController {
 
       // Handle resources upload
       if (files?.resources) {
-        console.log("📎 Updating resource files...");
         const newResources = [];
         
         for (const file of files.resources) {
@@ -181,7 +172,6 @@ export class LessonController {
         data: lesson,
       });
     } catch (error: any) {
-      console.error("❌ Update lesson error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update lesson",
@@ -206,7 +196,6 @@ export class LessonController {
         data: lessons,
       });
     } catch (error: any) {
-      console.error("❌ Get lessons error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch lessons",
@@ -231,7 +220,6 @@ export class LessonController {
         data: lessons,
       });
     } catch (error: any) {
-      console.error("❌ Get module lessons error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch lessons",
@@ -263,7 +251,6 @@ export class LessonController {
         data: lesson,
       });
     } catch (error: any) {
-      console.error("❌ Get lesson error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch lesson",
@@ -293,7 +280,6 @@ export class LessonController {
           const publicId = lesson.video_url.split("/").slice(-2).join("/").split(".")[0];
           await DeleteFromCloud(publicId, "video");
         } catch (err) {
-          console.warn("⚠️ Could not delete video:", err);
         }
       }
 
@@ -303,7 +289,6 @@ export class LessonController {
           const publicId = lesson.thumbnail_url.split("/").slice(-2).join("/").split(".")[0];
           await DeleteFromCloud(publicId, "image");
         } catch (err) {
-          console.warn("⚠️ Could not delete thumbnail:", err);
         }
       }
 
@@ -314,7 +299,6 @@ export class LessonController {
             const publicId = resource.url.split("/").slice(-2).join("/").split(".")[0];
             await DeleteFromCloud(publicId, "raw");
           } catch (err) {
-            console.warn("⚠️ Could not delete resource:", err);
           }
         }
       }
@@ -326,7 +310,6 @@ export class LessonController {
         message: "Lesson deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete lesson error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete lesson",
@@ -358,7 +341,6 @@ export class LessonController {
         message: "Lessons reordered successfully",
       });
     } catch (error: any) {
-      console.error("❌ Reorder lessons error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to reorder lessons",
@@ -391,7 +373,6 @@ export class LessonController {
         data: lesson,
       });
     } catch (error: any) {
-      console.error("❌ Publish lesson error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to publish lesson",
@@ -431,7 +412,6 @@ export class LessonController {
         const publicId = resource_url.split("/").slice(-2).join("/").split(".")[0];
         await DeleteFromCloud(publicId, "raw");
       } catch (err) {
-        console.warn("⚠️ Could not delete resource from cloud:", err);
       }
 
       await lessonRepo.save(lesson);
@@ -441,7 +421,6 @@ export class LessonController {
         message: "Resource deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete resource error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete resource",

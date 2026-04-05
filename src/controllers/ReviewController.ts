@@ -5,6 +5,7 @@ import dbConnection from "../database/db";
 import { Review } from "../database/models/ReviewModel";
 import { User } from "../database/models/User";
 import { Course } from "../database/models/Course";
+import { emitToCourse } from "../socket/socketEmitter";
 
 export class ReviewController {
   /**
@@ -75,6 +76,16 @@ export class ReviewController {
         // Recalculate course average rating
         await ReviewController.updateCourseRating(courseId);
 
+        // ── Real-time: Push review update to course viewers ─────────────────
+        const updatedCourse = await courseRepo.findOne({ where: { id: courseId } });
+        emitToCourse(courseId, "review-updated", {
+          courseId,
+          reviewId: review.id,
+          rating: review.rating,
+          averageRating: updatedCourse?.average_rating || 0,
+          totalReviews: updatedCourse?.total_reviews || 0,
+        });
+
         return res.json({
           success: true,
           message: "Review updated successfully",
@@ -110,6 +121,16 @@ export class ReviewController {
       // Recalculate course average rating
       await ReviewController.updateCourseRating(courseId);
 
+      // ── Real-time: Push new review to course viewers ──────────────────────
+      const updatedCourse = await courseRepo.findOne({ where: { id: courseId } });
+      emitToCourse(courseId, "new-review", {
+        courseId,
+        reviewId: review.id,
+        rating: review.rating,
+        averageRating: updatedCourse?.average_rating || 0,
+        totalReviews: updatedCourse?.total_reviews || 0,
+      });
+
       return res.status(201).json({
         success: true,
         message: "Review created successfully",
@@ -131,7 +152,6 @@ export class ReviewController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Create/update review error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create/update review",
@@ -209,7 +229,6 @@ export class ReviewController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get course reviews error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch course reviews",
@@ -271,7 +290,6 @@ export class ReviewController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get user reviews error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch user reviews",
@@ -332,7 +350,6 @@ export class ReviewController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get user course review error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch user review",
@@ -402,7 +419,6 @@ export class ReviewController {
         message: "Review deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete review error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete review",
@@ -437,7 +453,6 @@ export class ReviewController {
 
       await courseRepo.save(course);
     } catch (error) {
-      console.error("❌ Update course rating error:", error);
     }
   }
 }

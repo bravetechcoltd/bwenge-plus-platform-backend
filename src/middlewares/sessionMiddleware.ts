@@ -25,12 +25,10 @@ export const validateSession = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    console.log("\n🔍 [validateSession] ========== START ==========");
 
     // Get token from header
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      console.log("❌ [validateSession] No token provided");
       res.status(401).json({
         success: false,
         message: "No token provided",
@@ -39,7 +37,6 @@ export const validateSession = async (
     }
 
     const token = authHeader.split(" ")[1];
-    console.log("✅ [validateSession] Token extracted");
 
     // Decode JWT
     const decoded = jwt.verify(
@@ -48,10 +45,8 @@ export const validateSession = async (
     ) as DecodedToken;
 
     const userId = decoded.userId || decoded.id;
-    console.log("📋 [validateSession] User ID:", userId);
 
     if (!userId) {
-      console.log("❌ [validateSession] No user ID in token");
       res.status(401).json({
         success: false,
         message: "Invalid token: missing user ID",
@@ -67,7 +62,6 @@ export const validateSession = async (
     });
 
     if (!user) {
-      console.log("❌ [validateSession] User not found");
       res.status(401).json({
         success: false,
         message: "User not found",
@@ -76,7 +70,6 @@ export const validateSession = async (
     }
 
     if (!user.is_active) {
-      console.log("❌ [validateSession] User account deactivated");
       res.status(403).json({
         success: false,
         message: "Account is deactivated",
@@ -85,7 +78,6 @@ export const validateSession = async (
     }
 
     if (!user.isUserLogin) {
-      console.log("❌ [validateSession] User not logged in (isUserLogin = false)");
       res.status(401).json({
         success: false,
         message: "User session expired. Please log in again.",
@@ -93,7 +85,6 @@ export const validateSession = async (
       return;
     }
 
-    console.log("✅ [validateSession] User validated");
 
     // Check for active Ongera session
     const sessionRepo = dbConnection.getRepository(UserSession);
@@ -107,7 +98,6 @@ export const validateSession = async (
     });
 
     if (!activeSession) {
-      console.log("❌ [validateSession] No active session found");
       
       // Update user.isUserLogin to false if no active sessions
       const remainingSessions = await sessionRepo.count({
@@ -120,7 +110,6 @@ export const validateSession = async (
 
       if (remainingSessions === 0) {
         await userRepo.update({ id: userId }, { isUserLogin: false });
-        console.log("✅ [validateSession] Updated isUserLogin to false");
       }
 
       res.status(401).json({
@@ -130,14 +119,10 @@ export const validateSession = async (
       return;
     }
 
-    console.log("✅ [validateSession] Active session found");
-    console.log("📋 [validateSession] Session ID:", activeSession.id);
-    console.log("⏰ [validateSession] Expires at:", activeSession.expires_at);
 
     // Update last activity
     activeSession.last_activity = new Date();
     await sessionRepo.save(activeSession);
-    console.log("✅ [validateSession] Last activity updated");
 
     // Attach user info to request
     req.user = {
@@ -147,12 +132,8 @@ export const validateSession = async (
       account_type: decoded.account_type,
     };
 
-    console.log("✅ [validateSession] ========== SUCCESS ==========\n");
     next();
   } catch (error: any) {
-    console.error("❌ [validateSession] ========== ERROR ==========");
-    console.error("Error:", error.message);
-    console.error("Stack:", error.stack);
 
     if (error.name === "TokenExpiredError") {
       res.status(401).json({
@@ -184,12 +165,10 @@ export const validateCrossSystemSession = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    console.log("\n🔄 [validateCrossSystemSession] ========== START ==========");
 
     const userId = req.user?.userId || req.user?.id;
 
     if (!userId) {
-      console.log("❌ [validateCrossSystemSession] User not authenticated");
       res.status(401).json({
         success: false,
         message: "User not authenticated",
@@ -197,7 +176,6 @@ export const validateCrossSystemSession = async (
       return;
     }
 
-    console.log("📋 [validateCrossSystemSession] User ID:", userId);
 
     const sessionRepo = dbConnection.getRepository(UserSession);
 
@@ -210,13 +188,10 @@ export const validateCrossSystemSession = async (
       }
     });
 
-    console.log("📊 [validateCrossSystemSession] Active sessions found:", sessions.length);
 
     const hasOngeraSession = sessions.some(s => s.system === SystemType.ONGERA);
     const hasBwengeSession = sessions.some(s => s.system === SystemType.BWENGE_PLUS);
 
-    console.log("✅ [validateCrossSystemSession] Ongera:", hasOngeraSession ? "Active" : "Inactive");
-    console.log("✅ [validateCrossSystemSession] BwengePlus:", hasBwengeSession ? "Active" : "Inactive");
 
     // Attach session info to request
     (req as any).sessionInfo = {
@@ -226,11 +201,8 @@ export const validateCrossSystemSession = async (
       systems: sessions.map(s => s.system)
     };
 
-    console.log("✅ [validateCrossSystemSession] ========== SUCCESS ==========\n");
     next();
   } catch (error: any) {
-    console.error("❌ [validateCrossSystemSession] ========== ERROR ==========");
-    console.error("Error:", error.message);
     
     res.status(500).json({
       success: false,
@@ -244,7 +216,6 @@ export const validateCrossSystemSession = async (
 export const requireActiveSession = (system: SystemType) => {
   return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      console.log(`\n🔐 [requireActiveSession] Checking ${system} session...`);
 
       const userId = req.user?.userId || req.user?.id;
 
@@ -267,7 +238,6 @@ export const requireActiveSession = (system: SystemType) => {
       });
 
       if (!activeSession) {
-        console.log(`❌ [requireActiveSession] No active ${system} session`);
         res.status(403).json({
           success: false,
           message: `No active ${system} session. Please log in.`,
@@ -275,10 +245,8 @@ export const requireActiveSession = (system: SystemType) => {
         return;
       }
 
-      console.log(`✅ [requireActiveSession] ${system} session active`);
       next();
     } catch (error: any) {
-      console.error(`❌ [requireActiveSession] Error:`, error.message);
       res.status(500).json({
         success: false,
         message: "Failed to verify session",
@@ -322,12 +290,10 @@ export const sessionMonitor = async (
       // Attach warning to response headers
       res.setHeader('X-Session-Expiring-Soon', 'true');
       res.setHeader('X-Sessions-Count', expiringSoon.length.toString());
-      console.log(`⚠️ [sessionMonitor] ${expiringSoon.length} sessions expiring soon for user ${userId}`);
     }
 
     next();
   } catch (error: any) {
-    console.error("❌ [sessionMonitor] Error:", error.message);
     // Don't block request on monitor error
     next();
   }
@@ -350,7 +316,6 @@ export const cleanupInactiveSessions = async (userId: string): Promise<number> =
 
     return result.affected || 0;
   } catch (error: any) {
-    console.error("❌ [cleanupInactiveSessions] Error:", error.message);
     return 0;
   }
 };

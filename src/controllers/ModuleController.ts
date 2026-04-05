@@ -52,7 +52,6 @@ export class ModuleController {
         data: module,
       });
     } catch (error: any) {
-      console.error("❌ Create module error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create module",
@@ -82,7 +81,6 @@ export class ModuleController {
         data: modules,
       });
     } catch (error: any) {
-      console.error("❌ Get modules error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch modules",
@@ -120,7 +118,6 @@ export class ModuleController {
         data: module,
       });
     } catch (error: any) {
-      console.error("❌ Get module details error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch module details",
@@ -154,7 +151,6 @@ export class ModuleController {
         data: module,
       });
     } catch (error: any) {
-      console.error("❌ Update module error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update module",
@@ -188,7 +184,6 @@ export class ModuleController {
         message: "Module deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete module error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete module",
@@ -220,7 +215,6 @@ export class ModuleController {
         message: "Modules reordered successfully",
       });
     } catch (error: any) {
-      console.error("❌ Reorder modules error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to reorder modules",
@@ -263,7 +257,6 @@ export class ModuleController {
         data: module,
       });
     } catch (error: any) {
-      console.error("❌ Publish module error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to publish module",
@@ -334,7 +327,6 @@ export class ModuleController {
         data: finalAssessment,
       });
     } catch (error: any) {
-      console.error("❌ Create module final assessment error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create module final assessment",

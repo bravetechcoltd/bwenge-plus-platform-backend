@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import cors from "cors";
 import morgan from "morgan";
+import path from "path";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes";
 import ssoRoutes from "./routes/ssoRoutes";
@@ -36,10 +37,15 @@ import assessmentRoutes from "./routes/assessmentRoutes";
 import  Systemadminextendedroutes from "./routes/Systemadminextendedroutes";
 import securityRoute from "./routes/securityRoute";
 import userPresenceRoutes from "./routes/userPresenceRoutes";
+import systemAdminDashboardRoutes from "./routes/systemAdminDashboardRoutes";
+import notificationRoutes from "./routes/notificationRoutes";
 
 const app: Application = express();
 
 app.use(cookieParser());
+
+// Serve uploaded files as static assets
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 app.use(cors({
   origin: [
@@ -73,12 +79,7 @@ app.use(cors({
 }));
 
 app.use((req, res, next) => {
-  console.log(`📝 ${req.method} ${req.path}`);
-  console.log(`📦 Content-Type: ${req.headers['content-type']}`);
-  console.log(`📦 Body exists: ${!!req.body}`);
-  console.log(`📦 Body type: ${typeof req.body}`);
   if (req.body && Object.keys(req.body).length > 0) {
-    console.log(`📦 Body keys: ${Object.keys(req.body).join(', ')}`);
   }
   next();
 });
@@ -138,6 +139,8 @@ app.use("/api/system-admin/institutions/analytics", systemAdminInstitutionAnalyt
 app.use("/api/system-admin", Systemadminextendedroutes);
 app.use("/api/assessments", assessmentRoutes);
 app.use("/api/system-admin", securityRoute);
+app.use("/api/system-admin", systemAdminDashboardRoutes);
+app.use("/api/notifications", notificationRoutes);
 app.use(errorHandler);
 
 export default app;

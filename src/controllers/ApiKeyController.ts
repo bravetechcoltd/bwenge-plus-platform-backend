@@ -51,7 +51,6 @@ export class ApiKeyController {
         data: sanitizedKeys,
       });
     } catch (error: any) {
-      console.error("❌ Get API keys error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch API keys",
@@ -85,7 +84,6 @@ export class ApiKeyController {
         data: sanitizedKey,
       });
     } catch (error: any) {
-      console.error("❌ Get API key error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch API key",
@@ -155,7 +153,6 @@ export class ApiKeyController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Create API key error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create API key",
@@ -218,7 +215,6 @@ export class ApiKeyController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Update API key error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update API key",
@@ -251,7 +247,6 @@ export class ApiKeyController {
         message: "API key deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete API key error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete API key",
@@ -286,7 +281,6 @@ export class ApiKeyController {
         data: apiKey,
       });
     } catch (error: any) {
-      console.error("❌ Revoke API key error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to revoke API key",
@@ -330,7 +324,6 @@ export class ApiKeyController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Regenerate API key error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to regenerate API key",
@@ -371,7 +364,6 @@ export class ApiKeyController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get API key logs error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch API key logs",
@@ -396,7 +388,6 @@ export class ApiKeyController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get permissions error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch permissions",

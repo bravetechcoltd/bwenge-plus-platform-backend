@@ -33,7 +33,6 @@ export class CrossSystemMonitor {
       this.logs = this.logs.slice(0, this.maxLogs);
     }
     
-    console.log(`🛡️ [PROTECTION LOG] ${event.field} ${event.action} for user ${event.userId}`);
     
     // Alert on critical protection events
     if (event.action === 'attempted_null' && 
@@ -72,7 +71,6 @@ export class CrossSystemMonitor {
 
   private sendAlert(message: string) {
     // Implement alerting (email, Slack, etc.)
-    console.warn(`🚨 ALERT: ${message}`);
   }
 }
 

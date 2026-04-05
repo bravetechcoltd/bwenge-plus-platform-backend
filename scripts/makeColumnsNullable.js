@@ -10,10 +10,8 @@ async function makeColumnsNullable() {
 
   try {
     await client.connect();
-    console.log('✅ Connected to database\n');
 
     // Make studentId and instructorId columns nullable
-    console.log('🔧 Making studentId and instructorId columns nullable...');
     
     await client.query(`
       ALTER TABLE conversation 
@@ -21,7 +19,6 @@ async function makeColumnsNullable() {
       ALTER COLUMN "instructorId" DROP NOT NULL
     `);
     
-    console.log('✅ Columns updated to be nullable');
     
     // Verify the change
     const result = await client.query(`
@@ -31,15 +28,11 @@ async function makeColumnsNullable() {
       AND column_name IN ('studentId', 'instructorId')
     `);
     
-    console.log('\n📊 Column status:');
     result.rows.forEach(row => {
-      console.log(`  ${row.column_name}: is_nullable = ${row.is_nullable}`);
     });
     
-    console.log('\n✅ Migration completed successfully!');
     
   } catch (error) {
-    console.error('❌ Error:', error);
   } finally {
     await client.end();
   }

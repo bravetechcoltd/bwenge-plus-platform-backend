@@ -577,7 +577,6 @@ export class SystemAdminInstitutionAnalyticsController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get institution analytics error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch institution analytics",
@@ -615,7 +614,6 @@ export class SystemAdminInstitutionAnalyticsController {
       });
 
     } catch (error: any) {
-      console.error("❌ Export analytics error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to export analytics",

@@ -70,7 +70,6 @@ export const addReaction = async (req: Request, res: Response) => {
 
     res.json({ success: true, reactions: aggregated });
   } catch (err) {
-    console.error("addReaction error:", err);
     res.status(500).json({ message: "Failed to update reaction" });
   }
 };
@@ -109,7 +108,6 @@ export const removeReaction = async (req: Request, res: Response) => {
 
     res.json({ success: true });
   } catch (err) {
-    console.error("removeReaction error:", err);
     res.status(500).json({ message: "Failed to remove reaction" });
   }
 };
@@ -127,7 +125,6 @@ export const getReactions = async (req: Request, res: Response) => {
     const rows = await reactionRepo.find({ where: { messageId } });
     res.json({ success: true, reactions: aggregateReactions(rows) });
   } catch (err) {
-    console.error("getReactions error:", err);
     res.status(500).json({ message: "Failed to get reactions" });
   }
 };

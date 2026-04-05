@@ -19,13 +19,11 @@ export function extractSystemContext(req: SystemAwareRequest, res: Response, nex
       
       if (decoded && decoded.system) {
         req.system = decoded.system;
-        console.log(`🔍 [System Context] Request from system: ${req.system}`);
       }
     }
     
     next();
   } catch (error) {
-    console.warn("⚠️ Could not extract system context from token");
     next();
   }
 }
@@ -38,7 +36,6 @@ export function validateSystemPermission(allowedSystems: string[]) {
     const system = req.system;
     
     if (!system) {
-      console.warn("⚠️ No system context in request");
       return res.status(400).json({
         success: false,
         message: "System context is required for this operation"
@@ -46,14 +43,12 @@ export function validateSystemPermission(allowedSystems: string[]) {
     }
     
     if (!allowedSystems.includes(system)) {
-      console.warn(`⚠️ System ${system} not allowed for this operation`);
       return res.status(403).json({
         success: false,
         message: `System ${system} is not authorized for this operation`
       });
     }
     
-    console.log(`✅ [System Permission] ${system} authorized`);
     next();
   };
 }

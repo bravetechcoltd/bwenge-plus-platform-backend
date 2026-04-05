@@ -13,28 +13,17 @@ cloudinary.config({
 
 
 export const UploadToCloud = async (file: Express.Multer.File, res?: Response, retries = 3) => {
-  console.log("☁️ === ENHANCED CLOUDINARY UPLOAD DEBUG START ===");
-  console.log("📅 Upload started at:", new Date().toISOString());
-  console.log("📁 File to upload:", {
-    originalname: file.originalname,
-    mimetype: file.mimetype,
-    size: file.size,
-    bufferSize: file.buffer?.length || 0,
-    fieldname: file.fieldname
-  });
 
   let lastError: any;
 
   // Check if file has buffer (from memory storage)
   const hasBuffer = file.buffer && file.buffer.length > 0;
-  console.log("🔍 File source:", hasBuffer ? "Buffer (memory storage)" : "Disk path");
 
   // For assessment files, use a specific folder
   const folder = "assessment_submissions/";
   
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      console.log(`🔄 === UPLOAD ATTEMPT ${attempt}/${retries} ===`);
       
       let uploadResponse;
       const baseUploadOptions: any = {
@@ -48,32 +37,21 @@ export const UploadToCloud = async (file: Express.Multer.File, res?: Response, r
         resource_type: "auto", // Let Cloudinary detect the type
       };
 
-      console.log("⚙️ Upload options:", baseUploadOptions);
 
       if (hasBuffer) {
         // Upload from buffer
-        console.log("📦 Uploading from buffer...");
         uploadResponse = await cloudinary.uploader.upload(
           `data:${file.mimetype};base64,${file.buffer.toString('base64')}`,
           baseUploadOptions
         );
       } else {
         // Upload from disk path (existing code)
-        console.log("📂 Uploading from disk path...");
         if (!fs.existsSync(file.path)) {
           throw new Error(`File not found at path: ${file.path}`);
         }
         uploadResponse = await cloudinary.uploader.upload(file.path, baseUploadOptions);
       }
 
-      console.log(`✅ Upload successful on attempt ${attempt}!`);
-      console.log("📊 Cloudinary response:", {
-        secure_url: uploadResponse.secure_url,
-        public_id: uploadResponse.public_id,
-        resource_type: uploadResponse.resource_type,
-        format: uploadResponse.format,
-        bytes: uploadResponse.bytes
-      });
 
       return {
         secure_url: uploadResponse.secure_url,
@@ -89,12 +67,10 @@ export const UploadToCloud = async (file: Express.Multer.File, res?: Response, r
 
     } catch (error: any) {
       lastError = error;
-      console.error(`❌ Upload attempt ${attempt} failed:`, error.message);
       
       // Retry logic remains the same...
       if (attempt < retries && shouldRetry(error)) {
         const waitTime = Math.min(attempt * 2000, 10000);
-        console.log(`⏳ Waiting ${waitTime}ms before retry...`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
         continue;
       }
@@ -131,7 +107,6 @@ export const DeleteFromCloud = async (
       return deleteResponse
     } catch (error: any) {
       lastError = error
-      console.error(`Delete attempt ${attempt}/${retries} failed for ${publicId}:`, error.message)
 
       if (attempt < retries) {
         const waitTime = attempt * 1000 // 1s, 2s, 3s
@@ -161,7 +136,6 @@ export const GetCloudinaryFileInfo = async (
       return result
     } catch (error: any) {
       lastError = error
-      console.error(`Get file info attempt ${attempt}/${retries} failed for ${publicId}:`, error.message)
 
       if (attempt < retries) {
         const waitTime = attempt * 1000
@@ -230,13 +204,11 @@ export const UploadMultipleToCloud = async (files: Express.Multer.File[]): Promi
       const result = await UploadToCloud(file)
       results.push(result)
     } catch (error: any) {
-      console.error(`Failed to upload ${file.originalname}:`, error.message)
       errors.push({ file: file.originalname, error: error.message })
     }
   }
 
   if (errors.length > 0) {
-    console.warn("Some files failed to upload:", errors)
   }
 
   return results

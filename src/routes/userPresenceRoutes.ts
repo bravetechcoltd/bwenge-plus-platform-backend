@@ -22,7 +22,6 @@ router.get("/online-status", authenticate, (req: Request, res: Response) => {
 
     res.json({ success: true, onlineStatus });
   } catch (err) {
-    console.error("online-status error:", err);
     res.status(500).json({ message: "Failed to get online status" });
   }
 });

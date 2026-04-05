@@ -151,7 +151,6 @@ export class GradeController {
         total_courses: grades.length,
       });
     } catch (error: any) {
-      console.error("❌ Get user grades error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch user grades",
@@ -221,7 +220,6 @@ export class GradeController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get grade stats error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch grade statistics",
@@ -355,7 +353,6 @@ export class GradeController {
         data: exportData,
       });
     } catch (error: any) {
-      console.error("❌ Export grades error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to export grades",

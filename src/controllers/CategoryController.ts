@@ -184,7 +184,6 @@ export class CategoryController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get categories error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch categories",
@@ -361,7 +360,6 @@ export class CategoryController {
       });
 
     } catch (error: any) {
-      console.error("❌ Create category error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create category",
@@ -505,7 +503,6 @@ export class CategoryController {
       });
 
     } catch (error: any) {
-      console.error("❌ Update category error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update category",
@@ -580,7 +577,6 @@ export class CategoryController {
         await categoryRepo.delete(id);
 
         // Log deletion action (you would implement your logging system here)
-        console.log(`User ${userId} deleted category ${id} from institution ${category.institution_id}`);
 
       } else if (reassign_to) {
         // Reassign courses to another category
@@ -652,7 +648,6 @@ export class CategoryController {
       });
 
     } catch (error: any) {
-      console.error("❌ Delete category error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete category",
@@ -747,7 +742,6 @@ export class CategoryController {
       }
 
     } catch (error: any) {
-      console.error("❌ Reorder categories error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to reorder categories",
@@ -820,7 +814,6 @@ export class CategoryController {
       });
 
     } catch (error: any) {
-      console.error("❌ Toggle category status error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to toggle category status",
@@ -912,7 +905,6 @@ export class CategoryController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get public categories error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch public categories",
@@ -1098,7 +1090,6 @@ export class CategoryController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get category error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch category",

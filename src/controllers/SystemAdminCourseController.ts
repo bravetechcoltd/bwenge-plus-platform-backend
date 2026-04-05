@@ -208,7 +208,6 @@ export class SystemAdminCourseController {
         },
       });
     } catch (error: any) {
-      console.error("❌ getMOOCOverview error:", error);
       res.status(500).json({ success: false, message: "Failed to fetch MOOC overview", error: error.message });
     }
   }
@@ -385,7 +384,6 @@ export class SystemAdminCourseController {
         },
       });
     } catch (error: any) {
-      console.error("❌ getSPOCOverview error:", error);
       res.status(500).json({ success: false, message: "Failed to fetch SPOC overview", error: error.message });
     }
   }
@@ -610,7 +608,6 @@ export class SystemAdminCourseController {
         },
       });
     } catch (error: any) {
-      console.error("❌ getCourseReports error:", error);
       res.status(500).json({ success: false, message: "Failed to fetch course reports", error: error.message });
     }
   }
@@ -743,7 +740,6 @@ export class SystemAdminCourseController {
         },
       });
     } catch (error: any) {
-      console.error("❌ getContentModeration error:", error);
       res.status(500).json({ success: false, message: "Failed to fetch moderation queue", error: error.message });
     }
   }

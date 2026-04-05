@@ -147,7 +147,6 @@ export class SecurityController {
         },
       });
     } catch (error: any) {
-      console.error("❌ getAuditLogs error:", error);
       return res.status(500).json({ success: false, message: "Failed to fetch audit logs", error: error.message });
     }
   }
@@ -325,7 +324,6 @@ export class SecurityController {
         },
       });
     } catch (error: any) {
-      console.error("❌ getAccessControl error:", error);
       return res.status(500).json({ success: false, message: "Failed to fetch access control data", error: error.message });
     }
   }
@@ -654,7 +652,6 @@ export class SecurityController {
         },
       });
     } catch (error: any) {
-      console.error("❌ getSystemHealth error:", error);
       return res.status(500).json({ success: false, message: "Failed to fetch system health", error: error.message });
     }
   }

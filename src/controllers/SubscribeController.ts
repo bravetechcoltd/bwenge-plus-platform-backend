@@ -14,7 +14,6 @@ export class SubscribeController {
     try {
       const { email } = req.body;
 
-      console.log("📧 New subscription request:", email);
 
       // Validate email
       if (!email || !isValidEmail(email)) {
@@ -45,7 +44,6 @@ export class SubscribeController {
           existingSubscriber.notify_new_events = true;
           await subscribeRepo.save(existingSubscriber);
 
-          console.log("✅ Reactivated subscription:", email);
 
           return res.status(200).json({
             success: true,
@@ -66,7 +64,6 @@ export class SubscribeController {
 
       await subscribeRepo.save(newSubscriber);
 
-      console.log("✅ New subscriber added:", email);
 
       // Send welcome email
       try {
@@ -90,9 +87,7 @@ export class SubscribeController {
             </html>
           `
         });
-        console.log("✅ Welcome email sent to:", email);
       } catch (emailError: any) {
-        console.error("❌ Failed to send welcome email:", emailError.message);
       }
 
       res.status(201).json({
@@ -102,7 +97,6 @@ export class SubscribeController {
       });
 
     } catch (error: any) {
-      console.error("❌ Subscribe error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to subscribe",
@@ -123,7 +117,6 @@ export class SubscribeController {
       });
       return subscribers;
     } catch (error: any) {
-      console.error("❌ Error fetching subscribers:", error.message);
       return [];
     }
   }
@@ -164,7 +157,6 @@ export class SubscribeController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get subscribers error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch subscribers",
@@ -203,7 +195,6 @@ export class SubscribeController {
       subscriber.is_active = false;
       await subscribeRepo.save(subscriber);
 
-      console.log("✅ Unsubscribed:", email);
 
       res.status(200).json({
         success: true,
@@ -211,7 +202,6 @@ export class SubscribeController {
       });
 
     } catch (error: any) {
-      console.error("❌ Unsubscribe error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to unsubscribe",
@@ -260,7 +250,6 @@ export class SubscribeController {
 
       await subscribeRepo.save(subscriber);
 
-      console.log("✅ Updated preferences for:", email);
 
       res.status(200).json({
         success: true,
@@ -269,7 +258,6 @@ export class SubscribeController {
       });
 
     } catch (error: any) {
-      console.error("❌ Update preferences error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update preferences",
@@ -283,7 +271,6 @@ export class SubscribeController {
    */
   static async notifyNewCommunity(communityData: any): Promise<void> {
     try {
-      console.log("\n📧 ========== NOTIFYING SUBSCRIBERS: NEW COMMUNITY ==========");
       
       const subscribeRepo = dbConnection.getRepository(Subscribe);
       const subscribers = await subscribeRepo.find({
@@ -293,10 +280,8 @@ export class SubscribeController {
         }
       });
 
-      console.log(`📊 Found ${subscribers.length} subscriber(s) to notify`);
 
       if (subscribers.length === 0) {
-        console.log("⚠️ No active subscribers to notify");
         return;
       }
 
@@ -320,23 +305,16 @@ export class SubscribeController {
           await subscribeRepo.save(subscriber);
 
           emailsSent++;
-          console.log(`✅ Email sent to: ${subscriber.email}`);
 
           await new Promise(resolve => setTimeout(resolve, 100));
 
         } catch (emailError: any) {
           emailsFailed++;
-          console.error(`❌ Failed to send email to ${subscriber.email}:`, emailError.message);
         }
       }
 
-      console.log("\n📊 === NOTIFICATION SUMMARY ===");
-      console.log(`✅ Successfully sent: ${emailsSent}/${subscribers.length}`);
-      console.log(`❌ Failed: ${emailsFailed}/${subscribers.length}`);
-      console.log("📧 ========== NOTIFICATION COMPLETE ==========\n");
 
     } catch (error: any) {
-      console.error("❌ Notification system error:", error.message);
     }
   }
 
@@ -345,7 +323,6 @@ export class SubscribeController {
    */
   static async notifyNewProject(projectData: any): Promise<void> {
     try {
-      console.log("\n📧 ========== NOTIFYING SUBSCRIBERS: NEW PROJECT ==========");
       
       const subscribeRepo = dbConnection.getRepository(Subscribe);
       const subscribers = await subscribeRepo.find({
@@ -355,10 +332,8 @@ export class SubscribeController {
         }
       });
 
-      console.log(`📊 Found ${subscribers.length} subscriber(s) to notify`);
 
       if (subscribers.length === 0) {
-        console.log("⚠️ No active subscribers to notify");
         return;
       }
 
@@ -382,23 +357,16 @@ export class SubscribeController {
           await subscribeRepo.save(subscriber);
 
           emailsSent++;
-          console.log(`✅ Email sent to: ${subscriber.email}`);
 
           await new Promise(resolve => setTimeout(resolve, 100));
 
         } catch (emailError: any) {
           emailsFailed++;
-          console.error(`❌ Failed to send email to ${subscriber.email}:`, emailError.message);
         }
       }
 
-      console.log("\n📊 === NOTIFICATION SUMMARY ===");
-      console.log(`✅ Successfully sent: ${emailsSent}/${subscribers.length}`);
-      console.log(`❌ Failed: ${emailsFailed}/${subscribers.length}`);
-      console.log("📧 ========== NOTIFICATION COMPLETE ==========\n");
 
     } catch (error: any) {
-      console.error("❌ Notification system error:", error.message);
     }
   }
 
@@ -407,7 +375,6 @@ export class SubscribeController {
    */
   static async notifyNewEvent(eventData: any): Promise<void> {
     try {
-      console.log("\n📧 ========== NOTIFYING SUBSCRIBERS: NEW EVENT ==========");
       
       const subscribeRepo = dbConnection.getRepository(Subscribe);
       const subscribers = await subscribeRepo.find({
@@ -417,10 +384,8 @@ export class SubscribeController {
         }
       });
 
-      console.log(`📊 Found ${subscribers.length} subscriber(s) to notify`);
 
       if (subscribers.length === 0) {
-        console.log("⚠️ No active subscribers to notify");
         return;
       }
 
@@ -444,23 +409,16 @@ export class SubscribeController {
           await subscribeRepo.save(subscriber);
 
           emailsSent++;
-          console.log(`✅ Email sent to: ${subscriber.email}`);
 
           await new Promise(resolve => setTimeout(resolve, 100));
 
         } catch (emailError: any) {
           emailsFailed++;
-          console.error(`❌ Failed to send email to ${subscriber.email}:`, emailError.message);
         }
       }
 
-      console.log("\n📊 === NOTIFICATION SUMMARY ===");
-      console.log(`✅ Successfully sent: ${emailsSent}/${subscribers.length}`);
-      console.log(`❌ Failed: ${emailsFailed}/${subscribers.length}`);
-      console.log("📧 ========== NOTIFICATION COMPLETE ==========\n");
 
     } catch (error: any) {
-      console.error("❌ Notification system error:", error.message);
     }
   }
 }

@@ -135,7 +135,6 @@ static async getUserProgress(req: Request, res: Response) {
             assessmentScoreMap.set(assessmentId, { earned: 0, possible: totalPossiblePoints });
           }
           
-          console.log(`✅ [getUserProgress] Assessment ${assessmentId} points: ${assessmentScoreMap.get(assessmentId)?.earned}/${totalPossiblePoints}`);
         }
       }
     }
@@ -234,7 +233,6 @@ static async getUserProgress(req: Request, res: Response) {
             actualScore = scoreData.earned;
             actualPercentage = (scoreData.earned / scoreData.possible) * 100;
             
-            console.log(`🎯 [getUserProgress] Calculated actual score for ${progress.assessment_id}: ${actualScore}/${scoreData.possible} (${actualPercentage}%)`);
           }
         }
         
@@ -372,7 +370,6 @@ static async getUserProgress(req: Request, res: Response) {
       progress: response,
     });
   } catch (error: any) {
-    console.error("❌ Get user progress error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch user progress",
@@ -400,7 +397,6 @@ static async getCourseProgressForCurrentUser(req: Request, res: Response) {
       });
     }
 
-    console.log(`📊 [getCourseProgressForCurrentUser] Fetching progress for user ${userId}, course ${courseId}`);
 
     const enrollmentRepo = dbConnection.getRepository(Enrollment);
     const progressRepo = dbConnection.getRepository(Progress);
@@ -677,7 +673,6 @@ static async getCourseProgressForCurrentUser(req: Request, res: Response) {
     });
 
   } catch (error: any) {
-    console.error("❌ Get course progress error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch course progress",
@@ -704,16 +699,6 @@ static async completeStep(req: Request, res: Response) {
 
     const requestingUserId = req.user?.userId || req.user?.id;
 
-    console.log("📝 [completeStep] Request received:", {
-      courseId,
-      userId,
-      lessonId,
-      assessmentId,
-      score,
-      percentage,
-      isCompleted,
-      passed,
-    });
 
     // ==================== VALIDATION ====================
     if (!userId) {
@@ -792,16 +777,9 @@ static async completeStep(req: Request, res: Response) {
       }
     }
 
-    console.log("⏱️ [completeStep] Time tracking:", {
-      providedTime: time_spent_seconds,
-      actualTimeSpent,
-      isLesson: !!lessonId && !assessmentId,
-      isAssessment: !!assessmentId,
-    });
 
     // ==================== LESSON PROGRESS ====================
     if (lessonId && !assessmentId) {
-      console.log("📚 [completeStep] Processing lesson progress:", lessonId);
       
       let progress = await progressRepo.findOne({
         where: {
@@ -813,7 +791,6 @@ static async completeStep(req: Request, res: Response) {
       });
 
       if (!progress) {
-        console.log("✨ [completeStep] Creating new lesson progress");
         progress = progressRepo.create({
           enrollment_id: enrollmentId,
           lesson_id: lessonId,
@@ -829,7 +806,6 @@ static async completeStep(req: Request, res: Response) {
           completed_at: isCompleted ? new Date() : null,
         });
       } else {
-        console.log("🔄 [completeStep] Updating existing lesson progress");
         progress.is_completed = isCompleted;
         progress.completion_percentage = isCompleted ? 100 : percentage || progress.completion_percentage;
         // ✅ FIX: Accumulate time spent
@@ -848,7 +824,6 @@ static async completeStep(req: Request, res: Response) {
 
       await progressRepo.save(progress);
       progressRecord = progress;
-      console.log("✅ [completeStep] Lesson progress saved:", progress.id);
 
       // Update enrollment progress if enrollment exists
       if (enrollmentId) {
@@ -858,7 +833,6 @@ static async completeStep(req: Request, res: Response) {
 
     // ==================== ASSESSMENT PROGRESS - FIXED WITH SCORE CALCULATION ====================
     if (assessmentId) {
-      console.log("📝 [completeStep] Processing assessment progress:", assessmentId);
       
       // ==================== CHECK IF ASSESSMENT EXISTS ====================
       const assessment = await assessmentRepo.findOne({
@@ -868,9 +842,7 @@ static async completeStep(req: Request, res: Response) {
       const assessmentExists = !!assessment;
 
       if (assessmentExists) {
-        console.log("✅ [completeStep] Assessment found in database:", assessment.title);
       } else {
-        console.warn("⚠️ [completeStep] Assessment not found in database, skipping AssessmentAttempt creation");
       }
 
       // Find or create progress record for assessment
@@ -903,7 +875,6 @@ static async completeStep(req: Request, res: Response) {
             const totalEarned = userAnswers.reduce((sum, ans) => sum + (ans.points_earned || 0), 0);
             finalScore = totalEarned;
             
-            console.log(`🎯 [completeStep] Calculated score from answers: ${totalEarned} points`);
             
             // Calculate percentage if not provided
             if (finalPercentage === undefined && assessmentExists) {
@@ -911,12 +882,10 @@ static async completeStep(req: Request, res: Response) {
               const totalPossiblePoints = assessment?.questions?.reduce((sum, q) => sum + (q.points || 1), 0) || 0;
               if (totalPossiblePoints > 0) {
                 finalPercentage = (totalEarned / totalPossiblePoints) * 100;
-                console.log(`📊 [completeStep] Calculated percentage from answers: ${finalPercentage}% (${totalEarned}/${totalPossiblePoints})`);
               }
             }
           }
         } catch (error) {
-          console.error("❌ [completeStep] Error calculating score from answers:", error);
         }
       }
 
@@ -931,16 +900,13 @@ static async completeStep(req: Request, res: Response) {
         });
         attemptNumber = existingAttempts + 1;
 
-        console.log("🔢 [completeStep] Attempt number:", attemptNumber, "/ Max:", assessment.max_attempts);
 
         // Check if max attempts exceeded (warning only)
         if (assessment.max_attempts && attemptNumber > assessment.max_attempts) {
-          console.warn(`⚠️ [completeStep] Max attempts (${assessment.max_attempts}) exceeded, but allowing completion`);
         }
       } else {
         // Use attempt count from progress if it exists
         attemptNumber = (progress?.attempt_count || 0) + 1;
-        console.log("🔢 [completeStep] Using progress attempt count:", attemptNumber);
       }
 
       // Use calculated percentage/score, or fallback to provided values
@@ -949,15 +915,6 @@ static async completeStep(req: Request, res: Response) {
         ? calculatedPercentage >= (assessment.passing_score || 70)
         : passed; // Use passed flag from frontend if assessment not found
 
-      console.log("📊 [completeStep] Assessment results:", {
-        score: finalScore,
-        percentage: calculatedPercentage,
-        passingScore: assessmentExists ? assessment.passing_score : "N/A",
-        isPassed,
-        frontendPassed: passed,
-        assessmentExists,
-        calculatedFromAnswers: finalScore !== score, // Flag if we calculated from answers
-      });
 
       // ==================== ONLY CREATE ASSESSMENTATTEMPT IF ASSESSMENT EXISTS ====================
       if (assessmentExists) {
@@ -976,18 +933,14 @@ static async completeStep(req: Request, res: Response) {
           });
 
           await assessmentAttemptRepo.save(attempt);
-          console.log("✅ [completeStep] Assessment attempt saved:", attempt.id);
         } catch (attemptError: any) {
-          console.error("❌ [completeStep] Failed to save assessment attempt:", attemptError.message);
           // Don't block progress creation if attempt fails
         }
       } else {
-        console.log("⏭️ [completeStep] Skipping AssessmentAttempt creation (assessment doesn't exist in DB)");
       }
 
       // ==================== ALWAYS CREATE/UPDATE PROGRESS RECORD ====================
       if (!progress) {
-        console.log("✨ [completeStep] Creating new assessment progress");
         progress = progressRepo.create({
           enrollment_id: enrollmentId,
           assessment_id: assessmentId,
@@ -1005,7 +958,6 @@ static async completeStep(req: Request, res: Response) {
           completed_at: (isPassed && isCompleted) ? new Date() : null,
         });
       } else {
-        console.log("🔄 [completeStep] Updating existing assessment progress");
         // Update progress with latest attempt
         progress.is_completed = (isPassed && isCompleted);
         progress.completion_percentage = calculatedPercentage || progress.completion_percentage;
@@ -1025,7 +977,6 @@ static async completeStep(req: Request, res: Response) {
 
       await progressRepo.save(progress);
       progressRecord = progress;
-      console.log("✅ [completeStep] Assessment progress saved:", progress.id, "with score:", progress.score);
 
       // Update enrollment progress if enrollment exists
       if (enrollmentId) {
@@ -1035,7 +986,6 @@ static async completeStep(req: Request, res: Response) {
 
     // ==================== FIX: CALCULATE FINAL SCORE IF COURSE IS COMPLETED ====================
     if (enrollment && (enrollment.progress_percentage === 100 || enrollment.status === "COMPLETED")) {
-      console.log("🎯 [completeStep] Course appears completed, calculating final score...");
       
       // Use the calculateFinalScore helper function
       const finalScore = await ProgressController.calculateFinalScore(userId, courseId);
@@ -1048,9 +998,7 @@ static async completeStep(req: Request, res: Response) {
         }
         
         await enrollmentRepo.save(enrollment);
-        console.log("✅ [completeStep] Final score calculated and saved:", finalScore);
       } else {
-        console.log("ℹ️ [completeStep] No final score calculated (no completed assessments)");
       }
     }
 
@@ -1061,7 +1009,6 @@ static async completeStep(req: Request, res: Response) {
       calculatedScore: assessmentId ? finalScore : undefined, // Return the calculated score if applicable
     });
   } catch (error: any) {
-    console.error("❌ Complete step error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to complete step",
@@ -1176,7 +1123,6 @@ static async completeStep(req: Request, res: Response) {
         progress,
       });
     } catch (error: any) {
-      console.error("❌ Mark step pending error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to mark step as pending",
@@ -1241,14 +1187,11 @@ static async updateCurrentStep(req: Request, res: Response) {
         const timeSinceLastAccess = Date.now() - new Date(existingProgress.last_accessed_at).getTime();
         // Convert milliseconds to seconds, cap at reasonable time
         actualTimeSpent = Math.min(Math.floor(timeSinceLastAccess / 1000), 3600); // Max 1 hour
-        console.log("⏱️ [updateCurrentStep] Calculated time since last access:", actualTimeSpent, "seconds");
       } else {
         // Default time if no previous record
         actualTimeSpent = 60; // 1 minute
-        console.log("⏱️ [updateCurrentStep] Using default time:", actualTimeSpent, "seconds");
       }
     } else if (time_spent_seconds) {
-      console.log("⏱️ [updateCurrentStep] Using provided time:", time_spent_seconds, "seconds");
     }
 
     if (lessonId) {
@@ -1262,7 +1205,6 @@ static async updateCurrentStep(req: Request, res: Response) {
       });
 
       if (!progress) {
-        console.log("✨ [updateCurrentStep] Creating new lesson progress");
         progress = progressRepo.create({
           enrollment_id: enrollmentId,
           lesson_id: lessonId,
@@ -1275,7 +1217,6 @@ static async updateCurrentStep(req: Request, res: Response) {
           status: "in_progress",
         });
       } else {
-        console.log("🔄 [updateCurrentStep] Updating existing lesson progress");
         if (actualTimeSpent) {
           // ✅ FIX: Accumulate time spent
           progress.time_spent_seconds = (progress.time_spent_seconds || 0) + actualTimeSpent;
@@ -1306,7 +1247,6 @@ static async updateCurrentStep(req: Request, res: Response) {
       });
 
       if (!progress) {
-        console.log("✨ [updateCurrentStep] Creating new assessment progress");
         progress = progressRepo.create({
           enrollment_id: enrollmentId,
           assessment_id: assessmentId,
@@ -1319,7 +1259,6 @@ static async updateCurrentStep(req: Request, res: Response) {
           status: "in_progress",
         });
       } else {
-        console.log("🔄 [updateCurrentStep] Updating existing assessment progress");
         if (actualTimeSpent) {
           // ✅ FIX: Accumulate time spent
           progress.time_spent_seconds = (progress.time_spent_seconds || 0) + actualTimeSpent;
@@ -1353,7 +1292,6 @@ static async updateCurrentStep(req: Request, res: Response) {
       });
     }
   } catch (error: any) {
-    console.error("❌ Update current step error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to update current step",
@@ -1364,7 +1302,6 @@ static async updateCurrentStep(req: Request, res: Response) {
 // ==================== HELPER: CALCULATE FINAL SCORE ====================
 private static async calculateFinalScore(userId: string, courseId: string): Promise<number | null> {
   try {
-    console.log("🎯 [calculateFinalScore] Calculating final score for user:", userId, "course:", courseId);
     
     const progressRepo = dbConnection.getRepository(Progress);
     const assessmentAttemptRepo = dbConnection.getRepository(AssessmentAttempt);
@@ -1379,10 +1316,8 @@ private static async calculateFinalScore(userId: string, courseId: string): Prom
       },
     });
 
-    console.log("📊 [calculateFinalScore] Found assessment progress records:", assessmentProgress.length);
 
     if (assessmentProgress.length === 0) {
-      console.log("ℹ️ [calculateFinalScore] No completed assessments found");
       return null;
     }
 
@@ -1391,7 +1326,6 @@ private static async calculateFinalScore(userId: string, courseId: string): Prom
       .map(p => p.score)
       .filter(score => score !== null) as number[];
 
-    console.log("📝 [calculateFinalScore] Scores from progress:", scoresFromProgress);
 
     // Also get scores from assessment attempts for more accuracy
     const assessmentIds = assessmentProgress.map(p => p.assessment_id).filter(Boolean) as string[];
@@ -1409,7 +1343,6 @@ private static async calculateFinalScore(userId: string, courseId: string): Prom
         },
       });
 
-      console.log("📝 [calculateFinalScore] Found assessment attempts:", attempts.length);
 
       // Group by assessment to get latest score per assessment
       const latestScores = new Map<string, number>();
@@ -1420,15 +1353,12 @@ private static async calculateFinalScore(userId: string, courseId: string): Prom
       });
 
       scoresFromAttempts = Array.from(latestScores.values());
-      console.log("📝 [calculateFinalScore] Latest scores from attempts:", scoresFromAttempts);
     }
 
     // Combine scores, preferring attempts over progress records
     const allScores = [...scoresFromAttempts, ...scoresFromProgress];
-    console.log("📊 [calculateFinalScore] All combined scores:", allScores);
 
     if (allScores.length === 0) {
-      console.log("ℹ️ [calculateFinalScore] No valid scores found");
       return null;
     }
 
@@ -1436,11 +1366,9 @@ private static async calculateFinalScore(userId: string, courseId: string): Prom
     const totalScore = allScores.reduce((sum, score) => sum + score, 0);
     const averageScore = Math.round(totalScore / allScores.length);
     
-    console.log("✅ [calculateFinalScore] Final average score:", averageScore);
     
     return averageScore;
   } catch (error) {
-    console.error("❌ [calculateFinalScore] Error:", error);
     return null;
   }
 }
@@ -1478,12 +1406,6 @@ private static deduplicateProgress(progressRecords: Progress[]): Progress[] {
 
       const targetUserId = studentId || userId;
 
-      console.log("🔄 [retakeAssessment] Request received:", {
-        targetUserId,
-        assessmentId,
-        courseId,
-        requestingUserId,
-      });
 
       if (!targetUserId) {
         return res.status(400).json({
@@ -1520,9 +1442,7 @@ private static deduplicateProgress(progressRecords: Progress[]): Progress[] {
       });
 
       if (assessment) {
-        console.log("✅ [retakeAssessment] Assessment found:", assessment.title);
       } else {
-        console.warn("⚠️ [retakeAssessment] Assessment not found, but continuing with retake");
       }
 
       // Try to get enrollment (optional)
@@ -1544,7 +1464,6 @@ private static deduplicateProgress(progressRecords: Progress[]): Progress[] {
       });
 
       if (!progress) {
-        console.warn("⚠️ [retakeAssessment] No progress found, creating new record");
         // Create fresh progress in "pending" status
         const newProgress = progressRepo.create({
           enrollment_id: enrollmentId,
@@ -1583,7 +1502,6 @@ private static deduplicateProgress(progressRecords: Progress[]): Progress[] {
       
       await progressRepo.save(progress);
       
-      console.log("✅ [retakeAssessment] Progress reset successfully");
 
       res.json({
         success: true,
@@ -1596,7 +1514,6 @@ private static deduplicateProgress(progressRecords: Progress[]): Progress[] {
         },
       });
     } catch (error: any) {
-      console.error("❌ Retake assessment error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to reset assessment",
@@ -1704,13 +1621,6 @@ private static async updateEnrollmentProgress(enrollmentId: string) {
       ? Math.round((completedSteps / totalSteps) * 100)
       : 0;
 
-    console.log("📊 [updateEnrollmentProgress] Progress calculated:", {
-      completedLessons,
-      completedAssessments,
-      totalLessons,
-      totalAssessments,
-      percentage: enrollment.progress_percentage,
-    });
 
     // ==================== FIX: CALCULATE FINAL SCORE IF COURSE IS COMPLETED ====================
     if (enrollment.progress_percentage === 100 && enrollment.status === EnrollmentStatus.ACTIVE) {
@@ -1721,11 +1631,9 @@ private static async updateEnrollmentProgress(enrollmentId: string) {
       const finalScore = await ProgressController.calculateFinalScore(enrollment.user_id, enrollment.course_id);
       if (finalScore !== null) {
         enrollment.final_score = finalScore;
-        console.log("✅ [updateEnrollmentProgress] Final score calculated:", finalScore);
       } else {
         // If no assessments, use progress percentage as final score
         enrollment.final_score = enrollment.progress_percentage;
-        console.log("ℹ️ [updateEnrollmentProgress] Using progress percentage as final score:", enrollment.progress_percentage);
       }
     }
 
@@ -1743,25 +1651,10 @@ private static async updateEnrollmentProgress(enrollmentId: string) {
 
     enrollment.total_time_spent_minutes = Math.ceil(totalTimeSpentSeconds / 60);
     
-    console.log("⏱️ [updateEnrollmentProgress] Total time spent:", {
-      seconds: totalTimeSpentSeconds,
-      minutes: enrollment.total_time_spent_minutes,
-    });
 
     await enrollmentRepo.save(enrollment);
 
-    console.log("✅ [updateEnrollmentProgress] Enrollment progress updated:", {
-      enrollmentId,
-      completedLessons,
-      completedAssessments,
-      totalSteps,
-      percentage: enrollment.progress_percentage,
-      status: enrollment.status,
-      finalScore: enrollment.final_score,
-      totalTimeMinutes: enrollment.total_time_spent_minutes,
-    });
   } catch (error) {
-    console.error("❌ [updateEnrollmentProgress] Error:", error);
   }
 }
 }

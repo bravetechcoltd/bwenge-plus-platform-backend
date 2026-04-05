@@ -7,6 +7,7 @@ import { AuditLogService } from "../services/auditLogService";
 import { AuditLogAction } from "../database/models/AuditLog";
 import { Between, LessThan, MoreThan } from "typeorm";
 import { subHours, subDays, format } from "date-fns";
+import { emitToAdminRoom } from "../socket/socketEmitter";
 
 export class SystemHealthController {
   static async getSystemHealth(req: Request, res: Response) {
@@ -41,7 +42,6 @@ export class SystemHealthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get system health error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch system health",
@@ -63,13 +63,28 @@ export class SystemHealthController {
         },
       });
 
+      // ── Real-time: Push health check results to system admins ─────────────
+      const hasIssues = results.some(r => r.status !== HealthStatus.HEALTHY);
+      emitToAdminRoom("health-check-result", {
+        results: results.map(r => ({ type: r.type, status: r.status })),
+        overallStatus: hasIssues ? (results.some(r => r.status === HealthStatus.UNHEALTHY) ? "UNHEALTHY" : "DEGRADED") : "HEALTHY",
+        timestamp: new Date(),
+      });
+
+      if (hasIssues) {
+        emitToAdminRoom("health-alert", {
+          message: `Health check detected issues: ${results.filter(r => r.status !== HealthStatus.HEALTHY).map(r => r.type).join(", ")}`,
+          severity: results.some(r => r.status === HealthStatus.UNHEALTHY) ? "critical" : "warning",
+          timestamp: new Date(),
+        });
+      }
+
       res.json({
         success: true,
         message: "Health check completed",
         data: results,
       });
     } catch (error: any) {
-      console.error("❌ Run health check error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to run health check",
@@ -109,7 +124,6 @@ export class SystemHealthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get health history error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch health history",
@@ -178,7 +192,6 @@ export class SystemHealthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get system metrics error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch system metrics",
@@ -220,7 +233,6 @@ export class SystemHealthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get component health error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch component health",
@@ -264,7 +276,6 @@ export class SystemHealthController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get incident history error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch incident history",
@@ -304,7 +315,6 @@ export class SystemHealthController {
         message: "Incident acknowledged",
       });
     } catch (error: any) {
-      console.error("❌ Acknowledge incident error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to acknowledge incident",

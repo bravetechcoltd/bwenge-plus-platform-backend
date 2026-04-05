@@ -6,6 +6,7 @@ import { CourseInstructor } from "../database/models/CourseInstructor";
 import { Lesson } from "../database/models/Lesson";
 import { Assessment } from "../database/models/Assessment";
 import { EventSchedule, EventType, EventStatus, RecurrencePattern } from "../database/models/EventSchedule";
+import { emitToCourse } from "../socket/socketEmitter";
 
 export class ScheduleController {
   
@@ -119,7 +120,6 @@ export class ScheduleController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get instructor schedule error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch schedule",
@@ -213,6 +213,18 @@ export class ScheduleController {
         relations: ["course", "module", "lesson", "creator"],
       });
 
+      // ── Real-time: Notify course students about new schedule event ────────
+      if (savedEvent?.course?.id) {
+        emitToCourse(savedEvent.course.id, "schedule-event-created", {
+          eventId: savedEvent.id,
+          title: savedEvent.title,
+          type: savedEvent.type,
+          courseId: savedEvent.course.id,
+          startDate: savedEvent.start_date,
+          endDate: savedEvent.end_date,
+        });
+      }
+
       res.status(201).json({
         success: true,
         message: "Event created successfully",
@@ -239,7 +251,6 @@ export class ScheduleController {
       });
 
     } catch (error: any) {
-      console.error("❌ Create event error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create event",
@@ -342,7 +353,6 @@ export class ScheduleController {
       });
 
     } catch (error: any) {
-      console.error("❌ Update event error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update event",
@@ -409,7 +419,6 @@ export class ScheduleController {
       });
 
     } catch (error: any) {
-      console.error("❌ Delete event error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete event",

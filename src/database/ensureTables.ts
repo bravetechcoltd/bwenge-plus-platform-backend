@@ -167,9 +167,7 @@ export async function ensureTables(ds: DataSource): Promise<void> {
         ADD COLUMN IF NOT EXISTS "rejection_reason"    TEXT
     `);
 
-    console.log("✅ ensureTables: schema is up to date");
   } catch (err) {
-    console.error("❌ ensureTables error:", err);
     throw err;
   } finally {
     await qr.release();

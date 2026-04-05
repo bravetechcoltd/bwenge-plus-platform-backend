@@ -56,16 +56,18 @@ export class SubscribeEmailTemplate {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Community Created</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <div style="max-width: 600px; margin: 0 auto; background: white;">
-    
+<body style="margin: 0; padding: 0; background: #f5f3ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 24px 16px;">
+  <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(91,78,150,0.10);">
+
     <!-- Header -->
-    <div style="background: #0158B7; padding: 25px 30px; text-align: center;">
-      <div style="color: white; font-size: 26px; font-weight: bold; letter-spacing: 1px;">ONGERA</div>
+    <div style="background: linear-gradient(135deg,#4a3f80 0%,#5b4e96 60%,#7c6fc4 100%); padding: 24px 32px;">
+      <div style="color: white; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">Ongera</div>
+      <div style="color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 4px; letter-spacing: 0.5px;">Connecting Researchers Worldwide</div>
     </div>
     
     <!-- Body -->
-    <div style="padding: 30px; background: white;">
+    <div style="padding: 28px 32px 24px; background: white;">
       <div style="font-size: 18px; color: #1a1a1a; margin-bottom: 20px; font-weight: 600;">
         Hello Researcher! 👋
       </div>
@@ -79,7 +81,7 @@ export class SubscribeEmailTemplate {
       </span>
       
       <!-- Community Card -->
-      <div style="background: #E3F2FD; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0158B7;">
+      <div style="background: #f0eeff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #5b4e96;">
         <div style="color: #1a1a1a; font-size: 20px; font-weight: 600; margin-bottom: 10px;">
           ${communityData.name}
         </div>
@@ -94,7 +96,7 @@ export class SubscribeEmailTemplate {
       </div>
       
       <!-- Community Details -->
-      <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 15px 0;">
+      <div style="background: #f8f7ff; padding: 16px; border-radius: 10px; margin: 15px 0;">
         <div style="color: #495057; font-size: 13px; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
           COMMUNITY DETAILS
         </div>
@@ -112,29 +114,29 @@ export class SubscribeEmailTemplate {
       
       <!-- Action Button -->
       <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/communities/${communityData.community_id}" 
-         style="display: inline-block; background: #0158B7; color: white; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 15px; margin: 20px 0;">
+         style="display: inline-block; background: #5b4e96; color: white; text-decoration: none; padding: 13px 32px; border-radius: 10px; font-weight: 700; font-size: 14px; margin: 20px 0;">
         Explore Community
       </a>
       
       <div style="height: 1px; background: #e9ecef; margin: 20px 0;"></div>
       
-      <div style="color: #6c757d; font-size: 13px; line-height: 1.5;">
-        You're receiving this email because you subscribed to Ongera platform notifications.
-        <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/unsubscribe?email=${subscriberEmail}" style="color: #0158B7; text-decoration: none;">Unsubscribe</a>
+      <div style="color: #94a3b8; font-size: 12px; line-height: 1.5;">
+        You're receiving this because you subscribed to Ongera notifications. &nbsp;
+        <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/unsubscribe?email=${subscriberEmail}" style="color: #5b4e96; text-decoration: none; font-weight: 600;">Unsubscribe</a>
       </div>
     </div>
     
     <!-- Footer -->
-    <div style="background: #f8f9fa; padding: 25px 30px; text-align: center; border-top: 2px solid #e9ecef;">
-      <div style="color: #6c757d; font-size: 13px; line-height: 1.5; margin-bottom: 8px;">
-        <strong>Ongera Platform</strong><br>
-        Connecting Researchers & Academics Worldwide
+    <div style="background: #f8f7ff; padding: 20px 32px; text-align: center; border-top: 1px solid #e8e3f7;">
+      <div style="color: #64748b; font-size: 12px; line-height: 1.5; margin-bottom: 4px;">
+        <strong>Ongera Platform</strong> — Connecting Researchers &amp; Academics Worldwide
       </div>
-      <div style="color: #6c757d; font-size: 13px;">
+      <div style="color: #94a3b8; font-size: 11px;">
         © ${new Date().getFullYear()} Ongera. All rights reserved.
       </div>
     </div>
-    
+
+  </div>
   </div>
 </body>
 </html>
@@ -156,16 +158,18 @@ export class SubscribeEmailTemplate {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Research Project</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <div style="max-width: 600px; margin: 0 auto; background: white;">
-    
+<body style="margin: 0; padding: 0; background: #f5f3ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 24px 16px;">
+  <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(91,78,150,0.10);">
+
     <!-- Header -->
-    <div style="background: #0158B7; padding: 25px 30px; text-align: center;">
-      <div style="color: white; font-size: 26px; font-weight: bold; letter-spacing: 1px;">ONGERA</div>
+    <div style="background: linear-gradient(135deg,#4a3f80 0%,#5b4e96 60%,#7c6fc4 100%); padding: 24px 32px;">
+      <div style="color: white; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">Ongera</div>
+      <div style="color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 4px; letter-spacing: 0.5px;">Connecting Researchers Worldwide</div>
     </div>
     
     <!-- Body -->
-    <div style="padding: 30px; background: white;">
+    <div style="padding: 28px 32px 24px; background: white;">
       <div style="font-size: 18px; color: #1a1a1a; margin-bottom: 20px; font-weight: 600;">
         Hello Researcher! 🔬
       </div>
@@ -179,7 +183,7 @@ export class SubscribeEmailTemplate {
       </span>
       
       <!-- Project Card -->
-      <div style="background: #E3F2FD; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0158B7;">
+      <div style="background: #f0eeff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #5b4e96;">
         <div style="color: #1a1a1a; font-size: 20px; font-weight: 600; margin-bottom: 10px;">
           ${projectData.title}
         </div>
@@ -189,7 +193,7 @@ export class SubscribeEmailTemplate {
       </div>
       
       <!-- Project Details -->
-      <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 15px 0;">
+      <div style="background: #f8f7ff; padding: 16px; border-radius: 10px; margin: 15px 0;">
         <div style="color: #495057; font-size: 13px; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
           PROJECT DETAILS
         </div>
@@ -207,29 +211,29 @@ export class SubscribeEmailTemplate {
       
       <!-- Action Button -->
       <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/projects/${projectData.project_id}" 
-         style="display: inline-block; background: #0158B7; color: white; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 15px; margin: 20px 0;">
+         style="display: inline-block; background: #5b4e96; color: white; text-decoration: none; padding: 13px 32px; border-radius: 10px; font-weight: 700; font-size: 14px; margin: 20px 0;">
         View Research Project
       </a>
       
       <div style="height: 1px; background: #e9ecef; margin: 20px 0;"></div>
       
-      <div style="color: #6c757d; font-size: 13px; line-height: 1.5;">
-        You're receiving this email because you subscribed to Ongera platform notifications.
-        <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/unsubscribe?email=${subscriberEmail}" style="color: #0158B7; text-decoration: none;">Unsubscribe</a>
+      <div style="color: #94a3b8; font-size: 12px; line-height: 1.5;">
+        You're receiving this because you subscribed to Ongera notifications. &nbsp;
+        <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/unsubscribe?email=${subscriberEmail}" style="color: #5b4e96; text-decoration: none; font-weight: 600;">Unsubscribe</a>
       </div>
     </div>
     
     <!-- Footer -->
-    <div style="background: #f8f9fa; padding: 25px 30px; text-align: center; border-top: 2px solid #e9ecef;">
-      <div style="color: #6c757d; font-size: 13px; line-height: 1.5; margin-bottom: 8px;">
-        <strong>Ongera Platform</strong><br>
-        Connecting Researchers & Academics Worldwide
+    <div style="background: #f8f7ff; padding: 20px 32px; text-align: center; border-top: 1px solid #e8e3f7;">
+      <div style="color: #64748b; font-size: 12px; line-height: 1.5; margin-bottom: 4px;">
+        <strong>Ongera Platform</strong> — Connecting Researchers &amp; Academics Worldwide
       </div>
-      <div style="color: #6c757d; font-size: 13px;">
+      <div style="color: #94a3b8; font-size: 11px;">
         © ${new Date().getFullYear()} Ongera. All rights reserved.
       </div>
     </div>
-    
+
+  </div>
   </div>
 </body>
 </html>
@@ -251,16 +255,18 @@ export class SubscribeEmailTemplate {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Event Created</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <div style="max-width: 600px; margin: 0 auto; background: white;">
-    
+<body style="margin: 0; padding: 0; background: #f5f3ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 24px 16px;">
+  <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(91,78,150,0.10);">
+
     <!-- Header -->
-    <div style="background: #0158B7; padding: 25px 30px; text-align: center;">
-      <div style="color: white; font-size: 26px; font-weight: bold; letter-spacing: 1px;">ONGERA</div>
+    <div style="background: linear-gradient(135deg,#4a3f80 0%,#5b4e96 60%,#7c6fc4 100%); padding: 24px 32px;">
+      <div style="color: white; font-size: 22px; font-weight: 800; letter-spacing: -0.3px;">Ongera</div>
+      <div style="color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 4px; letter-spacing: 0.5px;">Connecting Researchers Worldwide</div>
     </div>
     
     <!-- Body -->
-    <div style="padding: 30px; background: white;">
+    <div style="padding: 28px 32px 24px; background: white;">
       <div style="font-size: 18px; color: #1a1a1a; margin-bottom: 20px; font-weight: 600;">
         Hello Researcher! 📅
       </div>
@@ -274,7 +280,7 @@ export class SubscribeEmailTemplate {
       </span>
       
       <!-- Event Card -->
-      <div style="background: #E3F2FD; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0158B7;">
+      <div style="background: #f0eeff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #5b4e96;">
         <div style="color: #1a1a1a; font-size: 20px; font-weight: 600; margin-bottom: 10px;">
           ${eventData.title}
         </div>
@@ -284,7 +290,7 @@ export class SubscribeEmailTemplate {
       </div>
       
       <!-- Event Details -->
-      <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin: 15px 0;">
+      <div style="background: #f8f7ff; padding: 16px; border-radius: 10px; margin: 15px 0;">
         <div style="color: #495057; font-size: 13px; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
           EVENT DETAILS
         </div>
@@ -302,29 +308,29 @@ export class SubscribeEmailTemplate {
       
       <!-- Action Button -->
       <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/events/${eventData.event_id}" 
-         style="display: inline-block; background: #0158B7; color: white; text-decoration: none; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 15px; margin: 20px 0;">
+         style="display: inline-block; background: #5b4e96; color: white; text-decoration: none; padding: 13px 32px; border-radius: 10px; font-weight: 700; font-size: 14px; margin: 20px 0;">
         View Event Details
       </a>
       
       <div style="height: 1px; background: #e9ecef; margin: 20px 0;"></div>
       
-      <div style="color: #6c757d; font-size: 13px; line-height: 1.5;">
-        You're receiving this email because you subscribed to Ongera platform notifications.
-        <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/unsubscribe?email=${subscriberEmail}" style="color: #0158B7; text-decoration: none;">Unsubscribe</a>
+      <div style="color: #94a3b8; font-size: 12px; line-height: 1.5;">
+        You're receiving this because you subscribed to Ongera notifications. &nbsp;
+        <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/unsubscribe?email=${subscriberEmail}" style="color: #5b4e96; text-decoration: none; font-weight: 600;">Unsubscribe</a>
       </div>
     </div>
     
     <!-- Footer -->
-    <div style="background: #f8f9fa; padding: 25px 30px; text-align: center; border-top: 2px solid #e9ecef;">
-      <div style="color: #6c757d; font-size: 13px; line-height: 1.5; margin-bottom: 8px;">
-        <strong>Ongera Platform</strong><br>
-        Connecting Researchers & Academics Worldwide
+    <div style="background: #f8f7ff; padding: 20px 32px; text-align: center; border-top: 1px solid #e8e3f7;">
+      <div style="color: #64748b; font-size: 12px; line-height: 1.5; margin-bottom: 4px;">
+        <strong>Ongera Platform</strong> — Connecting Researchers &amp; Academics Worldwide
       </div>
-      <div style="color: #6c757d; font-size: 13px;">
+      <div style="color: #94a3b8; font-size: 11px;">
         © ${new Date().getFullYear()} Ongera. All rights reserved.
       </div>
     </div>
-    
+
+  </div>
   </div>
 </body>
 </html>

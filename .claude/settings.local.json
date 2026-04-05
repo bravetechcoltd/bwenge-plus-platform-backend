@@ -5,7 +5,15 @@
       "Bash(node -e \"require\\('./src/database/ensureTables'\\)\")",
       "Bash(cmd /c \"cd C:\\\\Users\\\\Dell\\\\Desktop\\\\MyProject\\\\bwenge-plus-platform-frontend && npx tsc --noEmit 2>&1\")",
       "Bash(cmd:*)",
-      "Bash(npx --prefix \"C:/Users/Dell/Desktop/MyProject/bwenge-plus-platform-frontend\" tsc --noEmit -p \"C:/Users/Dell/Desktop/MyProject/bwenge-plus-platform-frontend/tsconfig.json\")"
+      "Bash(npx --prefix \"C:/Users/Dell/Desktop/MyProject/bwenge-plus-platform-frontend\" tsc --noEmit -p \"C:/Users/Dell/Desktop/MyProject/bwenge-plus-platform-frontend/tsconfig.json\")",
+      "Bash(python3 -c ':*)",
+      "Bash(node -e ':*)",
+      "Bash(node:*)",
+      "Bash(xargs -I{} cat \"{}\")",
+      "Bash(find /c/Users/Dell/Desktop/MyProject/bwenge-plus-platform-backend/src/middleware* -type f)",
+      "Bash(npx ts-node -e ':*)",
+      "Bash(npx ts-node --skip-project -e ':*)",
+      "Bash(npx next:*)"
     ]
   }
 }

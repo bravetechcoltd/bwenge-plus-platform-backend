@@ -27,7 +27,6 @@ export class AssessmentController {
         data: assessment
       });
     } catch (error: any) {
-      console.error("❌ Get assessment error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch assessment",

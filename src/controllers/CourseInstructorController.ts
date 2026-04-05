@@ -115,7 +115,6 @@ export class CourseInstructorController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get available instructors error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch available instructors",
@@ -195,7 +194,6 @@ export class CourseInstructorController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get course instructors error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch course instructors",
@@ -318,7 +316,6 @@ export class CourseInstructorController {
             `,
           });
         } catch (emailError) {
-          console.error("Failed to send notification email:", emailError);
         }
       }
 
@@ -347,7 +344,6 @@ export class CourseInstructorController {
       });
 
     } catch (error: any) {
-      console.error("❌ Assign instructor error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to assign instructor",
@@ -407,7 +403,6 @@ export class CourseInstructorController {
       });
 
     } catch (error: any) {
-      console.error("❌ Update instructor permissions error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update instructor permissions",
@@ -573,7 +568,6 @@ export class CourseInstructorController {
           });
         }
       } catch (emailError) {
-        console.error("Failed to send notification emails:", emailError);
       }
 
       res.json({
@@ -601,7 +595,6 @@ export class CourseInstructorController {
       });
 
     } catch (error: any) {
-      console.error("❌ Replace primary instructor error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to replace primary instructor",
@@ -713,7 +706,6 @@ export class CourseInstructorController {
           });
         }
       } catch (emailError) {
-        console.error("Failed to send removal notification:", emailError);
       }
 
       res.json({
@@ -726,7 +718,6 @@ export class CourseInstructorController {
       });
 
     } catch (error: any) {
-      console.error("❌ Remove instructor error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to remove instructor",
@@ -893,7 +884,6 @@ export class CourseInstructorController {
           }
         }
       } catch (emailError) {
-        console.error("Failed to send bulk notifications:", emailError);
       }
 
       const response = {
@@ -914,7 +904,6 @@ export class CourseInstructorController {
       res.status(201).json(response);
 
     } catch (error: any) {
-      console.error("❌ Bulk assign instructors error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to bulk assign instructors",

@@ -8,6 +8,7 @@ import { Course } from "../database/models/Course";
 import { User } from "../database/models/User";
 import { Enrollment, EnrollmentStatus, EnrollmentApprovalStatus } from "../database/models/Enrollment";
 import { logActivity } from "../middleware/ActivityLog";
+import { emitToUser } from "../socket/socketEmitter";
 
 export interface CustomRequest extends Request {
   user?: {
@@ -116,11 +117,6 @@ export const createConversation = async (req: Request, res: Response) => {
           }
         } else {
           // Log the enrollment status for debugging
-          console.log(`Enrollment found for user ${participantOneId} in course ${courseId}:`, {
-            status: enrollment.status,
-            approval_status: enrollment.approval_status,
-            requires_approval: enrollment.requires_approval
-          });
           
           // Allow conversation creation for:
           // 1. Active enrollments
@@ -146,7 +142,6 @@ export const createConversation = async (req: Request, res: Response) => {
             });
           }
           
-          console.log(`✅ Enrollment check passed for user ${participantOneId} with status: ${enrollment.status}`);
         }
       }
     }
@@ -198,12 +193,17 @@ export const createConversation = async (req: Request, res: Response) => {
       details: `Created conversation with ${participantTwoId}`,
     });
 
+    // ── Real-time: Notify both participants of the new conversation ────────
+    if (completeConversation) {
+      emitToUser(p1, "new-conversation", completeConversation);
+      emitToUser(p2, "new-conversation", completeConversation);
+    }
+
     res.status(201).json({
       success: true,
       conversation: completeConversation,
     });
   } catch (err) {
-    console.error("Error creating conversation:", err);
     res.status(500).json({ message: "Failed to create conversation" });
   }
 };
@@ -266,7 +266,6 @@ export const getConversations = async (req: Request, res: Response) => {
       conversations: sanitized,
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to fetch conversations" });
   }
 };
@@ -309,7 +308,6 @@ export const getUserConvoInCourse = async (req: Request, res: Response) => {
       },
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: "Failed to fetch conversation" });
   }
 };

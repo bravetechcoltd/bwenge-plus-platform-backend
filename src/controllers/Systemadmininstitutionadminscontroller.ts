@@ -117,7 +117,6 @@ export class SystemAdminInstitutionAdminsController {
         },
       });
     } catch (error: any) {
-      console.error("❌ Get institution admins error:", error);
       return res.status(500).json({ success: false, message: "Failed to fetch institution admins", error: error.message });
     }
   }
@@ -230,7 +229,6 @@ export class SystemAdminInstitutionAdminsController {
         data: { user_id, institution_id, role: InstitutionMemberRole.ADMIN },
       });
     } catch (error: any) {
-      console.error("❌ Assign admin error:", error);
       return res.status(500).json({ success: false, message: "Failed to assign admin", error: error.message });
     }
   }
@@ -300,7 +298,6 @@ export class SystemAdminInstitutionAdminsController {
 
       return res.json({ success: true, message: "Admin privileges removed successfully" });
     } catch (error: any) {
-      console.error("❌ Remove admin error:", error);
       return res.status(500).json({ success: false, message: "Failed to remove admin", error: error.message });
     }
   }

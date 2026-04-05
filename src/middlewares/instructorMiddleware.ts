@@ -47,7 +47,6 @@ export const checkInstructorRole = async (req: Request, res: Response, next: Nex
     req.user = user;
     next();
   } catch (error: any) {
-    console.error("❌ Check instructor role error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to verify instructor role",
@@ -141,7 +140,6 @@ export const checkCourseInstructorAccess = async (req: Request, res: Response, n
 
     next();
   } catch (error: any) {
-    console.error("❌ Check course instructor access error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to verify course access",

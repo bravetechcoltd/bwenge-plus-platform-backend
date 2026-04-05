@@ -20,7 +20,6 @@ router.use(extractSystemContext);
  * @header Authorization: Bearer <token>
  */
 router.get("/debug/jwt-check", async (req, res) => {
-  console.log("\n🔍 ========== JWT DEBUG CHECK ==========");
   
   try {
     // Extract token from Authorization header
@@ -29,11 +28,9 @@ router.get("/debug/jwt-check", async (req, res) => {
     // Also check cookie
     if (!token && req.cookies?.bwenge_token) {
       token = req.cookies.bwenge_token;
-      console.log("📋 Token from cookie");
     }
     
     if (!token) {
-      console.log("❌ No token provided");
       return res.status(401).json({ 
         valid: false, 
         error: "No token provided",
@@ -44,20 +41,14 @@ router.get("/debug/jwt-check", async (req, res) => {
       });
     }
     
-    console.log("📋 Token preview:", token.substring(0, 50) + "...");
-    console.log("📋 Token length:", token.length);
     
     const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
-    console.log("📋 Using JWT_SECRET:", JWT_SECRET.substring(0, 10) + "...");
     
     // Try to decode without verification first
     let decodedWithoutVerify = null;
     try {
       decodedWithoutVerify = jwt.decode(token);
-      console.log("✅ Token decoded without verification");
-      console.log("📦 Decoded payload:", JSON.stringify(decodedWithoutVerify, null, 2));
     } catch (decodeError: any) {
-      console.log("❌ Cannot decode token at all:", decodeError.message);
     }
     
     // Try to verify the token
@@ -66,20 +57,15 @@ router.get("/debug/jwt-check", async (req, res) => {
     
     try {
       decoded = jwt.verify(token, JWT_SECRET);
-      console.log("✅ Token verified successfully");
-      console.log("📦 Verified payload:", JSON.stringify(decoded, null, 2));
     } catch (error: any) {
       verificationError = error;
-      console.error("❌ JWT verification failed:", error.message);
       
       // Try with different secret patterns (for debugging)
       if (error.message === "invalid signature") {
-        console.log("🔍 Testing alternative secrets...");
         
         // Try with no secret (just decode)
         try {
           const altDecoded = jwt.decode(token);
-          console.log("📦 Decoded without secret:", JSON.stringify(altDecoded, null, 2));
         } catch (e) {}
       }
     }
@@ -116,7 +102,6 @@ router.get("/debug/jwt-check", async (req, res) => {
     });
     
   } catch (error: any) {
-    console.error("❌ Debug endpoint error:", error.message);
     res.status(500).json({ 
       valid: false, 
       error: error.message,
@@ -227,6 +212,31 @@ router.post(
     body("confirm_password").notEmpty().withMessage("Confirm password is required"),
   ],
   BwengePlusAuthController.register
+);
+
+// Register + auto-join institution via invite token (for new users who were invited)
+router.post(
+  "/register-and-join",
+  [
+    body("first_name").notEmpty().trim().withMessage("First name is required"),
+    body("last_name").notEmpty().trim().withMessage("Last name is required"),
+    body("email").isEmail().normalizeEmail().withMessage("Valid email is required"),
+    body("password").isLength({ min: 8 }).withMessage("Password must be at least 8 characters"),
+    body("confirm_password").notEmpty().withMessage("Confirm password is required"),
+    body("token").notEmpty().withMessage("Invite token is required"),
+  ],
+  BwengePlusAuthController.registerAndJoin
+);
+
+// Login + auto-join institution via invite token (for existing users who were invited)
+router.post(
+  "/login-and-join",
+  [
+    body("email").isEmail().withMessage("Valid email is required"),
+    body("password").notEmpty().withMessage("Password is required"),
+    body("token").notEmpty().withMessage("Invite token is required"),
+  ],
+  BwengePlusAuthController.loginAndJoin
 );
 
 router.put(

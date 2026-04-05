@@ -10,6 +10,8 @@ import { Assessment } from "../database/models/Assessment";
 import { randomUUID } from "crypto";
 import { sendEmail } from "../services/emailService";
 import PDFDocument from "pdfkit";
+import { NotificationService } from "../services/notificationService";
+import { emitToUser } from "../socket/socketEmitter";
 
 export class CertificateController {
   
@@ -19,11 +21,6 @@ export class CertificateController {
       const userId = req.user?.userId || req.user?.id;
       const { course_id, final_score } = req.body;
 
-      console.log("🏅 [issueCertificate] Starting certificate issuance:", {
-        userId,
-        course_id,
-        final_score,
-      });
 
       if (!userId) {
         return res.status(401).json({
@@ -55,7 +52,6 @@ export class CertificateController {
         });
       }
 
-      console.log("✅ [issueCertificate] User verified:", user.email);
 
       // ==================== VERIFY COURSE ====================
       const course = await courseRepo.findOne({
@@ -70,7 +66,6 @@ export class CertificateController {
         });
       }
 
-      console.log("✅ [issueCertificate] Course verified:", course.title);
       const enrollment = await enrollmentRepo.findOne({
         where: {
           user_id: userId,
@@ -86,7 +81,6 @@ export class CertificateController {
         });
       }
 
-      console.log("✅ [issueCertificate] Enrollment verified:", enrollment.status);
 
       // ==================== CHECK FOR EXISTING CERTIFICATE ====================
       const existingCertificate = await certRepo.findOne({
@@ -98,7 +92,6 @@ export class CertificateController {
       });
 
       if (existingCertificate) {
-        console.log("⚠️ [issueCertificate] Certificate already exists");
         return res.status(200).json({
           success: true,
           message: "Certificate already exists",
@@ -117,7 +110,6 @@ export class CertificateController {
       let calculatedFinalScore = final_score || enrollment.final_score;
 
       if (!calculatedFinalScore) {
-        console.log("📊 [issueCertificate] Calculating final score...");
         
         const assessments = await assessmentRepo.find({
           where: { course_id },
@@ -151,11 +143,6 @@ export class CertificateController {
           ? totalWeightedScore / totalWeight 
           : enrollment.progress_percentage || 70;
 
-        console.log("📊 [issueCertificate] Calculated score:", {
-          assessmentsCount,
-          totalWeight,
-          finalScore: calculatedFinalScore,
-        });
       }
 
       calculatedFinalScore = Math.min(100, Math.max(0, calculatedFinalScore));
@@ -174,10 +161,6 @@ export class CertificateController {
       const certificateNumber = `CERT-${Date.now()}-${randomUUID().substring(0, 8).toUpperCase()}`;
       const verificationCode = randomUUID();
       
-      console.log("🔑 [issueCertificate] Generated identifiers:", {
-        certificateNumber,
-        verificationCode: verificationCode.substring(0, 8) + "...",
-      });
 
       // ==================== CREATE CERTIFICATE ====================
       const certificate = certRepo.create({
@@ -194,7 +177,6 @@ export class CertificateController {
 
       await certRepo.save(certificate);
 
-      console.log("✅ [issueCertificate] Certificate created:", certificate.id);
 
       // ==================== UPDATE ENROLLMENT ====================
       enrollment.certificate_issued = true;
@@ -205,7 +187,6 @@ export class CertificateController {
       user.certificates_earned = (user.certificates_earned || 0) + 1;
       await userRepo.save(user);
 
-      console.log("📈 [issueCertificate] User statistics updated");
 
       // ==================== GENERATE CERTIFICATE URL ====================
       const certificateUrl = `${process.env.CLIENT_URL || process.env.FRONTEND_URL}/certificates/${certificate.id}`;
@@ -257,10 +238,25 @@ export class CertificateController {
           `,
         });
         
-        console.log("📧 [issueCertificate] Email notification sent");
       } catch (emailError) {
-        console.error("⚠️ [issueCertificate] Failed to send email:", emailError);
       }
+
+      // ==================== IN-APP NOTIFICATION ====================
+      NotificationService.onCertificateIssued(
+        user.id,
+        course.title,
+        certificate.id
+      ).catch(() => {});
+
+      // ── Real-time: Push certificate issuance to student ───────────────────
+      emitToUser(user.id, "certificate-issued", {
+        certificateId: certificate.id,
+        courseId: course.id,
+        courseName: course.title,
+        certificateNumber,
+        certificateUrl,
+        finalScore: calculatedFinalScore,
+      });
 
       // ==================== RETURN RESPONSE ====================
       const completeCertificate = await certRepo.findOne({
@@ -282,7 +278,6 @@ export class CertificateController {
       });
 
     } catch (error: any) {
-      console.error("❌ [issueCertificate] Error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to issue certificate",
@@ -298,11 +293,6 @@ export class CertificateController {
       const { userId, courseId } = req.params;
       const requestingUserId = req.user?.userId || req.user?.id;
 
-      console.log("🔍 [checkCertificate] Checking certificate:", {
-        userId,
-        courseId,
-        requestingUserId,
-      });
 
       if (!userId || !courseId) {
         return res.status(400).json({
@@ -382,7 +372,6 @@ export class CertificateController {
       });
 
     } catch (error: any) {
-      console.error("❌ [checkCertificate] Error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to check certificate",
@@ -396,7 +385,6 @@ export class CertificateController {
     try {
       const { code } = req.params;
 
-      console.log("🔐 [verifyCertificate] Verifying certificate:", code);
 
       if (!code) {
         return res.status(400).json({
@@ -426,7 +414,6 @@ export class CertificateController {
         });
       }
 
-      console.log("✅ [verifyCertificate] Certificate found:", certificate.id);
 
       if (!certificate.is_valid) {
         return res.status(400).json({
@@ -495,7 +482,6 @@ export class CertificateController {
       });
 
     } catch (error: any) {
-      console.error("❌ [verifyCertificate] Error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to verify certificate",
@@ -510,7 +496,6 @@ export class CertificateController {
       const userId = req.user?.userId || req.user?.id;
       const { page = 1, limit = 20, include_expired = false } = req.query;
 
-      console.log("📜 [getUserCertificates] Fetching certificates for user:", userId);
 
       if (!userId) {
         return res.status(401).json({
@@ -624,7 +609,6 @@ export class CertificateController {
       });
 
     } catch (error: any) {
-      console.error("❌ [getUserCertificates] Error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch certificates",
@@ -639,7 +623,6 @@ export class CertificateController {
       const { id } = req.params;
       const userId = req.user?.userId || req.user?.id;
 
-      console.log("🔍 [getCertificateById] Fetching certificate:", id);
 
       if (!id) {
         return res.status(400).json({
@@ -746,7 +729,6 @@ export class CertificateController {
       });
 
     } catch (error: any) {
-      console.error("❌ [getCertificateById] Error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch certificate",
@@ -762,7 +744,6 @@ export class CertificateController {
       const userId = req.user?.userId || req.user?.id;
       const { reason } = req.body;
 
-      console.log("🚫 [revokeCertificate] Revoking certificate:", { id, userId, reason });
 
       if (!id) {
         return res.status(400).json({
@@ -802,7 +783,6 @@ export class CertificateController {
       certificate.is_valid = false;
       await certRepo.save(certificate);
 
-      console.log("✅ [revokeCertificate] Certificate revoked:", certificate.id);
 
       try {
         await sendEmail({
@@ -818,7 +798,6 @@ export class CertificateController {
           `,
         });
       } catch (emailError) {
-        console.error("⚠️ [revokeCertificate] Failed to send email:", emailError);
       }
 
       res.json({
@@ -835,7 +814,6 @@ export class CertificateController {
       });
 
     } catch (error: any) {
-      console.error("❌ [revokeCertificate] Error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to revoke certificate",
@@ -850,7 +828,6 @@ export class CertificateController {
       const { id } = req.params;
       const userId = req.user?.userId || req.user?.id;
 
-      console.log("📄 [generateCertificatePDF] Generating PDF for certificate:", id);
 
       if (!id) {
         return res.status(400).json({
@@ -911,7 +888,6 @@ export class CertificateController {
       });
 
     } catch (error: any) {
-      console.error("❌ [generateCertificatePDF] Error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to generate certificate PDF",
@@ -926,7 +902,6 @@ export class CertificateController {
       const { id } = req.params;
       const { download } = req.query;
 
-      console.log("📥 [downloadCertificatePDF] Downloading PDF for certificate:", id);
 
       const certRepo = dbConnection.getRepository(Certificate);
 
@@ -1167,10 +1142,8 @@ export class CertificateController {
       // Finalize PDF
       doc.end();
 
-      console.log("✅ [downloadCertificatePDF] PDF generated and sent");
 
     } catch (error: any) {
-      console.error("❌ [downloadCertificatePDF] Error:", error);
       
       if (!res.headersSent) {
         res.status(500).json({

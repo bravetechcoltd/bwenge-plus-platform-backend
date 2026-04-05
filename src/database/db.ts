@@ -36,22 +36,17 @@ export class DbConnection {
 
       if (!ds.isInitialized) {
         await ds.initialize();
-        console.log('✅ Database connected successfully');
-        console.log('⚠️  Auto-synchronization is disabled. Running pending migrations...');
 
         // Auto-run pending migrations on startup
         const pending = await ds.showMigrations();
         if (pending) {
           await ds.runMigrations({ transaction: 'each' });
-          console.log('✅ Migrations applied successfully');
         } else {
-          console.log('✅ Database schema is up to date');
         }
       }
 
       return ds;
     } catch (error) {
-      console.error('❌ Database initialization error:', error);
       throw error;
     }
   };
@@ -61,10 +56,8 @@ export class DbConnection {
       const ds = DbConnection._dataSource;
       if (ds && ds.isInitialized) {
         await ds.destroy();
-        console.log('✅ Database connection closed');
       }
     } catch (error) {
-      console.error('❌ Database disconnect error:', error);
     }
   };
 }

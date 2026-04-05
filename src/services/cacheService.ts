@@ -32,12 +32,10 @@ class CacheService {
         });
 
         this.redisClient.on('connect', () => {
-          console.log('✅ Redis cache connected');
           this.useRedis = true;
         });
 
         this.redisClient.on('error', (err) => {
-          console.warn('⚠️ Redis connection failed, falling back to memory cache:', err.message);
           this.useRedis = false;
         });
 
@@ -46,11 +44,9 @@ class CacheService {
           this.useRedis = false;
         });
       } catch (error) {
-        console.warn('⚠️ Redis initialization failed, using memory cache only');
         this.useRedis = false;
       }
     } else {
-      console.log('📦 Using in-memory cache (REDIS_URL not configured)');
     }
   }
 
@@ -66,7 +62,6 @@ class CacheService {
         return this.memoryCache.get<T>(key) || null;
       }
     } catch (error) {
-      console.error(`❌ Cache get error for key ${key}:`, error);
       return null;
     }
   }
@@ -85,7 +80,6 @@ class CacheService {
       }
       return true;
     } catch (error) {
-      console.error(`❌ Cache set error for key ${key}:`, error);
       return false;
     }
   }
@@ -102,7 +96,6 @@ class CacheService {
       }
       return true;
     } catch (error) {
-      console.error(`❌ Cache delete error for key ${key}:`, error);
       return false;
     }
   }
@@ -130,7 +123,6 @@ class CacheService {
         });
       }
     } catch (error) {
-      console.error(`❌ Cache delPattern error for pattern ${pattern}:`, error);
     }
     
     return deletedCount;
@@ -147,7 +139,6 @@ class CacheService {
         return this.memoryCache.has(key);
       }
     } catch (error) {
-      console.error(`❌ Cache has error for key ${key}:`, error);
       return false;
     }
   }
@@ -164,7 +155,6 @@ class CacheService {
         return keys.map(key => this.memoryCache.get<T>(key) || null);
       }
     } catch (error) {
-      console.error('❌ Cache getMany error:', error);
       return keys.map(() => null);
     }
   }
@@ -187,7 +177,6 @@ class CacheService {
       }
       return true;
     } catch (error) {
-      console.error('❌ Cache setMany error:', error);
       return false;
     }
   }
@@ -235,7 +224,6 @@ class CacheService {
       }
       return true;
     } catch (error) {
-      console.error('❌ Cache clear error:', error);
       return false;
     }
   }

@@ -60,7 +60,6 @@ export class QuizController {
         data: quiz,
       });
     } catch (error: any) {
-      console.error("❌ Create quiz error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to create quiz",
@@ -85,7 +84,6 @@ export class QuizController {
         data: quizzes,
       });
     } catch (error: any) {
-      console.error("❌ Get quizzes error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch quizzes",
@@ -122,7 +120,6 @@ export class QuizController {
         data: quiz,
       });
     } catch (error: any) {
-      console.error("❌ Get quiz error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch quiz",
@@ -156,7 +153,6 @@ export class QuizController {
         data: quiz,
       });
     } catch (error: any) {
-      console.error("❌ Update quiz error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update quiz",
@@ -187,7 +183,6 @@ export class QuizController {
         message: "Quiz deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete quiz error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete quiz",
@@ -254,7 +249,6 @@ export class QuizController {
         data: question,
       });
     } catch (error: any) {
-      console.error("❌ Add question error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to add question",
@@ -290,7 +284,6 @@ export class QuizController {
         data: question,
       });
     } catch (error: any) {
-      console.error("❌ Update question error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to update question",
@@ -323,7 +316,6 @@ export class QuizController {
         message: "Question deleted successfully",
       });
     } catch (error: any) {
-      console.error("❌ Delete question error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to delete question",
@@ -366,7 +358,6 @@ export class QuizController {
         data: quiz,
       });
     } catch (error: any) {
-      console.error("❌ Publish quiz error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to publish quiz",
@@ -429,7 +420,6 @@ export class QuizController {
         data: savedQuestions,
       });
     } catch (error: any) {
-      console.error("❌ Bulk add questions error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to add questions",

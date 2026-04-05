@@ -153,7 +153,6 @@ export class InstructorController {
     });
 
   } catch (error: any) {
-    console.error("❌ Get all instructor students error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch instructor's students",
@@ -415,7 +414,6 @@ export class InstructorController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get instructor courses error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch instructor courses",
@@ -517,7 +515,6 @@ export class InstructorController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get dashboard summary error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch dashboard summary",
@@ -789,7 +786,6 @@ export class InstructorController {
       });
 
     } catch (error: any) {
-      console.error("❌ Get course students error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch course students",
@@ -939,7 +935,6 @@ static async getMyStudents(req: Request, res: Response) {
     });
 
   } catch (error: any) {
-    console.error("❌ Get my students error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch students",
@@ -1088,7 +1083,6 @@ static async getMyStudents(req: Request, res: Response) {
       };
 
     } catch (error) {
-      console.error("Error getting course statistics:", error);
       return null;
     }
   }
@@ -1664,7 +1658,6 @@ static async getMyStudents(req: Request, res: Response) {
       };
 
     } catch (error) {
-      console.error("Error getting student progress details:", error);
       return null;
     }
   }

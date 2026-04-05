@@ -12,6 +12,7 @@ import { Progress } from "../database/models/Progress";
 import { Course } from "../database/models/Course";
 import { sendEmail } from "../services/emailService";
 import { Not } from "typeorm";
+import { emitToUser } from "../socket/socketEmitter";
 
 export class AnswerController {
 
@@ -20,12 +21,6 @@ export class AnswerController {
       const { assessment_id, answers, enrollment_id } = req.body;
       const userId = req.user?.userId || req.user?.id;
 
-      console.log("📝 [submitAnswers] Starting submission:", {
-        userId,
-        assessment_id,
-        enrollment_id,
-        answersCount: answers?.length,
-      });
 
       if (!userId) {
         return res.status(401).json({ success: false, message: "User authentication required" });
@@ -45,7 +40,6 @@ export class AnswerController {
 
       const user = await userRepo.findOne({ where: { id: userId } });
       if (!user) return res.status(404).json({ success: false, message: "User not found" });
-      console.log("✅ [submitAnswers] User verified:", user.email);
 
       let enrollment = null;
       if (enrollment_id) {
@@ -54,7 +48,6 @@ export class AnswerController {
           relations: ["course"],
         });
         if (!enrollment) return res.status(404).json({ success: false, message: "Enrollment not found or doesn't belong to user" });
-        console.log("✅ [submitAnswers] Enrollment verified:", enrollment.id);
       }
 
       let assessment = null;
@@ -70,7 +63,6 @@ export class AnswerController {
       });
 
       if (assessment) {
-        console.log("✅ [submitAnswers] Found as ASSESSMENT:", assessment.title);
         assessmentType = "ASSESSMENT";
         courseId = assessment.course_id;
         lessonId = assessment.lesson_id || null;
@@ -80,7 +72,6 @@ export class AnswerController {
           relations: ["questions", "course", "lesson"],
         });
         if (!quiz) return res.status(404).json({ success: false, message: "Assessment or Quiz not found with the provided ID" });
-        console.log("✅ [submitAnswers] Found as QUIZ:", quiz.title);
         isQuiz = true;
         assessmentType = "QUIZ";
         courseId = quiz.course_id;
@@ -96,7 +87,6 @@ export class AnswerController {
           where: { user_id: userId, course_id: courseId, status: "ACTIVE" },
           relations: ["course"],
         });
-        console.log(enrollment ? `✅ [submitAnswers] Found enrollment automatically: ${enrollment.id}` : "⚠️ [submitAnswers] No enrollment found - proceeding without");
       }
 
       const processedAnswers = [];
@@ -106,13 +96,11 @@ export class AnswerController {
       let objectiveQuestionsCount = 0;
       let subjectiveQuestionsCount = 0;
 
-      console.log(`📊 [submitAnswers] Processing ${answers.length} answers...`);
 
       for (const answerData of answers) {
         const { question_id, answer: submittedAnswer, time_spent_seconds } = answerData;
 
         if (!question_id) {
-          console.warn("⚠️ [submitAnswers] Skipping answer without question_id");
           continue;
         }
 
@@ -145,7 +133,6 @@ export class AnswerController {
         }
 
         if (!questionData) {
-          console.warn(`⚠️ [submitAnswers] Question not found: ${question_id}`);
           isObjectiveQuestion = false;
           questionPoints = 1;
         }
@@ -163,12 +150,10 @@ export class AnswerController {
           pointsEarned = evaluation.pointsEarned;
           isGraded = true;
           totalScore += pointsEarned;
-          console.log(`✅ [submitAnswers] Auto-graded ${question_id}: ${pointsEarned}/${questionPoints}`);
         } else {
           subjectiveQuestionsCount++;
           requiresManualGrading = true;
           isGraded = false;
-          console.log(`⏳ [submitAnswers] Subjective question ${question_id} requires manual grading`);
         }
 
         // ============================================================
@@ -194,7 +179,6 @@ export class AnswerController {
           const updatedResult = await answerRepo.query(`SELECT * FROM answers WHERE id = $1`, [existingAnswer.id]);
           if (updatedResult.length > 0) processedAnswers.push(updatedResult[0]);
 
-          console.log(`🔄 [submitAnswers] Updated existing answer: ${existingAnswer.id}, question_id: ${question_id}`);
         } else {
           // Always INSERT via raw query — no TypeORM entity save — so question_id stays as text
           const insertResult = await answerRepo.query(
@@ -219,7 +203,6 @@ export class AnswerController {
           );
 
           if (insertResult.length > 0) processedAnswers.push(insertResult[0]);
-          console.log(`✨ [submitAnswers] Created new answer with question_id: ${question_id}`);
         }
       }
 
@@ -227,7 +210,6 @@ export class AnswerController {
       const passingScore = isQuiz ? quiz.passing_score : assessment.passing_score;
       const passed = !requiresManualGrading && percentage >= passingScore;
 
-      console.log(`📊 [submitAnswers] Results:`, { totalScore, totalPossiblePoints, percentage: percentage.toFixed(2), passingScore, passed, requiresManualGrading });
 
       if (enrollment) {
         try {
@@ -250,7 +232,6 @@ export class AnswerController {
             }
             progress.last_accessed_at = new Date();
             await progressRepo.save(progress);
-            console.log("✅ [submitAnswers] Lesson progress updated");
           } else {
             let progress = await progressRepo.findOne({ where: { enrollment_id: enrollment.id, assessment_id: assessment_id, lesson_id: null } });
             if (!progress) {
@@ -272,10 +253,8 @@ export class AnswerController {
             }
             progress.last_accessed_at = new Date();
             await progressRepo.save(progress);
-            console.log("✅ [submitAnswers] Assessment progress updated");
           }
         } catch (progressError) {
-          console.error("⚠️ [submitAnswers] Failed to update progress:", progressError);
         }
       }
 
@@ -288,15 +267,37 @@ export class AnswerController {
             enrollment.completed_lessons = completedLessonsCount;
             enrollment.progress_percentage = totalLessons > 0 ? Math.round((completedLessonsCount / totalLessons) * 100) : 0;
             await enrollmentRepo.save(enrollment);
-            console.log("✅ [submitAnswers] Enrollment progress updated");
           }
         } catch (enrollmentError) {
-          console.error("⚠️ [submitAnswers] Failed to update enrollment:", enrollmentError);
         }
       }
 
       if (requiresManualGrading && !isQuiz && assessment) {
         await AnswerController.notifyInstructorForGrading(assessment, user);
+
+        // ── Real-time: Notify instructor of new submission awaiting grading ──
+        if (assessment.course?.instructor_id) {
+          emitToUser(assessment.course.instructor_id, "assessment-submitted", {
+            assessmentId: assessment_id,
+            assessmentTitle: assessment.title,
+            courseId,
+            studentName: `${user.first_name || ""} ${user.last_name || ""}`.trim(),
+            studentId: user.id,
+          });
+        }
+      }
+
+      // ── Real-time: Push auto-graded result to student ─────────────────────
+      if (!requiresManualGrading) {
+        emitToUser(user.id, "grade-released", {
+          assessmentId: assessment_id,
+          assessmentTitle: isQuiz ? quiz?.title : assessment?.title,
+          courseId,
+          totalScore,
+          totalPossiblePoints,
+          percentage: parseFloat(percentage.toFixed(2)),
+          passed,
+        });
       }
 
       if (!requiresManualGrading) {
@@ -315,7 +316,6 @@ export class AnswerController {
             `,
           });
         } catch (emailError) {
-          console.error("⚠️ [submitAnswers] Failed to send email:", emailError);
         }
       }
 
@@ -334,7 +334,6 @@ export class AnswerController {
         },
       });
     } catch (error) {
-      console.error("❌ [submitAnswers] Error:", error);
       res.status(500).json({ success: false, message: "Failed to submit answers", error: error.message, stack: process.env.NODE_ENV === "development" ? error.stack : undefined });
     }
   }
@@ -347,7 +346,6 @@ export class AnswerController {
       const { assessment_id } = req.params;
       const userId = req.user?.userId || req.user?.id;
 
-      console.log("📊 [getUserAnswers] Fetching answers:", { userId, assessment_id });
 
       if (!userId) {
         return res.status(401).json({
@@ -374,7 +372,6 @@ export class AnswerController {
       });
 
       if (assessment) {
-        console.log("✅ [getUserAnswers] Found as ASSESSMENT:", assessment.title);
         assessmentTitle = assessment.title;
 
         // Extract questions from assessment JSONB
@@ -388,7 +385,6 @@ export class AnswerController {
             points: q.points || 1,
             order_index: q.order_index || 0,
           }));
-          console.log(`📚 Loaded ${questions.length} questions from assessment JSONB`);
         }
       } else {
         // Try Quiz
@@ -398,7 +394,6 @@ export class AnswerController {
         });
 
         if (quiz) {
-          console.log("✅ [getUserAnswers] Found as QUIZ:", quiz.title);
           isQuizId = true;
           assessmentTitle = quiz.title;
 
@@ -409,7 +404,6 @@ export class AnswerController {
             });
             if (linkedAssessment) {
               actualAssessmentId = linkedAssessment.id;
-              console.log(`🔄 Mapped quiz to assessment: ${assessment_id} → ${actualAssessmentId}`);
             }
           }
 
@@ -426,7 +420,6 @@ export class AnswerController {
               order_index: q.order_index || 0,
               explanation: q.explanation,
             }));
-            console.log(`📚 Loaded ${questions.length} questions from quiz`);
           }
         }
       }
@@ -447,7 +440,6 @@ export class AnswerController {
         order: { created_at: "ASC" },
       });
 
-      console.log(`📝 Found ${answers.length} answers for ${actualAssessmentId}`);
 
       if (answers.length === 0) {
         return res.status(404).json({
@@ -478,7 +470,6 @@ export class AnswerController {
         if (!questionData && i < questions.length) {
           questionData = questionsByOrder.get(i);
           if (questionData) {
-            console.log(`🔄 Matched answer ${i} to question by order: ${questionData.id}`);
           }
         }
 
@@ -533,7 +524,6 @@ export class AnswerController {
 
           detailedAnswers.push(answerDetail);
         } else {
-          console.warn(`⚠️ Question not found for answer: ${answer.id}, question_id: ${answer.question_id}`);
 
           const answerDetail: any = {
             answer_id: answer.id,
@@ -612,16 +602,10 @@ export class AnswerController {
         },
       };
 
-      console.log("✅ [getUserAnswers] Response prepared with:", {
-        totalQuestions: detailedAnswers.length,
-        percentage: percentage.toFixed(2),
-        passed: hasPassed,
-      });
 
       return res.json(response);
 
     } catch (error: any) {
-      console.error("❌ [getUserAnswers] Error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to fetch user answers",
@@ -636,7 +620,6 @@ static async getUserAllAnswers(req: Request, res: Response) {
     const { userId } = req.params;
     const requestingUserId = req.user?.userId || req.user?.id;
 
-    console.log("📊 [getUserAllAnswers] Fetching all answers for user:", userId);
 
     if (!userId) {
       return res.status(400).json({
@@ -669,7 +652,6 @@ static async getUserAllAnswers(req: Request, res: Response) {
       order: { created_at: "DESC" },
     });
 
-    console.log(`📝 Found ${answers.length} answers for user ${userId}`);
 
     // Group by assessment/quiz to get unique submissions
     const submissionMap = new Map();
@@ -825,7 +807,6 @@ static async getUserAllAnswers(req: Request, res: Response) {
     });
 
   } catch (error: any) {
-    console.error("❌ [getUserAllAnswers] Error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch user answers",
@@ -889,7 +870,6 @@ static async getPendingSubmissions(req: Request, res: Response) {
       .orderBy("answer.created_at", "DESC")
       .getMany();
 
-    console.log(`📊 [getPendingSubmissions] Found ${allAnswers.length} final submissions`);
 
     // Step 2: Group by user and assessment
     const submissionMap = new Map();
@@ -928,7 +908,6 @@ static async getPendingSubmissions(req: Request, res: Response) {
       });
 
       if (!assessment || !assessment.questions) {
-        console.warn(`⚠️ [getPendingSubmissions] No questions found for assessment: ${submission.assessment.id}`);
         continue;
       }
 
@@ -1017,7 +996,6 @@ static async getPendingSubmissions(req: Request, res: Response) {
       finalSubmissions.push(completeSubmission);
     }
 
-    console.log(`✅ [getPendingSubmissions] Returning ${finalSubmissions.length} submissions with all answers`);
 
     res.json({
       success: true,
@@ -1027,7 +1005,6 @@ static async getPendingSubmissions(req: Request, res: Response) {
       },
     });
   } catch (error: any) {
-    console.error("❌ Get pending submissions error:", error);
     res.status(500).json({
       success: false,
       message: "Failed to fetch pending submissions",
@@ -1041,12 +1018,6 @@ static async getPendingSubmissions(req: Request, res: Response) {
       const { assessment_id, user_id, graded_answers } = req.body;
       const instructorId = req.user?.userId || req.user?.id;
 
-      console.log("📝 [gradeManually] Starting manual grading:", {
-        instructorId,
-        assessment_id,
-        user_id,
-        answersCount: graded_answers?.length,
-      });
 
       if (!instructorId) {
         return res.status(401).json({
@@ -1101,7 +1072,6 @@ static async getPendingSubmissions(req: Request, res: Response) {
         });
 
         if (!answer) {
-          console.warn(`⚠️ [gradeManually] Answer not found: ${answer_id}`);
           continue;
         }
 
@@ -1131,7 +1101,6 @@ static async getPendingSubmissions(req: Request, res: Response) {
           feedback,
         });
 
-        console.log(`✅ [gradeManually] Graded answer ${answer_id}: ${points_earned} points`);
       }
 
       const percentage = totalPossiblePoints > 0
@@ -1140,12 +1109,6 @@ static async getPendingSubmissions(req: Request, res: Response) {
 
       const passed = percentage >= assessment.passing_score;
 
-      console.log("📊 [gradeManually] Grading complete:", {
-        totalScore,
-        totalPossiblePoints,
-        percentage: percentage.toFixed(2),
-        passed,
-      });
 
       // ==================== UPDATE PROGRESS ====================
       const enrollment = await enrollmentRepo.findOne({
@@ -1176,7 +1139,6 @@ static async getPendingSubmissions(req: Request, res: Response) {
               progress.completed_at = new Date();
             }
             await progressRepo.save(progress);
-            console.log("✅ [gradeManually] Lesson progress updated");
           }
         } else {
           // Standalone assessment
@@ -1197,7 +1159,6 @@ static async getPendingSubmissions(req: Request, res: Response) {
               progress.completed_at = new Date();
             }
             await progressRepo.save(progress);
-            console.log("✅ [gradeManually] Assessment progress updated");
           }
         }
 
@@ -1222,8 +1183,27 @@ static async getPendingSubmissions(req: Request, res: Response) {
           `,
         });
       } catch (emailError) {
-        console.error("⚠️ [gradeManually] Failed to send email:", emailError);
       }
+
+      // ── Real-time: Push grade release to student ───────────────────────────
+      emitToUser(user_id, "grade-released", {
+        assessmentId: assessment_id,
+        assessmentTitle: assessment.title,
+        courseId: assessment.course_id,
+        courseName: assessment.course?.title,
+        totalScore,
+        totalPossiblePoints,
+        percentage: parseFloat(percentage.toFixed(2)),
+        passed,
+      });
+
+      // ── Real-time: Push progress update to student ────────────────────────
+      emitToUser(user_id, "progress-updated", {
+        courseId: assessment.course_id,
+        assessmentId: assessment_id,
+        percentage: parseFloat(percentage.toFixed(2)),
+        status: passed ? "passed" : "failed",
+      });
 
       res.json({
         success: true,
@@ -1242,7 +1222,6 @@ static async getPendingSubmissions(req: Request, res: Response) {
         },
       });
     } catch (error: any) {
-      console.error("❌ Grade assessment error:", error);
       res.status(500).json({
         success: false,
         message: "Failed to grade assessment",
@@ -1319,7 +1298,6 @@ static async getPendingSubmissions(req: Request, res: Response) {
     try {
       const course = assessment.course;
       if (!course || !course.instructor) {
-        console.warn("⚠️ [notifyInstructor] No course or instructor found");
         return;
       }
 
@@ -1335,9 +1313,7 @@ static async getPendingSubmissions(req: Request, res: Response) {
         `,
       });
 
-      console.log("✅ [notifyInstructor] Notification sent to:", course.instructor.email);
     } catch (error) {
-      console.error("⚠️ [notifyInstructor] Failed to send notification:", error);
     }
   }
 }

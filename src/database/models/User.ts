@@ -258,7 +258,6 @@ saved_courses: SavedCourse[];
 
   @AfterLoad()
   storeOriginalValues() {
-    console.log(`📋 [User Entity] Loading user ${this.id} - storing original values`);
     this._originalBwengeRole = this.bwenge_role;
     this._originalIsForWhichSystem = this.IsForWhichSystem;
     this._originalInstitutionIds = this.institution_ids ? [...this.institution_ids] : [];
@@ -269,7 +268,6 @@ saved_courses: SavedCourse[];
 
   @BeforeUpdate()
   protectAllCriticalFields() {
-    console.log(`🛡️ [User Entity] Protecting critical fields for user ${this.id}`);
 
     const monitor = require('../../utils/crossSystemMonitor').crossSystemMonitor;
 
@@ -285,7 +283,6 @@ saved_courses: SavedCourse[];
         timestamp: new Date()
       });
 
-      console.warn(`⚠️ [PROTECTION] Preventing IsForWhichSystem from being set to null`);
       this.IsForWhichSystem = this._originalIsForWhichSystem;
 
       monitor.logProtection({
@@ -301,20 +298,17 @@ saved_courses: SavedCourse[];
 
     // Protect BwengeRole
     if (this._originalBwengeRole && !this.bwenge_role) {
-      console.warn(`⚠️ [PROTECTION] Preventing bwenge_role from being set to null - restoring to: ${this._originalBwengeRole}`);
       this.bwenge_role = this._originalBwengeRole;
     }
 
     // Protect institution arrays - only add, never remove
     if (this._originalInstitutionIds && this._originalInstitutionIds.length > 0) {
       if (!this.institution_ids || this.institution_ids.length === 0) {
-        console.warn(`⚠️ [PROTECTION] Preventing institution_ids from being cleared - restoring original array`);
         this.institution_ids = [...this._originalInstitutionIds];
       } else {
         // Merge arrays: keep original + add new ones
         const mergedIds = [...new Set([...this._originalInstitutionIds, ...this.institution_ids])];
         if (mergedIds.length > this._originalInstitutionIds.length) {
-          console.log(`✅ [PROTECTION] Merging institution_ids: added ${mergedIds.length - this._originalInstitutionIds.length} new institutions`);
           this.institution_ids = mergedIds;
         }
       }
@@ -322,19 +316,16 @@ saved_courses: SavedCourse[];
 
     // Protect institution role
     if (this._originalInstitutionRole && !this.institution_role) {
-      console.warn(`⚠️ [PROTECTION] Preventing institution_role from being set to null - restoring to: ${this._originalInstitutionRole}`);
       this.institution_role = this._originalInstitutionRole;
     }
 
     // Protect primary institution
     if (this._originalPrimaryInstitutionId && !this.primary_institution_id) {
-      console.warn(`⚠️ [PROTECTION] Preventing primary_institution_id from being set to null - restoring to: ${this._originalPrimaryInstitutionId}`);
       this.primary_institution_id = this._originalPrimaryInstitutionId;
     }
 
     // Protect institution member flag
     if (this._originalIsInstitutionMember && !this.is_institution_member) {
-      console.warn(`⚠️ [PROTECTION] Preventing is_institution_member from being set to false - restoring to true`);
       this.is_institution_member = true;
     }
   }

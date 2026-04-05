@@ -2,6 +2,7 @@
 import dbConnection from "../database/db";
 import { AuditLog, AuditLogAction, AuditLogSeverity } from "../database/models/AuditLog";
 import { Request } from "express";
+import { emitToAdminRoom } from "../socket/socketEmitter";
 
 interface LogOptions {
   userId?: string | null;
@@ -47,9 +48,32 @@ export class AuditLogService {
         session_token: options.sessionToken,
       });
 
-      return await auditRepo.save(auditLog);
+      const saved = await auditRepo.save(auditLog);
+
+      // ── Real-time: Stream audit events to system admin dashboards ─────────
+      emitToAdminRoom("new-audit-event", {
+        id: saved.id,
+        action: saved.action,
+        severity: saved.severity,
+        description: saved.description,
+        userId: saved.user_id,
+        timestamp: saved.created_at,
+      });
+
+      // ── Real-time: Security alert for critical severity ───────────────────
+      if (saved.severity === AuditLogSeverity.CRITICAL || saved.severity === AuditLogSeverity.ERROR) {
+        emitToAdminRoom("security-alert", {
+          id: saved.id,
+          action: saved.action,
+          severity: saved.severity,
+          description: saved.description,
+          ipAddress: saved.ip_address,
+          timestamp: saved.created_at,
+        });
+      }
+
+      return saved;
     } catch (error) {
-      console.error("❌ Failed to create audit log:", error);
       // Don't throw - audit logging should not break the main flow
       return null as any;
     }
